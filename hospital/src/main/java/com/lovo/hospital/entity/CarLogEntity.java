@@ -10,10 +10,20 @@ import java.util.Objects;
 @Table(name = "t_car_log")
 public class CarLogEntity {
     private String id;
-    private Timestamp startTime;
-    private Timestamp returnTime;
+    private String startTime;
+    private String returnTime;
     private int state;
+    private CarEntity carEntity;
 
+    @ManyToOne
+    @JoinColumn()
+    public CarEntity getCarEntity() {
+        return carEntity;
+    }
+
+    public void setCarEntity(CarEntity carEntity) {
+        this.carEntity = carEntity;
+    }
     @Id
     @Column(name="id",length=32)
     @GenericGenerator(name="powerUUID",strategy="uuid")
@@ -28,21 +38,21 @@ public class CarLogEntity {
 
     @Basic
     @Column(name = "start_time")
-    public Timestamp getStartTime() {
+    public String getStartTime() {
         return startTime;
     }
 
-    public void setStartTime(Timestamp startTime) {
+    public void setStartTime(String startTime) {
         this.startTime = startTime;
     }
 
     @Basic
     @Column(name = "return_time")
-    public Timestamp getReturnTime() {
+    public String getReturnTime() {
         return returnTime;
     }
 
-    public void setReturnTime(Timestamp returnTime) {
+    public void setReturnTime(String returnTime) {
         this.returnTime = returnTime;
     }
 

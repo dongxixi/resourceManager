@@ -10,33 +10,33 @@
     <meta name="robots" content="all,follow">
 
     <title>华西医院应急系统</title>
-    <link rel="shortcut icon" href="img/favicon.ico">
+    <link rel="shortcut icon" href="staticResources/img/favicon.ico">
 
     <!-- global stylesheets -->
     <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed" rel="stylesheet">
-    <link rel="stylesheet" href="css/bootstrap.min.css">
-    <link rel="stylesheet" href="font-awesome-4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="css/font-icon-style.css">
-    <link rel="stylesheet" href="css/style.default.css" id="theme-stylesheet">
+    <link rel="stylesheet" href="staticResources/css/bootstrap.min.css">
+    <link rel="stylesheet" href="staticResources/font-awesome-4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="staticResources/css/font-icon-style.css">
+    <link rel="stylesheet" href="staticResources/css/style.default.css" id="theme-stylesheet">
 
     <!-- Core stylesheets -->
-    <link rel="stylesheet" href="css/ui-elements/card.css">
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/ui-elements/timeline.css">
+    <link rel="stylesheet" href="staticResources/css/ui-elements/card.css">
+    <link rel="stylesheet" href="staticResources/css/style.css">
+    <link rel="stylesheet" href="staticResources/css/ui-elements/timeline.css">
 
     <!--Global Javascript -->
-    <script src="js/jquery.min.js"></script>
-    <script src="js/popper/popper.min.js"></script>
-    <script src="js/tether.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <script src="js/jquery.cookie.js"></script>
-    <script src="js/jquery.validate.min.js"></script>
-    <script src="js/chart.min.js"></script>
-    <script src="js/front.js"></script>
-    <script src="js/jquery.min.js"></script>
+    <script src="staticResources/js/jquery.min.js"></script>
+    <script src="staticResources/js/popper/popper.min.js"></script>
+    <script src="staticResources/js/tether.min.js"></script>
+    <script src="staticResources/js/bootstrap.min.js"></script>
+    <script src="staticResources/js/jquery.cookie.js"></script>
+    <script src="staticResources/js/jquery.validate.min.js"></script>
+    <script src="staticResources/js/chart.min.js"></script>
+    <script src="staticResources/js/front.js"></script>
+    <script src="staticResources/js/jquery.min.js"></script>
 
     <!--Core Javascript -->
-    <script src="js/mychart.js"></script>
+    <script src="staticResources/js/mychart.js"></script>
 </head>
 
 <body>
@@ -59,11 +59,14 @@
                     </a>
 
 
-                    <a href="404.html" class="navbar-brand">
+                    <a href="/carAll" class="navbar-brand">
                         <div class="brand-text brand-big hidden-lg-down nav-link">车辆管理</div>
                     </a>
                     <a href="404.html" class="navbar-brand">
                         <div class="brand-text brand-big hidden-lg-down nav-link">日志</div>
+                    </a>
+                    <a href="404.html" class="navbar-brand">
+                        <div class="brand-text brand-big hidden-lg-down nav-link">系统用户管理</div>
                     </a>
                     <!--<a id="toggle-btn" href="#" class="menu-btn active">-->
                     <!--<span></span>-->
@@ -76,14 +79,14 @@
 
                 <!-- 全屏 -->
                 <li class="nav-item d-flex align-items-center full_scr_exp"><a class="nav-link" href="#"><img
-                        src="img/expand.png" onclick="toggleFullScreen(document.body)" class="img-fluid" alt=""></a>
+                        src="/staticResources/img/expand.png" onclick="toggleFullScreen(document.body)" class="img-fluid" alt=""></a>
                 </li>
 
                 <!-- 账号切换 -->
                 <li class="nav-item dropdown">
                     <a id="profile" class="nav-link logout" data-target="#" href="#"
                        data-toggle="dropdown">
-                        <img src="img/avatar-1.jpg" alt="..." class="img-fluid rounded-circle"
+                        <img src="staticResources/img/avatar-1.jpg" alt="..." class="img-fluid rounded-circle"
                              style="height: 30px; width: 30px;">
                     </a>
                     <ul aria-labelledby="profile" class="dropdown-menu profile">
@@ -181,17 +184,17 @@
                     </table>
                 </div>
             </div>
-            <div class="row form-group" id="pagination">
+            <div class="row form-group" id="pagePerson">
                 <div class="col-sm-3"></div>
                 <div class="btn-group btn-sm col-sm-3" role="group" aria-label="Basic example">
-                    <button type="button" class="btn btn-outline-primary" id="firstPage">首页</button>
-                    <button type="button" class="btn btn-outline-primary" id="prevPage">上一页</button>
-                    <button type="button" class="btn btn-outline-primary" id="nextPage">下一页</button>
-                    <button type="button" class="btn btn-outline-primary" id="lastPage">末页</button>
+                    <button type="button" class="btn btn-outline-primary" id="firstPersonPage">首页</button>
+                    <button type="button" class="btn btn-outline-primary" id="prevPersonPage">上一页</button>
+                    <button type="button" class="btn btn-outline-primary" id="nextPersonPage">下一页</button>
+                    <button type="button" class="btn btn-outline-primary" id="lastPersonPage">末页</button>
                 </div>
                 <div class="col-sm-2">
-                    第<input style="width: 30px;" type="text" id="pageNo" value="1"/>页，共<span
-                        id="pageTotal">5</span>页
+                    第<input style="width: 30px;" type="text" id="pagePersonNo" value="1"/>页，共<span
+                        id="pagePersonTotal">5</span>页
                 </div>
             </div>
             <script>
@@ -227,10 +230,10 @@
             <div class="row form-group">
                 <div class="col-sm-3"></div>
                 <div class="col-sm-2">
-                    <label for="sendPersonnel">派出车辆：</label>
+                    <label for="sendCar">派出车辆：</label>
                 </div>
                 <div class="col-sm-4">
-                    <div id="sendPersonnel" style="border: 1px solid black">&nbsp;</div>
+                    <div id="sendCar" style="border: 1px solid black">&nbsp;</div>
                 </div>
             </div>
             <div class="row form-group">
@@ -262,6 +265,20 @@
                         </tr>
                         </tbody>
                     </table>
+                </div>
+
+            </div>
+            <div class="row form-group" id="pageCar">
+                <div class="col-sm-3"></div>
+                <div class="btn-group btn-sm col-sm-3" role="group" aria-label="Basic example">
+                    <button type="button" class="btn btn-outline-primary" id="firstCarPage">首页</button>
+                    <button type="button" class="btn btn-outline-primary" id="prevCarPage">上一页</button>
+                    <button type="button" class="btn btn-outline-primary" id="nextCarPage">下一页</button>
+                    <button type="button" class="btn btn-outline-primary" id="lastCarPage">末页</button>
+                </div>
+                <div class="col-sm-2">
+                    第<input style="width: 30px;" type="text" id="pageCarNo" value="1"/>页，共<span
+                        id="pageCarTotal">5</span>页
                 </div>
             </div>
 
