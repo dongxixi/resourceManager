@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html  xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="description" content=""/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta name="robots" content="all,follow"/>
+
+    <title>医院调度管理系统</title>
+    <link rel="shortcut icon" th:href="@{staticResources/img/favicon.ico}"/>
+    
+    <!-- global stylesheets -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed" rel="stylesheet"/>
+    <link rel="stylesheet" th:href="@{staticResources/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" th:href="@{staticResources/font-awesome-4.7.0/css/font-awesome.min.css}"/>
+    <link rel="stylesheet" th:href="@{staticResources/css/font-icon-style.css}"/>
+    <link rel="stylesheet" th:href="@{staticResources/css/style.default.css}" id="theme-stylesheet"/>
+
+    <!-- Core stylesheets -->
+    <link rel="stylesheet" th:href="@{staticResources/css/pages/login.css}"/>
+</head>
+
+<body> 
+
+<!--====================================================
+                        PAGE CONTENT
+======================================================--> 
+      <section class="hero-area">
+        <div class="overlay"></div>
+        <div class="container">
+          <div class="row">
+            <div class="col-md-12 ">
+                <div class="contact-h-cont"></br>
+                  <h3 class="text-center" style="color: #0b96e5"><b>医院调度管理系统</b></h3></br>
+                  <form>
+                    <div class="form-group">
+                      <label for="username">用户名</label>
+                      <input type="text" class="form-control" id="username" >
+                    </div>  
+                    <div class="form-group">
+                      <label for="password">密码</label>
+                      <input class="form-control" type="password"  id="password">
+                    </div>   
+                    <button class="btn btn-general btn-blue" role="button">登录</button>
+                  </form>
+                </div>
+            </div>
+          </div>  
+        </div>
+      </section>
+      
+    <!--Global Javascript -->
+    <script th:src="@{staticResources/js/jquery.min.js}"></script>
+    <script th:src="@{staticResources/js/tether.min.js}"></script>
+    <script th:src="@{staticResources/js/bootstrap.min.js}"></script>
+</body>
+
+</html>
