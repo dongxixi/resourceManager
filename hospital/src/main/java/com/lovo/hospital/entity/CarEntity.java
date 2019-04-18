@@ -55,16 +55,6 @@ public class CarEntity {
         this.state = state;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        CarEntity that = (CarEntity) o;
-        return state == that.state &&
-                Objects.equals(id, that.id) &&
-                Objects.equals(carNum, that.carNum) &&
-                Objects.equals(driver, that.driver);
-    }
 
     @Override
     public int hashCode() {

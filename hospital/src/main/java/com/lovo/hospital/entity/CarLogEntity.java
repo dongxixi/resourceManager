@@ -56,16 +56,6 @@ public class CarLogEntity {
         this.state = state;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        CarLogEntity that = (CarLogEntity) o;
-        return state == that.state &&
-                Objects.equals(id, that.id) &&
-                Objects.equals(startTime, that.startTime) &&
-                Objects.equals(returnTime, that.returnTime);
-    }
 
     @Override
     public int hashCode() {
