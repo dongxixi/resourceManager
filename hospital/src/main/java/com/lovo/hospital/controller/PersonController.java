@@ -31,4 +31,8 @@ public class PersonController {
 	public String personupdate(){
 		return "personupdate";
 	}
+	@RequestMapping("circumstantiality")
+	public String circumstantiality(){
+		return "circumstantiality";
+	}
 }
