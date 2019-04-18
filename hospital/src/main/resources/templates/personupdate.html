@@ -25,7 +25,7 @@
 </head>
 
 
-<body> 
+<body>
 
 <!--====================================================
                          MAIN NAVBAR
@@ -65,7 +65,8 @@
 
                 <!-- 全屏 -->
                 <li class="nav-item d-flex align-items-center full_scr_exp"><a class="nav-link" href="#"><img
-                        src="/staticResources/img/expand.png" onclick="toggleFullScreen(document.body)" class="img-fluid" alt=""></a>
+                        src="/staticResources/img/expand.png" onclick="toggleFullScreen(document.body)"
+                        class="img-fluid" alt=""></a>
                 </li>
 
                 <!-- 账号切换 -->
@@ -99,101 +100,106 @@
 <!--====================================================
                         PAGE CONTENT
 ======================================================-->
-    <div class="page-content d-flex align-items-stretch">
+<div class="page-content d-flex align-items-stretch">
 
-        <!--***** SIDE NAVBAR *****-->
+    <!--***** SIDE NAVBAR *****-->
 
 
-        <div class="content-inner chart-cont">
+    <div class="content-inner chart-cont">
 
-            <!--***** FORM LAYOUTS *****-->
-            <div class="row">
-                <div class="col-md-12">
+        <!--***** FORM LAYOUTS *****-->
+        <div class="row">
+            <div class="col-md-12">
 
-                    <!--***** USER INFO *****-->
+                <!--***** USER INFO *****-->
 
-                    <!--***** PRODUCT INFO *****-->
-                    <div class="card form" id="form1">
-                        <div class="card-header">
-                            <h3><i class="fa fa-archive"></i>修改人员</h3>
-                        </div>
-                        <br>
-                        <form>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="name">姓名</label>
-                                        &nbsp;<input type="text" class="form-control" id="name" aria-describedby="emailHelp" placeholder="Enter Name">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="pro-tel">电话</label>
-                                        &nbsp; <input type="text" class="form-control" id="pro-tel" aria-describedby="emailHelp" placeholder="Enter tel">
-                                    </div>
-                                    <div class="form-group">
-                                        <label>性别</label><br/>
-                                        <input type="radio"  name="男">男 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                        &nbsp; <input type="radio"  name="女">女
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="pro-position">职务</label>
-                                        &nbsp; <input type="text" class="form-control" id="pro-position" aria-describedby="emailHelp" placeholder="Enter position">
-                                    </div>
-
+                <!--***** PRODUCT INFO *****-->
+                <div class="card form" id="form1">
+                    <div class="card-header">
+                        <h3><i class="fa fa-archive"></i>修改人员</h3>
+                    </div>
+                    <br>
+                    <form>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="name">姓名</label>
+                                    &nbsp;<input type="text" class="form-control" id="name" aria-describedby="emailHelp"
+                                                 placeholder="Enter Name">
+                                </div>
+                                <div class="form-group">
+                                    <label for="pro-tel">电话</label>
+                                    &nbsp; <input type="text" class="form-control" id="pro-tel"
+                                                  aria-describedby="emailHelp" placeholder="Enter tel">
+                                </div>
+                                <div class="form-group">
+                                    <label>性别</label><br/>
+                                    <input type="radio" name="男">男 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    &nbsp; <input type="radio" name="女">女
+                                </div>
+                                <div class="form-group">
+                                    <label for="pro-position">职务</label>
+                                    &nbsp; <input type="text" class="form-control" id="pro-position"
+                                                  aria-describedby="emailHelp" placeholder="Enter position">
                                 </div>
 
                             </div>
-                            &nbsp;<button type="submit" class="btn btn-general btn-blue mr-2">提交</button>
-                            <button class="btn btn-general btn-blue mr-2" onclick="window.open('personpage')">返回</button>
 
-                        </form>
-                    </div>
+                        </div>
+                        &nbsp;<button type="submit" class="btn btn-general btn-blue mr-2">提交</button>
+                        <button class="btn btn-general btn-blue mr-2" onclick="window.open('personpage')">返回</button>
+
+                    </form>
                 </div>
-
             </div>
-        </div>
-        <!-- FOOTER -->
-        <footer class="footer navbar-fixed-bottom text-md-center" style="background-color: #5e67d6">
-            <div class="" style="padding-top: 30px;color: white;">应急系统 &copy; 2018.Company name LOVO J165 3组.</div>
-        </footer>
 
-        <!--Global Javascript -->
-    <script src="staticResources/js/jquery.min.js"></script>
-    <script src="staticResources/js/popper/popper.min.js"></script>
-    <script src="staticResources/js/tether.min.js"></script>
-    <script src="staticResources/js/bootstrap.min.js"></script>
-    <script src="staticResources/js/jquery.cookie.js"></script>
-    <script src="staticResources/js/jquery.validate.min.js"></script>
-    <script src="staticResources/js/chart.min.js"></script>
-    <script src="staticResources/js/front.js"></script>
-    
-    <!--Core Javascript -->
-    <script>
-        new Chart(document.getElementById("myChart-nav").getContext('2d'), {
-          type: 'doughnut',
-          data: {
+        </div>
+    </div>
+</div>
+<!-- FOOTER -->
+<footer class="footer navbar-fixed-bottom text-md-center" style="background-color: #5e67d6">
+    <div class="" style="padding-top: 30px;color: white;">应急系统 &copy; 2018.Company name LOVO J165 3组.</div>
+</footer>
+
+
+<!--Global Javascript -->
+<script src="staticResources/js/jquery.min.js"></script>
+<script src="staticResources/js/popper/popper.min.js"></script>
+<script src="staticResources/js/tether.min.js"></script>
+<script src="staticResources/js/bootstrap.min.js"></script>
+<script src="staticResources/js/jquery.cookie.js"></script>
+<script src="staticResources/js/jquery.validate.min.js"></script>
+<script src="staticResources/js/chart.min.js"></script>
+<script src="staticResources/js/front.js"></script>
+
+<!--Core Javascript -->
+<script>
+    new Chart(document.getElementById("myChart-nav").getContext('2d'), {
+        type: 'doughnut',
+        data: {
             labels: ["M", "T", "W", "T", "F", "S", "S"],
             datasets: [{
-              backgroundColor: [
-                "#2ecc71",
-                "#3498db",
-                "#95a5a6",
-                "#9b59b6",
-                "#f1c40f",
-                "#e74c3c",
-                "#34495e"
-              ],
-              data: [12, 19, 3, 17, 28, 24, 7]
+                backgroundColor: [
+                    "#2ecc71",
+                    "#3498db",
+                    "#95a5a6",
+                    "#9b59b6",
+                    "#f1c40f",
+                    "#e74c3c",
+                    "#34495e"
+                ],
+                data: [12, 19, 3, 17, 28, 24, 7]
             }]
-          },
-          options: {
-              legend: { display: false },
-              title: {
+        },
+        options: {
+            legend: {display: false},
+            title: {
                 display: true,
                 text: ''
-               } 
             }
-        });
-    </script> 
+        }
+    });
+</script>
 </body>
 
 </html>
