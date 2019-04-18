@@ -1,12 +1,11 @@
 package com.lovo.hospital.config;
 
-
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Component
-public class InterceptorConfig extends WebMvcConfigurerAdapter {
+public class InterceptorConfig implements WebMvcConfigurer {
 
 
     //静态资源的放行
