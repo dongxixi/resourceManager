@@ -44,15 +44,7 @@ public class DispatchEntity {
         this.cNum = cNum;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        DispatchEntity that = (DispatchEntity) o;
-        return pNum == that.pNum &&
-                cNum == that.cNum &&
-                Objects.equals(requestId, that.requestId);
-    }
+
 
     @Override
     public int hashCode() {

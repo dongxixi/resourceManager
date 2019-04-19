@@ -20,78 +20,62 @@
     <link rel="stylesheet" th:href="@{staticResources/css/style.default.css}" id="theme-stylesheet"/>
 
     <!-- Core stylesheets -->
-    <link rel="stylesheet" th:href="@{../staticResources/css/ui-elements/card.css}">
-    <link rel="stylesheet" th:href="@{../staticResources/css/style.css}">
+
+    <link rel="stylesheet" th:href="@{staticResources/css/form.css}">
 </head>
 
 
-<body> 
+<body>
 
 <!--====================================================
                          MAIN NAVBAR
 ======================================================-->
 <header class="header">
     <nav class="navbar navbar-expand-lg ">
-        <div class="search-box">
-            <button class="dismiss"><i class="icon-close"></i></button>
-            <form id="searchForm" action="#" role="search">
-                <input type="search" placeholder="Search Now" class="form-control">
-            </form>
-        </div>
         <div class="container-fluid ">
             <div class="navbar-holder d-flex align-items-center justify-content-between">
                 <div class="navbar-header">
                     <a href="index.html" class="navbar-brand">
                         <div class="brand-text brand-big hidden-lg-down">华西医院应急系统</div>
                     </a>
-                    <a id="toggle-btn" href="#" class="menu-btn active">
-                        <span></span>
-                        <span></span>
-                        <span></span>
+
+                    <!-- 导航栏 -->
+                    <a href="404.html" class="navbar-brand">
+                        <div class="brand-text brand-big hidden-lg-down nav-link">人员管理</div>
                     </a>
+
+
+                    <a href="/carAll" class="navbar-brand">
+                        <div class="brand-text brand-big hidden-lg-down nav-link">车辆管理</div>
+                    </a>
+                    <a href="404.html" class="navbar-brand">
+                        <div class="brand-text brand-big hidden-lg-down nav-link">日志</div>
+                    </a>
+                    <a href="404.html" class="navbar-brand">
+                        <div class="brand-text brand-big hidden-lg-down nav-link">系统用户管理</div>
+                    </a>
+                    <!--<a id="toggle-btn" href="#" class="menu-btn active">-->
+                    <!--<span></span>-->
+                    <!--<span></span>-->
+                    <!--<span></span>-->
+                    <!--</a>-->
                 </div>
             </div>
             <ul class="nav-menu list-unstyled d-flex flex-md-row align-items-md-center">
-                <li class="nav-item d-flex align-items-center full_scr_exp"><a class="nav-link" href="#"><img src="staticResources/img/expand.png" onclick="toggleFullScreen(document.body)" class="img-fluid" alt=""></a></li>
-                <li class="nav-item dropdown">
-                    <a id="notifications" class="nav-link" rel="nofollow" data-target="#" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-bell-o"></i><span class="noti-numb-bg"></span><span class="badge">12</span></a>
-                    <ul aria-labelledby="notifications" class="dropdown-menu">
-                        <li>
-                            <a rel="nofollow" href="#" class="dropdown-item nav-link">
-                                <div class="notification">
-                                    <div class="notification-content"><i class="fa fa-envelope bg-red"></i>You have 6 new messages </div>
-                                    <div class="notification-time"><small>4 minutes ago</small></div>
-                                </div>
-                            </a>
-                        </li>
-                        <li>
-                            <a rel="nofollow" href="#" class="dropdown-item nav-link">
-                                <div class="notification">
-                                    <div class="notification-content"><i class="fa fa-twitter bg-skyblue"></i>You have 2 followers</div>
-                                    <div class="notification-time"><small>4 minutes ago</small></div>
-                                </div>
-                            </a>
-                        </li>
-                        <li>
-                            <a rel="nofollow" href="#" class="dropdown-item nav-link">
-                                <div class="notification">
-                                    <div class="notification-content"><i class="fa fa-upload bg-blue"></i>Server Rebooted</div>
-                                    <div class="notification-time"><small>4 minutes ago</small></div>
-                                </div>
-                            </a>
-                        </li>
-                        <li>
-                            <a rel="nofollow" href="#" class="dropdown-item nav-link">
-                                <div class="notification">
-                                    <div class="notification-content"><i class="fa fa-twitter bg-skyblue"></i>You have 2 followers</div>
-                                    <div class="notification-time"><small>10 minutes ago</small></div>
-                                </div>
-                            </a>
-                        </li>
-                        <li><a rel="nofollow" href="#" class="dropdown-item all-notifications text-center"> <strong>view all notifications                                            </strong></a></li>
-                    </ul>
+
+                <!-- 全屏 -->
+                <li class="nav-item d-flex align-items-center full_scr_exp"><a class="nav-link" href="#"><img
+                        src="/staticResources/img/expand.png" onclick="toggleFullScreen(document.body)"
+                        class="img-fluid" alt=""></a>
                 </li>
-                <li class="nav-item dropdown"><a id="profile" class="nav-link logout" data-target="#" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="img/avatar-1.jpg" alt="..." class="img-fluid rounded-circle" style="height: 30px; width: 30px;"></a>
+
+                <!-- 账号切换 -->
+                <li class="nav-item dropdown">
+                    <a id="profile" class="nav-link logout" data-target="#" href="#"
+                       data-toggle="dropdown">
+                        <img src="staticResources/img/avatar-1.jpg" alt="..." class="img-fluid rounded-circle"
+                             style="height: 30px; width: 30px;">
+                    </a>
                     <ul aria-labelledby="profile" class="dropdown-menu profile">
                         <li>
                             <a rel="nofollow" href="profile.html" class="dropdown-item">
@@ -116,128 +100,106 @@
 <!--====================================================
                         PAGE CONTENT
 ======================================================-->
-    <div class="page-content d-flex align-items-stretch">
+<div class="page-content d-flex align-items-stretch">
 
-        <!--***** SIDE NAVBAR *****-->
-        <nav class="side-navbar">
-            <ul class="list-unstyled">
-                <li class="active"> <a href="index.html"><i class="icon-home"></i>主页</a></li>
-                <li><a href="#apps" aria-expanded="false" data-toggle="collapse"> <i class="icon-interface-windows"></i>事件</a>
-                    <ul id="apps" class="collapse list-unstyled">
-                        <li><a href="calendar.html">事件操作</a></li>
-                        <li><a href="email.html">归队管理</a></li>
-                        <li><a href="media.html">事件详情</a></li>
-                    </ul>
-                </li>
-                <li><a href="#forms" aria-expanded="false" data-toggle="collapse"> <i class="fa fa-building-o"></i>人员信息</a>
-                    <ul id="forms" class="collapse list-unstyled">
-                        <li><a href="personpage">人员汇总信息</a></li>
-                        <li><a href="personadd">添加人员</a></li>
-                        <li><a href="personupdate">修改人员</a></li>
-                        <li><a href="personinfo">人员详情</a></li>
-                    </ul>
-                </li>
-                <li><a href="#pages" aria-expanded="false" data-toggle="collapse"> <i class="fa fa-file-o"></i>车辆信息</a>
-                    <ul id="pages" class="collapse list-unstyled">
-                        <li><a href="faq.html">添加车辆</a></li>
-                        <li><a href="empty.html">修改车辆</a></li>
-                    </ul>
-                </li>
-                <li><a href="#elements" aria-expanded="false" data-toggle="collapse"> <i class="fa fa-globe"></i>用户管理</a>
-                    <ul id="elements" class="collapse list-unstyled">
-                        <li><a href="ui-buttons.html">用户信息</a></li>
-                        <li><a href="ui-cards.html">添加用户</a></li>
-                    </ul>
-                </li>
-            </ul>
-        </nav>
+    <!--***** SIDE NAVBAR *****-->
 
-        <div class="content-inner chart-cont">
 
-            <!--***** FORM LAYOUTS *****-->
-            <div class="row">
-                <div class="col-md-12">
+    <div class="content-inner chart-cont">
 
-                    <!--***** USER INFO *****-->
+        <!--***** FORM LAYOUTS *****-->
+        <div class="row">
+            <div class="col-md-12">
 
-                    <!--***** PRODUCT INFO *****-->
-                    <div class="card form" id="form1">
-                        <div class="card-header">
-                            <h3><i class="fa fa-archive"></i>修改人员</h3>
-                        </div>
-                        <br>
-                        <form>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="name">姓名</label>
-                                        <input type="text" class="form-control" id="name" aria-describedby="emailHelp" placeholder="Enter Name">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="pro-tel">电话</label>
-                                        <input type="text" class="form-control" id="pro-tel" aria-describedby="emailHelp" placeholder="Enter tel">
-                                    </div>
-                                    <div class="form-group">
-                                        <label>性别</label><br/>
-                                        <input type="radio"  name="男">男 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                        <input type="radio"  name="女">女
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="pro-position">职务</label>
-                                        <input type="text" class="form-control" id="pro-position" aria-describedby="emailHelp" placeholder="Enter position">
-                                    </div>
+                <!--***** USER INFO *****-->
 
+                <!--***** PRODUCT INFO *****-->
+                <div class="card form" id="form1">
+                    <div class="card-header">
+                        <h3><i class="fa fa-archive"></i>修改人员</h3>
+                    </div>
+                    <br>
+                    <form>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="name">姓名</label>
+                                    &nbsp;<input type="text" class="form-control" id="name" aria-describedby="emailHelp"
+                                                 placeholder="Enter Name">
+                                </div>
+                                <div class="form-group">
+                                    <label for="pro-tel">电话</label>
+                                    &nbsp; <input type="text" class="form-control" id="pro-tel"
+                                                  aria-describedby="emailHelp" placeholder="Enter tel">
+                                </div>
+                                <div class="form-group">
+                                    <label>性别</label><br/>
+                                    <input type="radio" name="男">男 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    &nbsp; <input type="radio" name="女">女
+                                </div>
+                                <div class="form-group">
+                                    <label for="pro-position">职务</label>
+                                    &nbsp; <input type="text" class="form-control" id="pro-position"
+                                                  aria-describedby="emailHelp" placeholder="Enter position">
                                 </div>
 
                             </div>
-                            <button type="submit" class="btn btn-general btn-blue mr-2">提交</button>
-                            <button class="btn btn-general btn-blue mr-2" onclick="window.open('personpage')">返回</button>
 
-                        </form>
-                    </div>
+                        </div>
+                        &nbsp;<button type="submit" class="btn btn-general btn-blue mr-2">提交</button>
+                        <button class="btn btn-general btn-blue mr-2" onclick="window.open('personpage')">返回</button>
+
+                    </form>
                 </div>
-
             </div>
-        </div>
 
-        <!--Global Javascript -->
-    <script src="staticResources/js/jquery.min.js"></script>
-    <script src="staticResources/js/popper/popper.min.js"></script>
-    <script src="staticResources/js/tether.min.js"></script>
-    <script src="staticResources/js/bootstrap.min.js"></script>
-    <script src="staticResources/js/jquery.cookie.js"></script>
-    <script src="staticResources/js/jquery.validate.min.js"></script>
-    <script src="staticResources/js/chart.min.js"></script>
-    <script src="staticResources/js/front.js"></script>
-    
-    <!--Core Javascript -->
-    <script>
-        new Chart(document.getElementById("myChart-nav").getContext('2d'), {
-          type: 'doughnut',
-          data: {
+        </div>
+    </div>
+</div>
+<!-- FOOTER -->
+<footer class="footer navbar-fixed-bottom text-md-center" style="background-color: #5e67d6">
+    <div class="" style="padding-top: 30px;color: white;">应急系统 &copy; 2018.Company name LOVO J165 3组.</div>
+</footer>
+
+
+<!--Global Javascript -->
+<script src="staticResources/js/jquery.min.js"></script>
+<script src="staticResources/js/popper/popper.min.js"></script>
+<script src="staticResources/js/tether.min.js"></script>
+<script src="staticResources/js/bootstrap.min.js"></script>
+<script src="staticResources/js/jquery.cookie.js"></script>
+<script src="staticResources/js/jquery.validate.min.js"></script>
+<script src="staticResources/js/chart.min.js"></script>
+<script src="staticResources/js/front.js"></script>
+
+<!--Core Javascript -->
+<script>
+    new Chart(document.getElementById("myChart-nav").getContext('2d'), {
+        type: 'doughnut',
+        data: {
             labels: ["M", "T", "W", "T", "F", "S", "S"],
             datasets: [{
-              backgroundColor: [
-                "#2ecc71",
-                "#3498db",
-                "#95a5a6",
-                "#9b59b6",
-                "#f1c40f",
-                "#e74c3c",
-                "#34495e"
-              ],
-              data: [12, 19, 3, 17, 28, 24, 7]
+                backgroundColor: [
+                    "#2ecc71",
+                    "#3498db",
+                    "#95a5a6",
+                    "#9b59b6",
+                    "#f1c40f",
+                    "#e74c3c",
+                    "#34495e"
+                ],
+                data: [12, 19, 3, 17, 28, 24, 7]
             }]
-          },
-          options: {
-              legend: { display: false },
-              title: {
+        },
+        options: {
+            legend: {display: false},
+            title: {
                 display: true,
                 text: ''
-               } 
             }
-        });
-    </script> 
+        }
+    });
+</script>
 </body>
 
 </html>

@@ -10,10 +10,20 @@ import java.util.Objects;
 @Table(name = "t_car_log")
 public class CarLogEntity {
     private String id;
-    private Timestamp startTime;
-    private Timestamp returnTime;
+    private String startTime;
+    private String returnTime;
     private int state;
+    private CarEntity carEntity;
 
+    @ManyToOne
+    @JoinColumn()
+    public CarEntity getCarEntity() {
+        return carEntity;
+    }
+
+    public void setCarEntity(CarEntity carEntity) {
+        this.carEntity = carEntity;
+    }
     @Id
     @Column(name="id",length=32)
     @GenericGenerator(name="powerUUID",strategy="uuid")
@@ -28,21 +38,21 @@ public class CarLogEntity {
 
     @Basic
     @Column(name = "start_time")
-    public Timestamp getStartTime() {
+    public String getStartTime() {
         return startTime;
     }
 
-    public void setStartTime(Timestamp startTime) {
+    public void setStartTime(String startTime) {
         this.startTime = startTime;
     }
 
     @Basic
     @Column(name = "return_time")
-    public Timestamp getReturnTime() {
+    public String getReturnTime() {
         return returnTime;
     }
 
-    public void setReturnTime(Timestamp returnTime) {
+    public void setReturnTime(String returnTime) {
         this.returnTime = returnTime;
     }
 
@@ -56,16 +66,6 @@ public class CarLogEntity {
         this.state = state;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        CarLogEntity that = (CarLogEntity) o;
-        return state == that.state &&
-                Objects.equals(id, that.id) &&
-                Objects.equals(startTime, that.startTime) &&
-                Objects.equals(returnTime, that.returnTime);
-    }
 
     @Override
     public int hashCode() {
