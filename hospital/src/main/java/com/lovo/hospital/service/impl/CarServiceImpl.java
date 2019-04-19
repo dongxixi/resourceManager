@@ -7,20 +7,22 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service(value = "carService")
 public class CarServiceImpl implements CarService {
     @Autowired
     private CarDao carDao;
-    @Override
-    public List<CarEntity> findCarByCondition(Integer pageNum,Integer showNum, String carNum, String dirveName, Integer state) {
 
-        int startIndex=(pageNum-1)*showNum;
-        return carDao.findCarByCondition(carNum,dirveName,state,startIndex,showNum);
+    @Override
+    public List<CarEntity> findCarByCondition(Integer pageNum, Integer showNum, String carNum, String dirveName, Integer state) {
+
+        int startIndex = (pageNum - 1) * showNum;
+        return carDao.findCarByCondition(carNum, dirveName, state, startIndex, showNum);
     }
 
     @Override
-    public int findTotalPageByCondition(String carNum, String dirveName, Integer state,Integer showNum) {
+    public int findTotalPageByCondition(String carNum, String dirveName, Integer state, Integer showNum) {
         int totalCount = carDao.findTotalPageByCondition(carNum, dirveName, state);
         Integer totalPage = (totalCount + showNum - 1) / showNum;
         return totalPage;
@@ -28,7 +30,7 @@ public class CarServiceImpl implements CarService {
 
     @Override
     public CarEntity saveCar(String carNum, String dirveName) {
-        CarEntity carEntity=new CarEntity();
+        CarEntity carEntity = new CarEntity();
         carEntity.setCarNum(carNum);
         carEntity.setDriver(dirveName);
         //默认添加状态为0，未派出
@@ -37,12 +39,18 @@ public class CarServiceImpl implements CarService {
     }
 
     @Override
-    public CarEntity updateCar(String carId, String dirveName) {
-        return null;
+    public CarEntity updateCar(CarEntity carEntity) {
+
+        return carDao.save(carEntity);
     }
 
     @Override
-    public CarEntity deleteCar(String carId) {
-        return null;
+    public void deleteCar(String carId) {
+        carDao.deleteById(carId);
+    }
+
+    @Override
+    public CarEntity infoCarById(String cid) {
+        return carDao.findById(cid).get();
     }
 }

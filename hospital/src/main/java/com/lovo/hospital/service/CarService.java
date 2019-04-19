@@ -39,18 +39,24 @@ public interface CarService {
     public CarEntity saveCar(String carNum,String dirveName);
 
     /**
+     * 查询车辆的详情
+     * @param cid   车辆ID
+     * @return  车辆实体
+     */
+    public CarEntity infoCarById(String cid);
+
+    /**
      * 修改车辆
-     * @param carId 车辆ID
-     * @param dirveName 司机名字
+     * @param carEntity
      * @return  装有修改后的实体，失败则为空
      */
-    public CarEntity updateCar(String carId,String dirveName);
+    public CarEntity updateCar(CarEntity carEntity);
 
     /**
      * 删除车辆
      * @param carId 车辆Id
      * @return
      */
-    public CarEntity deleteCar(String carId);
+    public void deleteCar(String carId);
 
 }
