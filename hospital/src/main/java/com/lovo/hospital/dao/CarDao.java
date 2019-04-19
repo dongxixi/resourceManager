@@ -22,4 +22,16 @@ public interface CarDao extends CrudRepository<CarEntity,String> {
             "and if(?2 !='',driver=?2,1=1) " +
             "and if(?3 !='',state=?3,1=1) limit ?4,?5",nativeQuery = true)
     public List<CarEntity> findCarByCondition(String carNum,String dirveName,int state,int startIndex,int endIndex);
+
+    /**
+     *  查询总条数
+     * @param carNum    车牌
+     * @param dirveName 司机
+     * @param state 状态
+     * @return  int总条数
+     */
+    @Query(value = "select count(*) from t_car where if(?1 !='',car_num=?1,1=1) " +
+            "and if(?2 !='',driver=?2,1=1) " +
+            "and if(?3 !='',state=?3,1=1)",nativeQuery = true)
+    public int findTotalPageByCondition(String carNum,String dirveName,int state);
 }
