@@ -14,9 +14,20 @@ public class CarLogEntity {
     private String returnTime;
     private int state;
     private CarEntity carEntity;
+    private DispatchEntity dispatchEntity;
 
     @ManyToOne
-    @JoinColumn()
+    @JoinColumn(name = "d_id")
+    public DispatchEntity getDispatchEntity() {
+        return dispatchEntity;
+    }
+
+    public void setDispatchEntity(DispatchEntity dispatchEntity) {
+        this.dispatchEntity = dispatchEntity;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "c_id")
     public CarEntity getCarEntity() {
         return carEntity;
     }
