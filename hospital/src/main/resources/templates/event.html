@@ -79,7 +79,8 @@
 
                 <!-- 全屏 -->
                 <li class="nav-item d-flex align-items-center full_scr_exp"><a class="nav-link" href="#"><img
-                        src="/staticResources/img/expand.png" onclick="toggleFullScreen(document.body)" class="img-fluid" alt=""></a>
+                        src="/staticResources/img/expand.png" onclick="toggleFullScreen(document.body)"
+                        class="img-fluid" alt=""></a>
                 </li>
 
                 <!-- 账号切换 -->
@@ -163,19 +164,22 @@
                         </thead>
                         <tbody>
                         <tr>
-                            <th scope="row"><input type="checkbox" name="people" onclick="setValue(this)"/></th>
+                            <th scope="row"><input type="checkbox" name="people" onclick="setValue(this)"/>
+                                <input type="hidden" value="1"/></th>
                             <td>Mark</td>
                             <td>Otto</td>
                             <td>@mdo</td>
                         </tr>
                         <tr>
-                            <th scope="row"><input type="checkbox" name="people" onclick="setValue(this)"/></th>
+                            <th scope="row"><input type="checkbox" name="people" onclick="setValue(this)"/>
+                                <input type="hidden" value="2"/></th>
                             <td>Jacob</td>
                             <td>Thornton</td>
                             <td>@fat</td>
                         </tr>
                         <tr>
-                            <th scope="row"><input type="checkbox" name="people" onclick="setValue(this)"/></th>
+                            <th scope="row"><input type="checkbox" name="people" onclick="setValue(this)"/>
+                                <input type="hidden" value="3"/></th>
                             <td>Larry</td>
                             <td>the Bird</td>
                             <td>@twitter</td>
@@ -184,6 +188,12 @@
                     </table>
                 </div>
             </div>
+            <script>
+                function setValue(obj) {
+                    var val = $(obj).siblings().eq(0).val();
+                    alert(val)
+                }
+            </script>
             <div class="row form-group" id="pagePerson">
                 <div class="col-sm-3"></div>
                 <div class="btn-group btn-sm col-sm-3" role="group" aria-label="Basic example">
@@ -197,19 +207,19 @@
                         id="pagePersonTotal">5</span>页
                 </div>
             </div>
-            <script>
-                function setValue(obj) {
-                    var checked = $(obj).val();
-                    // var checkBoxes = document.getElementsByName("people");
-                    // var textfield = document.getElementById("sendPersonnel");
-                    // textfield.text = "";
-                    // for (var i = 0; i < checkBoxes.length; i++) {
-                    //     if (checkBoxes[i].checked) {
-                    //         textfield.text += checkBoxes[i].value;
-                    //     }
-                    // }
-                }
-            </script>
+<!--            <script>-->
+<!--                function setValue(obj) {-->
+<!--                    var checked = $(obj).val();-->
+<!--                    // var checkBoxes = document.getElementsByName("people");-->
+<!--                    // var textfield = document.getElementById("sendPersonnel");-->
+<!--                    // textfield.text = "";-->
+<!--                    // for (var i = 0; i < checkBoxes.length; i++) {-->
+<!--                    //     if (checkBoxes[i].checked) {-->
+<!--                    //         textfield.text += checkBoxes[i].value;-->
+<!--                    //     }-->
+<!--                    // }-->
+<!--                }-->
+<!--            </script>-->
 
             <div class="row form-group">
                 <div class="col-sm-3"></div>
@@ -283,7 +293,7 @@
             </div>
 
             <div class="row" style="padding-bottom: 30px">
-                <div class="col-sm-6"> </div>
+                <div class="col-sm-6"></div>
                 <button type="submit" class="btn btn-general btn-blue">派出</button>
             </div>
         </form>
