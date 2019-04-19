@@ -8,9 +8,14 @@ import org.springframework.boot.autoconfigure.data.web.SpringDataWebProperties;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
 
+/**
+ * carController
+ * @author 狄亚宁
+ */
 @Controller
 public class CarController {
 	@Autowired
@@ -30,14 +35,22 @@ public class CarController {
 		return "carUpdate";
 	}
 
+    /**
+     * 查询所有car带条件
+     * @param currPage  当前页
+     * @param carNum    车牌
+     * @param driver    司机
+     * @param state     状态
+     * @return  PaginationBean
+     */
 	@RequestMapping("findCarByCondition")
 	@ResponseBody
-	public PaginationBean<CarEntity> findCarByCondition(int currPage, String carNum, String dirverName, int state){
+	public PaginationBean<CarEntity> findCarByCondition(Integer currPage, String carNum, String driver, Integer state){
 
 		//每页显示10行
 		int showNum=10;
-		List<CarEntity> carList = carService.findCarByCondition(currPage, showNum, carNum, dirverName, state);
-		int totalPage = carService.findTotalPageByCondition(carNum, dirverName, state);
+		List<CarEntity> carList = carService.findCarByCondition(currPage, showNum, carNum, driver, state);
+		int totalPage = carService.findTotalPageByCondition(carNum, driver, state,showNum);
 
 		PaginationBean<CarEntity> paginationBean=new PaginationBean<>();
 		paginationBean.setCurrPage(currPage);
@@ -45,4 +58,18 @@ public class CarController {
 		paginationBean.setTotalPage(totalPage);
 		return paginationBean;
 	}
+
+    /**
+     * 添加car
+     * @param carNum    车牌
+     * @param driver    司机
+     * @return
+     */
+    @RequestMapping("addCar")
+	public ModelAndView addCar(String carNum,String driver){
+        CarEntity carEntity = carService.saveCar(carNum, driver);
+
+        ModelAndView modelAndView = new ModelAndView("carAll");
+        return modelAndView;
+    }
 }

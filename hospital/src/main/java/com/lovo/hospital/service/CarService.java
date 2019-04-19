@@ -18,16 +18,17 @@ public interface CarService {
      * @param showNum  每页显示多少条
      * @return  车辆集合
      */
-    public List<CarEntity> findCarByCondition(int pageNum,int showNum,String carNum,String dirveName,int state);
+    public List<CarEntity> findCarByCondition(Integer pageNum,Integer showNum,String carNum,String dirveName,Integer state);
 
     /**
      * 查询总页数
      * @param carNum    车牌
      * @param dirveName 司机
      * @param state 状态
+     * @param showNum 每页显示条数
      * @return  总条数
      */
-    public int findTotalPageByCondition(String carNum,String dirveName,int state);
+    public int findTotalPageByCondition(String carNum,String dirveName,Integer state,Integer showNum);
 
     /**
      * 存储车辆
