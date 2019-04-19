@@ -20,6 +20,13 @@ public interface CarService {
      */
     public List<CarEntity> findCarByCondition(int pageNum,int showNum,String carNum,String dirveName,int state);
 
+    /**
+     * 查询总页数
+     * @param carNum    车牌
+     * @param dirveName 司机
+     * @param state 状态
+     * @return  总条数
+     */
     public int findTotalPageByCondition(String carNum,String dirveName,int state);
 
     /**

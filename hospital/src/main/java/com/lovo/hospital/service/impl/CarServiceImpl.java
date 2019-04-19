@@ -19,6 +19,11 @@ public class CarServiceImpl implements CarService {
     }
 
     @Override
+    public int findTotalPageByCondition(String carNum, String dirveName, int state) {
+        return carDao.findTotalPageByCondition(carNum,dirveName,state);
+    }
+
+    @Override
     public CarEntity saveCar(String carNum, String dirveName) {
         return null;
     }
