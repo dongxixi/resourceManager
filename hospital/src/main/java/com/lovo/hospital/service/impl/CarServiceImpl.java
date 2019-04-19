@@ -14,6 +14,7 @@ public class CarServiceImpl implements CarService {
     private CarDao carDao;
     @Override
     public List<CarEntity> findCarByCondition(Integer pageNum,Integer showNum, String carNum, String dirveName, Integer state) {
+
         int startIndex=(pageNum-1)*showNum;
         return carDao.findCarByCondition(carNum,dirveName,state,startIndex,showNum);
     }
