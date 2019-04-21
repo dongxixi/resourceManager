@@ -18,11 +18,11 @@ public interface EventService {
 
     /**
      * 总页数
-     * @param carNum 当前页
+     * @param pageSize 页量
      * @param eventName 事件名称
      * @param startTime 条件开始时间
      * @param endTime 条件结束时间
      * @return
      */
-    Integer getTotalPage(Integer carNum, String eventName, String startTime, String endTime);
+    Integer getTotalPage(Integer pageSize, String eventName, String startTime, String endTime);
 }

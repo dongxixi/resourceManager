@@ -3,6 +3,7 @@ package com.lovo.hospital.dto;
 import java.util.Date;
 
 public class EventRecordListDto {
+    private String eventIdNull;
     private String eventId;
     private String eventName;
     private Date eventBeginTime;
@@ -10,7 +11,11 @@ public class EventRecordListDto {
     private Integer carNum;
     private Integer state;
 
-    public EventRecordListDto(String eventId, String eventName, Date eventBeginTime, Integer peopleNum, Integer carNum, Integer state) {
+    public EventRecordListDto() {
+    }
+
+    public EventRecordListDto(String eventIdNull, String eventId, String eventName, Date eventBeginTime, Integer peopleNum, Integer carNum, Integer state) {
+        this.eventIdNull = eventIdNull;
         this.eventId = eventId;
         this.eventName = eventName;
         this.eventBeginTime = eventBeginTime;
@@ -19,7 +24,12 @@ public class EventRecordListDto {
         this.state = state;
     }
 
-    public EventRecordListDto() {
+    public String getEventIdNull() {
+        return eventIdNull;
+    }
+
+    public void setEventIdNull(String eventIdNull) {
+        this.eventIdNull = eventIdNull;
     }
 
     public String getEventId() {
