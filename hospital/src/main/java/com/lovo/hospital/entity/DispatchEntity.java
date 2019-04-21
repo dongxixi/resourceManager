@@ -9,6 +9,7 @@ import java.util.Objects;
 @Table(name = "t_dispatch")
 public class DispatchEntity {
     private String requestId;
+    private EventEntity eventEntity;
     private int pNum;
     private int cNum;
 
@@ -44,7 +45,22 @@ public class DispatchEntity {
         this.cNum = cNum;
     }
 
+    @ManyToOne
+    @JoinColumn(name = "e_id")
+    public EventEntity getEventEntity() {
+        return eventEntity;
+    }
 
+    public void setEventEntity(EventEntity eventEntity) {
+        this.eventEntity = eventEntity;
+    }
+
+    public DispatchEntity(String requestId, EventEntity eventEntity, int pNum, int cNum) {
+        this.requestId = requestId;
+        this.eventEntity = eventEntity;
+        this.pNum = pNum;
+        this.cNum = cNum;
+    }
 
     @Override
     public int hashCode() {
