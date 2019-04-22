@@ -119,12 +119,12 @@
                     <div class="input-group ">
 
                         <div class="input-group-addon">姓名</div>
-                        <input type="text" class="form-control-sm"  placeholder="姓名">&emsp;
+                        <input type="text" class="form-control-sm" placeholder="姓名" name="pname">&emsp;
                         <div class="input-group-addon">人员编号</div>
-                        <input type="text" class="form-control-sm"  placeholder="编号">&emsp;
+                        <input type="text" class="form-control-sm" placeholder="编号" name="pnum">&emsp;
                         <div class="input-group-addon">职位</div>
-                        <input type="text" class="form-control-sm"  placeholder="职位">&emsp;
-                        <button type="button" class="btn btn-outline-primary">查询</button>
+                        <input type="text" class="form-control-sm" placeholder="职位" name="position">&emsp;
+                        <button type="button" class="btn btn-outline-primary" value="查询">查询</button>
                     </div>
 
                     <br>
@@ -132,80 +132,8 @@
                 </from>
             </div>
             <div class="row">
-                <table class="table table-hover">
-                    <thead>
-                    <tr class="bg-info text-white">
-                        <th>员工编号</th>
-                        <th>姓名</th>
-                        <th>性别</th>
-                        <th>职位</th>
-                        <th>电话</th>
-                        <th>状态</th>
-                        <th>排班</th>
-                        <th>操作</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-                        <td>001</td>
-                        <td>小七</td>
-                        <td>女</td>
-                        <td>中级医师</td>
-                        <td>18923999828</td>
-                        <td>上班中</td>
-                        <td>早9晚5</td>
+                <table class="table table-hover" id="infotable">
 
-                        <td>
-                            <a href="personinfo" class="btn btn-outline-warning">详情</a>
-                            <a href="personupdate" class="btn btn-outline-primary">修改</a>
-                            <a href="" class="btn btn-outline-danger">删除</a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>002</td>
-                        <td>小五</td>
-                        <td>男</td>
-                        <td>高级医师</td>
-                        <td>18453299322</td>
-                        <td>上班中</td>
-                        <td>早9晚5</td>
-                        <td>
-                            <a href="personinfo" class="btn btn-outline-warning">详情</a>
-                            <a href="personupdate" class="btn btn-outline-primary">修改</a>
-                            <a href="" class="btn btn-outline-danger">删除</a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>003</td>
-                        <td>萧炎</td>
-                        <td>男</td>
-                        <td>高级医师</td>
-                        <td>18923534232</td>
-                        <td>上班中</td>
-                        <td>早9晚5</td>
-                        <td>
-                            <a href="personinfo" class="btn btn-outline-warning">详情</a>
-                            <a href="personupdate" class="btn btn-outline-primary">修改</a>
-                            <a href="" class="btn btn-outline-danger">删除</a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>004</td>
-                        <td>妙手李</td>
-                        <td>男</td>
-                        <td>主任医师</td>
-                        <td>18523943322</td>
-                        <td>上班中</td>
-                        <td>早9晚5</td>
-                        <td>
-                            <a href="personinfo" class="btn btn-outline-warning">详情</a>
-                            <a href="personupdate" class="btn btn-outline-primary">修改</a>
-                            <a href="" class="btn btn-outline-danger">删除</a>
-                        </td>
-                    </tr>
-
-
-                    </tbody>
                 </table>
             </div>
 
@@ -213,15 +141,20 @@
             <from>
                 <div class="row">
                     <div class="col-md-4">
-                        <a href="personadd" class="btn btn-outline-success ">添加人员</a>
+                        <a href="/personadd" class="btn btn-outline-success ">添加人员</a>
                     </div>
                     <div class="col-md-4">
-                        <button type="button" class="btn btn-outline-primary">上一页</button>
+                        <button type="button" class="btn btn-outline-primary" value="上一页">上一页</button>
 
-                        <input type="text" class="form-control-sm" placeholder="输入页数" style="width: 100px"/>
-                        <span>/10</span>
-                        <button type="button" class="btn btn-outline-primary">GO</button>
-                        <button type="button" class="btn btn-outline-primary">下一页</button>
+                        <input type="text" class="form-control-sm" placeholder="输入页数" name="inputPageNum"
+                               style="width: 100px"/>
+                        <span id="pageShow"></span>
+                        <button type="button" class="btn btn-outline-primary" value="GO">GO</button>
+                        <button type="button" class="btn btn-outline-primary" value="下一页">下一页</button>
+
+                        <!--记录当前是第几页-->
+                        <input type="hidden" name="currPage">
+                        <input type="hidden" name="totalPage">
                     </div>
                 </div>
             </from>
@@ -244,11 +177,124 @@
 <script src="staticResources/js/bootstrap.min.js"></script>
 <script src="staticResources/js/jquery.cookie.js"></script>
 <script src="staticResources/js/jquery.validate.min.js"></script>
-<script src="staticResources/js/chart.min.js"></script>
-<script src="staticResources/js/front.js"></script>
+
+<!--<script src="staticResources/js/chart.min.js"></script>-->
+<!--<script src="staticResources/js/front.js"></script>-->
 
 <!--Core Javascript -->
-<script src="staticResources/js/mychart.js"></script>
+<!--<script src="staticResources/js/mychart.js"></script>-->
+<script>
+    $(function () {
+        var currPage = 1;
+        $.getJSON("personpage", {currPage: currPage}, fillData);
+
+        //点击翻页操作
+        $(":button").click(function () {
+            var button = this.value;
+            var gopage = $(":input[name=inputPageNum]").val();
+            var currPage = $(":hidden[name=currPage]").val();
+            var totalPage = $(":hidden[name=totalPage]").val();
+            currPage = parseInt(currPage);
+            totalPage = parseInt(totalPage);
+
+            if (button == "上一页") {
+                currPage = currPage - 1;
+                if (currPage < 1) {
+                    currPage = 1;
+                }
+                $.getJSON("personpage", {currPage: currPage}, fillData);
+            } else if (button == "下一页") {
+                currPage = currPage + 1;
+                if (currPage > totalPage) {
+                    currPage = totalPage;
+                }
+                $.getJSON("personpage", {currPage: currPage}, fillData);
+            } else if (button == "GO") {
+
+                currPage = gopage;
+                if (currPage > totalPage) {
+                    currPage = totalPage;
+                }
+                $.getJSON("personpage", {currPage: currPage}, fillData);
+            } else if (button == "查询") {
+                var pname = $("[name=pname]").val();
+                var pnum = $("[name=pnum]").val();
+                var position = $("[name=position]").val();
+
+                currPage = 1;
+                $.getJSON("personpage", {currPage: currPage, pname: pname, pnum: pnum, position: position}, fillData);
+            }
+
+        });
+    });
+
+    //处理上面接接收的数据
+
+    function fillData(data) {
+        var $table = $("#infotable");
+        $table.empty();
+        var $head = $("<thead>\n" +
+            " <tr class='bg-info text-white' >\n" +
+            " <th>员工编号</th>\n" +
+            " <th>姓名</th>\n" +
+            " <th>性别</th>\n" +
+            " <th>职位</th>\n" +
+            " <th>电话</th>\n" +
+            " <th>状态</th>\n" +
+            " <th>排班</th>\n" +
+            " <th>操作</th>\n" +
+            " </tr>\n" +
+            " </thead>");
+        $table.append($head);
+
+        //获取传过来的列表
+        $.each(data.dataList, function (i, e) {
+            var id = e.id;
+            var name = e.pname;
+            var sex = e.sex;
+            var position = e.position;
+            var tel = e.tel;
+            var state = e.state;
+            if (state == 1) {
+                state = "已派出";
+            } else if (state == 0) {
+                state = "未派出";
+            }
+            var workTime = e.workTime;
+
+            //以表格的形式展现出来
+
+            var dataTr = "<tr>\n" +
+                "            <td>" + id + "</td>\n" +
+                "            <td>" + name + "</td>\n" +
+                "            <td>" + sex + "</td>\n" +
+                "            <td>" + position + "</td>\n" +
+                "            <td>" + tel + "</td>\n" +
+                "            <td>" + state + "</td>\n" +
+                "            <td>" + workTime + "</td>\n" +
+
+                "            <td><a class='btn btn-outline-primary' href='personinfo?id=" + id + "'>查看</a>&emsp;" +
+                "               <a class='btn btn-outline-primary' href='personupdate?id=" + id + "'>修改</a>&emsp;" +
+                "               <a class='btn btn-outline-warning' href='persondelete?id=" + id + "'>删除</a></td>\n" +
+                "        </tr>";
+
+            $table.append(dataTr);
+        });
+
+
+        //加载当前页数
+        $("[name=inputPageNum]").val(data.currPage);
+        //渲染第几页信息
+        $("#pageShow").text("/" + data.totalPage);
+
+        //用隐藏表单域存之前获取到的值
+        $(":hidden[name = currPage]").val(data.currPage);
+        $(":hidden[name = totalPage]").val(data.totalPage);
+
+
+    }
+
+</script>
 </body>
 
 </html>

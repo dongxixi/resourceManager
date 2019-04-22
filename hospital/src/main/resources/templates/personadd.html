@@ -117,27 +117,27 @@
                         <h3><i class="fa fa-archive"></i>添加人员</h3>
                     </div>
                     <br>
-                    <form>
+                    <form th:action="@{addperson}" method="post">
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="name">姓名</label>
-                                    <input type="text" class="form-control" id="name" aria-describedby="emailHelp"
+                                    <input  name="pname" type="text" class="form-control" id="name" aria-describedby="emailHelp"
                                            placeholder="Enter Name">
                                 </div>
                                 <div class="form-group">
                                     <label for="pro-tel">电话</label>
-                                    <input type="text" class="form-control" id="pro-tel" aria-describedby="emailHelp"
+                                    <input  name="tel" type="text" class="form-control" id="pro-tel" aria-describedby="emailHelp"
                                            placeholder="Enter tel">
                                 </div>
                                 <div class="form-group">
                                     <label>性别</label><br/>
-                                    <input type="radio" name="男">男 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                    <input type="radio" name="女">女
+                                    <label for="male">男：</label><input type ="radio"id="male" name = "sex" value="男" checked="checked">
+                                    <label for="female">女：</label><input type ="radio"name = "sex" id="female" value="女" >
                                 </div>
                                 <div class="form-group">
-                                    <label for="pro-position">职务</label>
-                                    <input type="text" class="form-control" id="pro-position"
+                                    <label for="position">职务</label>
+                                    <input name="position" type="text" class="form-control" id="position"
                                            aria-describedby="emailHelp" placeholder="Enter position">
                                 </div>
 
@@ -145,7 +145,7 @@
 
                         </div>
                         <button type="submit" class="btn btn-general btn-blue mr-2">提交</button>
-                        <button class="btn btn-general btn-blue mr-2" onclick="window.open('personpage')">返回</button>
+                        <button class="btn btn-general btn-blue mr-2" onclick="window.open('personAll')">返回</button>
 
                     </form>
                 </div>
