@@ -43,7 +43,7 @@
                     </a>
 
                     <!-- 导航栏 -->
-                    <a href="personpage.html" class="navbar-brand">
+                    <a href="/personAll" class="navbar-brand">
                         <div class="brand-text brand-big hidden-lg-down nav-link">人员管理</div>
                     </a>
 
@@ -235,8 +235,8 @@
         $table.empty();
         var $head = $("<thead>\n" +
             " <tr class='bg-info text-white' >\n" +
-            " <th>员工id</th>\n" +
 
+            " <th>员工编号</th>\n" +
             " <th>姓名</th>\n" +
             " <th>性别</th>\n" +
             " <th>职位</th>\n" +
@@ -251,6 +251,7 @@
         //获取传过来的列表
         $.each(data.dataList, function (i, e) {
             var id = e.id;
+            var pnum = e.pnum;
             var name = e.name;
             var sex = e.sex;
             var position = e.position;
@@ -266,8 +267,8 @@
             //以表格的形式展现出来
 
             var dataTr = "<tr>\n" +
-                "            <td>" + id + "</td>\n" +
 
+                "            <td>" + pnum + "</td>\n" +
                 "            <td>" + name + "</td>\n" +
                 "            <td>" + sex + "</td>\n" +
                 "            <td>" + position + "</td>\n" +
@@ -277,7 +278,7 @@
 
                 "            <td><a class='btn btn-outline-primary' href='selectperson?id=" + id + "'>查看</a>&emsp;" +
                 "               <a class='btn btn-outline-primary' href='selectpersonupdate?id=" + id + "'>修改</a>&emsp;" +
-                "               <a class='btn btn-outline-warning' href='persondelete?id=" + id + "'>删除</a></td>\n" +
+                "               <button class='btn btn-outline-warning' value='删除' id='del' onclick='delPerson(this)'>删除</button> <input type='hidden' value='"+id+"'></td>\n" +
                 "        </tr>";
 
             $table.append(dataTr);
@@ -294,6 +295,27 @@
         $(":hidden[name = totalPage]").val(data.totalPage);
 
 
+    }
+
+    function delPerson(del) {
+
+        var pid=$(del).next().val();
+        /*ajax提交后台*/
+        $.getJSON("persondelete", {
+            id: pid
+        }, function (data) {
+            /*回调函数*/
+            if (data=='1') {
+                alert("删除成功");
+                var currPage=1;
+                $.getJSON("personpage", {currPage: currPage}, fillData);
+            }else if (data=='0') {
+                alert("删除失败！");
+            }
+            else if (data=='-1') {
+                alert("人员派出，不能删除");
+            }
+        });
     }
 
 </script>
