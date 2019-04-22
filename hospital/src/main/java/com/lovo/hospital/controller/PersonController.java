@@ -61,8 +61,8 @@ public class PersonController {
 	 * @return
 	 */
 	@RequestMapping("addperson")
-	public ModelAndView addperson(String pname,String tel,String sex,String position){
-		PersonnelEntity personnelEntity = personnelService.saveOnePersonnel(pname, tel, sex, position);
+	public ModelAndView addperson(String name,String tel,String sex,String position){
+		PersonnelEntity personnelEntity = personnelService.saveOnePersonnel(name, tel, sex, position);
 		ModelAndView modelAndView = new ModelAndView("personpage");
 		return modelAndView;
 	}

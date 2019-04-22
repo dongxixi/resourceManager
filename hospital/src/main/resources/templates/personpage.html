@@ -119,7 +119,7 @@
                     <div class="input-group ">
 
                         <div class="input-group-addon">姓名</div>
-                        <input type="text" class="form-control-sm" placeholder="姓名" name="pname">&emsp;
+                        <input type="text" class="form-control-sm" placeholder="姓名" name="name">&emsp;
                         <div class="input-group-addon">人员编号</div>
                         <input type="text" class="form-control-sm" placeholder="编号" name="pnum">&emsp;
                         <div class="input-group-addon">职位</div>
@@ -217,12 +217,12 @@
                 }
                 $.getJSON("personpage", {currPage: currPage}, fillData);
             } else if (button == "查询") {
-                var pname = $("[name=pname]").val();
+                var name = $("[name=name]").val();
                 var pnum = $("[name=pnum]").val();
                 var position = $("[name=position]").val();
 
                 currPage = 1;
-                $.getJSON("personpage", {currPage: currPage, pname: pname, pnum: pnum, position: position}, fillData);
+                $.getJSON("personpage", {currPage: currPage, name: name, pnum: pnum, position: position}, fillData);
             }
 
         });
@@ -250,7 +250,7 @@
         //获取传过来的列表
         $.each(data.dataList, function (i, e) {
             var id = e.id;
-            var name = e.pname;
+            var name = e.name;
             var sex = e.sex;
             var position = e.position;
             var tel = e.tel;
