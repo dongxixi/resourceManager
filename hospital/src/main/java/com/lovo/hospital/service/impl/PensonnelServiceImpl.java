@@ -23,13 +23,13 @@ public class PensonnelServiceImpl implements PersonnelService {
      * @return
      */
     @Override
-    public List<PersonnelEntity> getAllListBySerch(String pname, String pnum, String position, Integer pageNum, Integer showNum) {
+    public List<PersonnelEntity> getAllListBySearch(String pname, String pnum, String position, Integer pageNum, Integer showNum) {
         int startIndex=(pageNum-1)*showNum;
         return personnelDao.getAllListBySerch(pname,pnum,position,startIndex,showNum);
     }
 
     /**
-     * 通过搜索条件查询数据总条数
+     * 通过搜索条件查询数据总页数
      * @param pname 姓名
      * @param pnum 编号
      * @param position 职位
@@ -52,7 +52,7 @@ public class PensonnelServiceImpl implements PersonnelService {
      * @return
      */
     @Override
-    public PersonnelEntity savaOnePersonnel(String pname,String tel,String sex,String position) {
+    public PersonnelEntity saveOnePersonnel(String pname,String tel,String sex,String position) {
         PersonnelEntity personnelEntity = new PersonnelEntity();
         personnelEntity.setPnum("X001");
         personnelEntity.setPname(pname);

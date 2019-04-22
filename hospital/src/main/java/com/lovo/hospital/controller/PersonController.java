@@ -42,7 +42,7 @@ public class PersonController {
 	@ResponseBody
 	public PaginationBean<PersonnelEntity> personpage(String pname, String pnum, String position,Integer currPage){
 		int showNum =10;
-		List<PersonnelEntity>personnelEntityList =  personnelService.getAllListBySerch(pname,pnum,position,currPage,showNum);
+		List<PersonnelEntity>personnelEntityList =  personnelService.getAllListBySearch(pname,pnum,position,currPage,showNum);
 		int totalPage=personnelService.findTotalPageByCondition(pname, pnum, position,showNum);
 
 		PaginationBean<PersonnelEntity>paginationBean =new PaginationBean<>();
@@ -62,7 +62,7 @@ public class PersonController {
 	 */
 	@RequestMapping("addperson")
 	public ModelAndView addperson(String pname,String tel,String sex,String position){
-		PersonnelEntity personnelEntity = personnelService.savaOnePersonnel(pname, tel, sex, position);
+		PersonnelEntity personnelEntity = personnelService.saveOnePersonnel(pname, tel, sex, position);
 		ModelAndView modelAndView = new ModelAndView("personpage");
 		return modelAndView;
 	}

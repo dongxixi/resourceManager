@@ -14,10 +14,10 @@ public interface PersonnelService {
      * @param showNum 每页显示页数
      * @return
      */
-    public List<PersonnelEntity> getAllListBySerch(String pname, String pnum, String position,Integer pageNum,Integer showNum);
+    public List<PersonnelEntity> getAllListBySearch(String pname, String pnum, String position,Integer pageNum,Integer showNum);
 
     /**
-     * 通过搜索条件查询出来的总条数
+     * 通过搜索条件查询出来的总页数
      * @param pname 姓名
      * @param pnum 编号
      * @param position 职位
@@ -35,7 +35,7 @@ public interface PersonnelService {
      * @param position
      * @return
      */
-    public  PersonnelEntity savaOnePersonnel(String pname,String tel,String sex,String position);
+    public  PersonnelEntity saveOnePersonnel(String pname,String tel,String sex,String position);
 
     /**
      * 删除一条数据

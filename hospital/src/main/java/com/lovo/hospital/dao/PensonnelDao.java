@@ -28,7 +28,7 @@ public interface PensonnelDao extends CrudRepository<PersonnelEntity,String> {
                                                    @Param("endIndex")Integer endIndex);
 
     /**
-     * 搜索出来的总条数
+     * 搜索出来的总页数
      * @param pname
      * @param pnum
      * @param position
