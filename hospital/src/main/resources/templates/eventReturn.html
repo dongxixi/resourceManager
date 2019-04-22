@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
 
 <head>
 
@@ -103,7 +103,7 @@
 <!-- 内容模块 -->
 <div class="container">
     <div class="row">
-        <form action="/eventReturn.do" class="row" method="get">
+        <form action="/eventReturn.do" class="row" method="post">
             <div class="col-sm-12">
                 <div class="card form" id="form1">
                     <div class="card-header">
@@ -114,24 +114,25 @@
                         <div class="col-md-12">
                             <div class="form-group row">
                                 <div class="col-9">
-                                    <input class="form-control" type="text" value="派遣编号" id="requestId"
-                                    disabled="disabled">
+                                    <input class="form-control" type="text" value="008" id="requestId"
+                                           th:field="${thing.id}" readonly>
                                 </div>
                                 <label for="requestId" class=" col-form-label">派遣编号</label>
                             </div>
                             <div class="form-group row">
                                 <div class="col-9">
-                                    <input class="form-control" type="text" value="事件编号" id="thingsNo"
-                                    disabled="disabled">
+                                    <input class="form-control" type="text" value="009" name="thingID" id="thingsNo"
+                                           th:field="${thing.eventId}" readonly>
                                 </div>
                                 <label for="thingsNo" style="width: 85px;" class=" col-form-label">事件编号</label>
                             </div>
                             <div class="form-group row">
                                 <div class="col-9">
-                                    <input class="form-control" type="text" value="事件名称" id="thingsName"
-                                    disabled="disabled">
+                                    <input class="form-control" type="text" value="007" id="thingsName"
+                                           th:field="${thing.eventName}" disabled="disabled">
                                 </div>
-                                <label for="thingsName" style="width: 85px;" class=" col-form-label">事件名称</label>
+                                <label for="thingsName" style="width: 85px;" class=" col-form-label"
+                                >事件名称</label>
                             </div>
                         </div>
                     </div>
@@ -143,7 +144,7 @@
                     <table class="table table-hover outer" id="outerPerson">
                         <thead>
                         <tr class="bg-info text-white">
-                            <th><input type="checkbox" class="checkbox"/></th>
+                            <th><input type="checkbox"/></th>
                             <th>编号</th>
                             <th>姓名</th>
                             <th>性别</th>
@@ -151,28 +152,16 @@
                         </thead>
                         <tbody>
                         <tr>
-                            <th><input type="checkbox" class="checkbox"/></th>
+                            <th><input type="checkbox" class="checkbox"/><input type="hidden" value="4001"/></th>
                             <td>001</td>
                             <td>小七</td>
                             <td>女</td>
                         </tr>
-                        <tr>
-                            <th><input type="checkbox" class="checkbox"/></th>
-                            <td>002</td>
-                            <td>小五</td>
-                            <td>男</td>
-                        </tr>
-                        <tr>
-                            <th><input type="checkbox" class="checkbox"/></th>
-                            <td>003</td>
-                            <td>萧炎</td>
-                            <td>男</td>
-                        </tr>
-                        <tr>
-                            <th><input type="checkbox" class="checkbox"/></th>
-                            <td>004</td>
-                            <td>妙手李</td>
-                            <td>男</td>
+                        <tr th:each="op,ustate:${innerPerson}">
+                            <td><input type="checkbox"/><input type="hidden" th:value="${op.id}"/></td>
+                            <td th:text="${op.pnum}"></td>
+                            <td th:text="${op.name}"></td>
+                            <td th:text="${op.sex}"></td>
                         </tr>
                         </tbody>
                     </table>
@@ -189,25 +178,10 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr>
-                            <td>001</td>
-                            <td>小七</td>
-                            <td>女</td>
-                        </tr>
-                        <tr>
-                            <td>002</td>
-                            <td>小五</td>
-                            <td>男</td>
-                        </tr>
-                        <tr>
-                            <td>003</td>
-                            <td>萧炎</td>
-                            <td>男</td>
-                        </tr>
-                        <tr>
-                            <td>004</td>
-                            <td>妙手李</td>
-                            <td>男</td>
+                        <tr th:each="in,ustate:${innerPerson}">
+                            <td th:text="${in.pnum}"></td>
+                            <td th:text="${in.name}"></td>
+                            <td th:text="${in.sex}"></td>
                         </tr>
                         </tbody>
                     </table>
@@ -216,7 +190,8 @@
                     <div class="form-group row">
                         <label for="personChoose" style="width: 85px;" class=" col-form-label">人员预览</label>
                         <div class="col-9">
-                            <input class="form-control" type="text" value="" id="personChoose" disabled/>
+                            <input class="form-control" type="text" value="" id="personChoose" readonly/>
+                            <input type="hidden" value="" name="persons" id="persons"/>
                         </div>
                     </div>
                 </div>
@@ -233,30 +208,14 @@
                         </thead>
                         <tbody>
                         <tr>
-                            <th><input type="checkbox" class="checkbox" id="0001"/></th>
-                            <td for="0001">川A.00001</td>
-                            <td>王司机</td>
-
-                        </tr>
-                        <tr>
-                            <th><input type="checkbox" class="checkbox"/></th>
-                            <td>川A.00000</td>
+                            <th><input type="checkbox" class="checkbox" value="00001"/></th>
+                            <td>川A.00001</td>
                             <td>王司机</td>
                         </tr>
-                        <tr>
-                            <th><input type="checkbox" class="checkbox"/></th>
-                            <td>川A.00000</td>
-                            <td>王司机</td>
-                        </tr>
-                        <tr>
-                            <th><input type="checkbox" class="checkbox"/></th>
-                            <td>川A.00000</td>
-                            <td>王司机</td>
-                        </tr>
-                        <tr>
-                            <th><input type="checkbox" class="checkbox"/></th>
-                            <td>川A.00000</td>
-                            <td>王司机</td>
+                        <tr th:each="out,ustate:${outerCar}">
+                            <th><input type="checkbox" class="checkbox" th:value="${out.id}"/></th>
+                            <td th:text="${out.carNum}"></td>
+                            <td th:text="${out.driver}"></td>
                         </tr>
                         </tbody>
                     </table>
@@ -274,16 +233,12 @@
                         </thead>
                         <tbody>
                         <tr>
-                            <td>川A.00000</td>
-                            <td>王司机</td>
+                            <td>川A.00032</td>
+                            <td>司机</td>
                         </tr>
-                        <tr>
-                            <td>川A.00000</td>
-                            <td>王司机</td>
-                        </tr>
-                        <tr>
-                            <td>川A.00000</td>
-                            <td>王司机</td>
+                        <tr th:each="in,ustate:${innerCar}">
+                            <td th:text="${in.carNum}"></td>
+                            <td th:text="${in.driver}"></td>
                         </tr>
                         </tbody>
                     </table>
@@ -293,7 +248,8 @@
                     <div class="form-group row">
                         <label for="carChoose" style="width: 85px;" class=" col-form-label">车辆预览</label>
                         <div class="col-9">
-                            <input class="form-control" type="text" value="" id="carChoose" disabled/>
+                            <input class="form-control" type="text" value="" id="carChoose" readonly/>
+                            <input type="hidden" value="" name="cars" id="cars" readonly/>
                         </div>
                         <div class="col-sm-2">
                             <input class="form-control btn btn-general btn-blue" type="submit" value="提交选中数据"/>
@@ -326,20 +282,25 @@
     $("#outerPerson tr:eq(0)").click(function () {
         $(this).find(":checkbox").prop("checked", !($(this).find(":checkbox").prop("checked")));
         $("#outerPerson :checkbox:gt(0)").prop("checked", $("#outerPerson :checkbox:eq(0)").prop("checked"));
-        PersonText();
+        personText();
     });
     $("#outerPerson tr:gt(0)").click(function () {
         $(this).find(":checkbox").prop("checked", !($(this).find(":checkbox").prop("checked")));
         $("#outerPerson :checkbox:eq(0)").prop("checked", $("#outerPerson :checkbox:gt(0):checked").length == $("#outerPerson :checkbox:gt(0)").length);
-        PersonText();
+        personText();
     });
 
-    function PersonText() {
+    function personText() {
         var $personChoose = "";
         $.each($("#outerPerson :checkbox:gt(0):checked"), function (i, n) {
             $personChoose += "," + $(n).parent().next("td").text();
         })
         $("#personChoose").val($personChoose.substr(1));
+        $personChoose = "";
+        $.each($("#outerPerson :checkbox:gt(0):checked"), function (i, n) {
+            $personChoose += "," + $(n).next().val();
+        })
+        $("#persons").val($personChoose.substr(1));
     }
 
 
@@ -358,8 +319,13 @@
         var $carChoose = "";
         $.each($("#outerCar :checkbox:gt(0):checked"), function (i, n) {
             $carChoose += "," + $(n).parent().next("td").text();
-        })
+        });
         $("#carChoose").val($carChoose.substr(1));
+        $carChoose = "";
+        $.each($("#outerCar :checkbox:gt(0):checked"), function (i, n) {
+            $carChoose += "," + $(n).val();
+        });
+        $("#cars").val($carChoose.substr(1));
     }
 
 

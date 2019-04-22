@@ -56,8 +56,8 @@ public class PersonController {
 	 * @return
 	 */
 	@RequestMapping("addperson")
-	public ModelAndView addperson(String name,String tel,String sex,String position){
-		PersonnelEntity personnelEntity = personnelService.saveOnePersonnel(name, tel, sex, position);
+	public ModelAndView addperson(String name,String pnum,String tel,String sex,Integer workTime,String position){
+		PersonnelEntity personnelEntity = personnelService.saveOnePersonnel(name,pnum, tel, sex,workTime, position);
 		ModelAndView modelAndView = new ModelAndView("personpage");
 		return modelAndView;
 	}
@@ -117,10 +117,18 @@ public class PersonController {
 	 * @return
 	 */
 	@RequestMapping("persondelete")
-	public ModelAndView persondelete(String id){
-		personnelService.deleteOne(id);
-		ModelAndView modelAndView = new ModelAndView("personpage");
-		return modelAndView;
+	@ResponseBody
+	public String persondelete(String id){
+		PersonnelEntity personnelEntity = personnelService.selectOne(id);
+		if (personnelEntity.getState()==0) {
+			//该人员没有派出
+			personnelService.deleteOne(id);
+			return "1";
+		}else{
+			return "-1";
+		}
+
+
 
 	}
 }
