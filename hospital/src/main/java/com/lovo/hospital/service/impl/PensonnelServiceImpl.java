@@ -15,7 +15,7 @@ public class PensonnelServiceImpl implements PersonnelService {
 
     /**
      * 通过搜索条件和分页显示表格
-     * @param pname 姓名
+     * @param name 姓名
      * @param pnum 编号
      * @param position 职位
      * @param pageNum 当前页数
@@ -23,39 +23,39 @@ public class PensonnelServiceImpl implements PersonnelService {
      * @return
      */
     @Override
-    public List<PersonnelEntity> getAllListBySearch(String pname, String pnum, String position, Integer pageNum, Integer showNum) {
+    public List<PersonnelEntity> getAllListBySearch(String name, String pnum, String position, Integer pageNum, Integer showNum) {
         int startIndex=(pageNum-1)*showNum;
-        return personnelDao.getAllListBySerch(pname,pnum,position,startIndex,showNum);
+        return personnelDao.getAllListBySerch(name,pnum,position,startIndex,showNum);
     }
 
     /**
      * 通过搜索条件查询数据总页数
-     * @param pname 姓名
+     * @param name 姓名
      * @param pnum 编号
      * @param position 职位
      * @param  showNum 每页显示条数
      * @return
      */
     @Override
-    public int findTotalPageByCondition(String pname, String pnum, String position,Integer showNum) {
-        int totalCount =personnelDao.findTotalPageByCondition(pname, pnum, position);
+    public int findTotalPageByCondition(String name, String pnum, String position,Integer showNum) {
+        int totalCount =personnelDao.findTotalPageByCondition(name, pnum, position);
         Integer totalPage = (totalCount + showNum - 1) / showNum;
         return totalPage;
     }
 
     /**
      * 新增一条
-     * @param pname
+     * @param name
      * @param tel
      * @param sex
      * @param position
      * @return
      */
     @Override
-    public PersonnelEntity saveOnePersonnel(String pname,String tel,String sex,String position) {
+    public PersonnelEntity saveOnePersonnel(String name,String tel,String sex,String position) {
         PersonnelEntity personnelEntity = new PersonnelEntity();
-        personnelEntity.setPnum("X001");
-        personnelEntity.setPname(pname);
+        personnelEntity.setPnum("X002");
+        personnelEntity.setName(name);
         personnelEntity.setTel(tel);
         personnelEntity.setSex(sex);
         personnelEntity.setPosition(position);
@@ -72,5 +72,11 @@ public class PensonnelServiceImpl implements PersonnelService {
     @Override
     public PersonnelEntity selectOne(String id) {
       return  personnelDao.findById(id).get();
+    }
+
+    @Override
+    public PersonnelEntity updateOne(PersonnelEntity personnelEntity) {
+        return personnelDao.save(personnelEntity);
+
     }
 }

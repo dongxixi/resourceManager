@@ -10,7 +10,7 @@ import java.util.Objects;
 public class PersonnelEntity {
     private String id;
     private String pnum;
-    private String pname;
+    private String name;
     private String sex;
     private String position;
     private String tel;
@@ -41,13 +41,13 @@ public class PersonnelEntity {
 
 
     @Basic
-    @Column(name = "pname")
-    public String getPname() {
-        return pname;
+    @Column(name = "name")
+    public String getName() {
+        return name;
     }
 
-    public void setPname(String pname) {
-        this.pname = pname;
+    public void setName(String name) {
+        this.name = name;
     }
 
     @Basic
@@ -109,7 +109,7 @@ public class PersonnelEntity {
                 workTime == that.workTime &&
                 Objects.equals(id, that.id) &&
                 Objects.equals(pnum, that.pnum) &&
-                Objects.equals(pname, that.pname) &&
+                Objects.equals(name, that.name) &&
                 Objects.equals(sex, that.sex) &&
                 Objects.equals(position, that.position) &&
                 Objects.equals(tel, that.tel);
@@ -117,7 +117,7 @@ public class PersonnelEntity {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, pnum, pname, sex, position, tel, state, workTime);
+        return Objects.hash(id, pnum, name, sex, position, tel, state, workTime);
     }
 
     public PersonnelEntity() {

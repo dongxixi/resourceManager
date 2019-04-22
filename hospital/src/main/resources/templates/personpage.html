@@ -43,7 +43,7 @@
                     </a>
 
                     <!-- 导航栏 -->
-                    <a href="404.html" class="navbar-brand">
+                    <a href="personpage.html" class="navbar-brand">
                         <div class="brand-text brand-big hidden-lg-down nav-link">人员管理</div>
                     </a>
 
@@ -119,7 +119,7 @@
                     <div class="input-group ">
 
                         <div class="input-group-addon">姓名</div>
-                        <input type="text" class="form-control-sm" placeholder="姓名" name="pname">&emsp;
+                        <input type="text" class="form-control-sm" placeholder="姓名" name="name">&emsp;
                         <div class="input-group-addon">人员编号</div>
                         <input type="text" class="form-control-sm" placeholder="编号" name="pnum">&emsp;
                         <div class="input-group-addon">职位</div>
@@ -217,12 +217,12 @@
                 }
                 $.getJSON("personpage", {currPage: currPage}, fillData);
             } else if (button == "查询") {
-                var pname = $("[name=pname]").val();
+                var name = $("[name=name]").val();
                 var pnum = $("[name=pnum]").val();
                 var position = $("[name=position]").val();
 
                 currPage = 1;
-                $.getJSON("personpage", {currPage: currPage, pname: pname, pnum: pnum, position: position}, fillData);
+                $.getJSON("personpage", {currPage: currPage, name: name, pnum: pnum, position: position}, fillData);
             }
 
         });
@@ -235,7 +235,8 @@
         $table.empty();
         var $head = $("<thead>\n" +
             " <tr class='bg-info text-white' >\n" +
-            " <th>员工编号</th>\n" +
+            " <th>员工id</th>\n" +
+
             " <th>姓名</th>\n" +
             " <th>性别</th>\n" +
             " <th>职位</th>\n" +
@@ -250,7 +251,7 @@
         //获取传过来的列表
         $.each(data.dataList, function (i, e) {
             var id = e.id;
-            var name = e.pname;
+            var name = e.name;
             var sex = e.sex;
             var position = e.position;
             var tel = e.tel;
@@ -266,6 +267,7 @@
 
             var dataTr = "<tr>\n" +
                 "            <td>" + id + "</td>\n" +
+
                 "            <td>" + name + "</td>\n" +
                 "            <td>" + sex + "</td>\n" +
                 "            <td>" + position + "</td>\n" +
@@ -273,8 +275,8 @@
                 "            <td>" + state + "</td>\n" +
                 "            <td>" + workTime + "</td>\n" +
 
-                "            <td><a class='btn btn-outline-primary' href='personinfo?id=" + id + "'>查看</a>&emsp;" +
-                "               <a class='btn btn-outline-primary' href='personupdate?id=" + id + "'>修改</a>&emsp;" +
+                "            <td><a class='btn btn-outline-primary' href='selectperson?id=" + id + "'>查看</a>&emsp;" +
+                "               <a class='btn btn-outline-primary' href='selectpersonupdate?id=" + id + "'>修改</a>&emsp;" +
                 "               <a class='btn btn-outline-warning' href='persondelete?id=" + id + "'>删除</a></td>\n" +
                 "        </tr>";
 
