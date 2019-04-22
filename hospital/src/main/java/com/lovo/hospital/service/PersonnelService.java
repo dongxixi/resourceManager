@@ -49,4 +49,12 @@ public interface PersonnelService {
      */
     public PersonnelEntity selectOne(String id);
 
+    /**
+     * 修改一条数据
+     * @param personnelEntity
+     * @return
+     */
+    public PersonnelEntity updateOne(PersonnelEntity personnelEntity);
+
+
 }

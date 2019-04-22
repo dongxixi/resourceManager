@@ -73,4 +73,10 @@ public class PensonnelServiceImpl implements PersonnelService {
     public PersonnelEntity selectOne(String id) {
       return  personnelDao.findById(id).get();
     }
+
+    @Override
+    public PersonnelEntity updateOne(PersonnelEntity personnelEntity) {
+        return personnelDao.save(personnelEntity);
+
+    }
 }
