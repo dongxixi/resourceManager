@@ -122,9 +122,9 @@
                             <div class="form-group row">
                                 <div class="col-9">
                                     <input class="form-control" type="text" value="009" name="thingID" id="thingsNo"
-                                          th:field="${thing.eventId}" readonly>
+                                           th:field="${thing.eventId}" readonly>
                                 </div>
-                                <label for="thingsNo" style="width: 85px;" class=" col-form-label" >事件编号</label>
+                                <label for="thingsNo" style="width: 85px;" class=" col-form-label">事件编号</label>
                             </div>
                             <div class="form-group row">
                                 <div class="col-9">
@@ -157,10 +157,11 @@
                             <td>小七</td>
                             <td>女</td>
                         </tr>
-                        <tr th:each="op,itea:${outerPerson}">
-<!--                            <td><input type="checkbox"/><input type="hidden" th:field="${op.id}"/></td>-->
-<!--                            <td th:text="${op.name}"></td>-->
-<!--                            <td th:text="${op.sex}"></td>-->
+                        <tr th:each="op,ustate:${innerPerson}">
+                            <td><input type="checkbox"/><input type="hidden" th:value="${op.id}"/></td>
+                            <td th:text="${op.pnum}"></td>
+                            <td th:text="${op.name}"></td>
+                            <td th:text="${op.sex}"></td>
                         </tr>
                         </tbody>
                     </table>
@@ -177,7 +178,7 @@
                         </tr>
                         </thead>
                         <tbody>
-                      <tr th:each="in,ustate:${innerPerson}">
+                        <tr th:each="in,ustate:${innerPerson}">
                             <td th:text="${in.pnum}"></td>
                             <td th:text="${in.name}"></td>
                             <td th:text="${in.sex}"></td>
@@ -189,8 +190,8 @@
                     <div class="form-group row">
                         <label for="personChoose" style="width: 85px;" class=" col-form-label">人员预览</label>
                         <div class="col-9">
-                            <input class="form-control" type="text" value="" name="persons" id="personChoose" readonly/>
-                            <input type="hidden" value="" name="persons" id="personChoosen"/>
+                            <input class="form-control" type="text" value="" id="personChoose" readonly/>
+                            <input type="hidden" value="" name="persons" id="persons"/>
                         </div>
                     </div>
                 </div>
@@ -207,29 +208,14 @@
                         </thead>
                         <tbody>
                         <tr>
-                            <th><input type="checkbox" class="checkbox" id="0001"/></th>
+                            <th><input type="checkbox" class="checkbox" value="00001"/></th>
                             <td>川A.00001</td>
                             <td>王司机</td>
                         </tr>
-                        <tr>
-                            <th><input type="checkbox" class="checkbox"/></th>
-                            <td>川A.00000</td>
-                            <td>王司机</td>
-                        </tr>
-                        <tr>
-                            <th><input type="checkbox" class="checkbox"/></th>
-                            <td>川A.00000</td>
-                            <td>王司机</td>
-                        </tr>
-                        <tr>
-                            <th><input type="checkbox" class="checkbox"/></th>
-                            <td>川A.00000</td>
-                            <td>王司机</td>
-                        </tr>
-                        <tr>
-                            <th><input type="checkbox" class="checkbox"/></th>
-                            <td>川A.00000</td>
-                            <td>王司机</td>
+                        <tr th:each="out,ustate:${outerCar}">
+                            <th><input type="checkbox" class="checkbox" th:value="${out.id}"/></th>
+                            <td th:text="${out.carNum}"></td>
+                            <td th:text="${out.driver}"></td>
                         </tr>
                         </tbody>
                     </table>
@@ -250,7 +236,10 @@
                             <td>川A.00032</td>
                             <td>司机</td>
                         </tr>
-
+                        <tr th:each="in,ustate:${innerCar}">
+                            <td th:text="${in.carNum}"></td>
+                            <td th:text="${in.driver}"></td>
+                        </tr>
                         </tbody>
                     </table>
                 </div>
@@ -259,7 +248,8 @@
                     <div class="form-group row">
                         <label for="carChoose" style="width: 85px;" class=" col-form-label">车辆预览</label>
                         <div class="col-9">
-                            <input class="form-control" type="text" value="" name="cars" id="carChoose" readonly/>
+                            <input class="form-control" type="text" value="" id="carChoose" readonly/>
+                            <input type="hidden" value="" name="cars" id="cars" readonly/>
                         </div>
                         <div class="col-sm-2">
                             <input class="form-control btn btn-general btn-blue" type="submit" value="提交选中数据"/>
@@ -292,20 +282,25 @@
     $("#outerPerson tr:eq(0)").click(function () {
         $(this).find(":checkbox").prop("checked", !($(this).find(":checkbox").prop("checked")));
         $("#outerPerson :checkbox:gt(0)").prop("checked", $("#outerPerson :checkbox:eq(0)").prop("checked"));
-        PersonText();
+        personText();
     });
     $("#outerPerson tr:gt(0)").click(function () {
         $(this).find(":checkbox").prop("checked", !($(this).find(":checkbox").prop("checked")));
         $("#outerPerson :checkbox:eq(0)").prop("checked", $("#outerPerson :checkbox:gt(0):checked").length == $("#outerPerson :checkbox:gt(0)").length);
-        PersonText();
+        personText();
     });
 
-    function PersonText() {
+    function personText() {
         var $personChoose = "";
         $.each($("#outerPerson :checkbox:gt(0):checked"), function (i, n) {
             $personChoose += "," + $(n).parent().next("td").text();
         })
         $("#personChoose").val($personChoose.substr(1));
+        $personChoose = "";
+        $.each($("#outerPerson :checkbox:gt(0):checked"), function (i, n) {
+            $personChoose += "," + $(n).next().val();
+        })
+        $("#persons").val($personChoose.substr(1));
     }
 
 
@@ -326,6 +321,11 @@
             $carChoose += "," + $(n).parent().next("td").text();
         });
         $("#carChoose").val($carChoose.substr(1));
+        $carChoose = "";
+        $.each($("#outerCar :checkbox:gt(0):checked"), function (i, n) {
+            $carChoose += "," + $(n).val();
+        });
+        $("#cars").val($carChoose.substr(1));
     }
 
 
