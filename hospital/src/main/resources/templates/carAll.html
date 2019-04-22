@@ -64,7 +64,8 @@
 
                 <!-- 全屏 -->
                 <li class="nav-item d-flex align-items-center full_scr_exp"><a class="nav-link" href="#"><img
-                        src="/staticResources/img/expand.png" onclick="toggleFullScreen(document.body)" class="img-fluid" alt=""></a>
+                        src="/staticResources/img/expand.png" onclick="toggleFullScreen(document.body)"
+                        class="img-fluid" alt=""></a>
                 </li>
 
                 <!-- 账号切换 -->
@@ -145,7 +146,8 @@
                         </div>
                         <div class="col-md-4">
                             <button type="button" class="btn btn-outline-primary" value="上一页">上一页</button>
-                            <input type="text" class="form-control-sm" placeholder="输入页数" id="input" style="width: 100px"/>
+                            <input type="text" class="form-control-sm" placeholder="输入页数" id="input"
+                                   style="width: 100px"/>
                             <span id="pageShow"></span>
                             <button type="button" class="btn btn-outline-primary" value="GO">GO</button>
                             <button type="button" class="btn btn-outline-primary" value="下一页">下一页</button>
@@ -159,7 +161,6 @@
                 <br>
 
             </div>
-
 
 
         </div>
@@ -195,31 +196,55 @@
             var btn = this.value;
             var currPage = $(":hidden[name=currPage]").val();
             var totalPage = $(":hidden[name=totalPage]").val();
-
+            var carNum = $("[name=carNum]").val();
+            var driver = $("[name=driver]").val();
+            var state = $("[name=state]").val();
             currPage = parseInt(currPage);
             totalPage = parseInt(totalPage);
             if (btn == "上一页") {
+
                 currPage = currPage - 1;
                 if (currPage < 1) {
                     currPage = 1;
                 }
-                $.getJSON("findCarByCondition", {currPage: currPage}, fillData);
+                $.getJSON("findCarByCondition", {
+                    currPage: currPage,
+                    carNum: carNum,
+                    driver: driver,
+                    state: state
+                }, fillData);
             } else if (btn == "下一页") {
+
+
                 currPage = currPage + 1;
                 if (currPage > totalPage) {
                     currPage = totalPage;
                 }
-                $.getJSON("findCarByCondition", {currPage: currPage}, fillData);
-            } else if (btn=="GO"){
-                var inputPage=$(":input[name=input]").val();
+                $.getJSON("findCarByCondition", {
+                    currPage: currPage,
+                    carNum: carNum,
+                    driver: driver,
+                    state: state
+                }, fillData);
+            } else if (btn == "GO") {
+                var inputPage = $(":input[name=input]").val();
+
                 currPage = inputPage;
-                $.getJSON("findCarByCondition", {currPage: currPage}, fillData);
-            }else if (btn=="查询"){
-                var carNum=$("[name=carNum]").val();
-                var driver=$("[name=driver]").val();
-                var state=$("[name=state]").val();
+                $.getJSON("findCarByCondition", {
+                    currPage: currPage,
+                    carNum: carNum,
+                    driver: driver,
+                    state: state
+                }, fillData);
+            } else if (btn == "查询") {
+
                 currPage = 1;
-                $.getJSON("findCarByCondition", {currPage: currPage,carNum:carNum,driver:driver,state:state}, fillData);
+                $.getJSON("findCarByCondition", {
+                    currPage: currPage,
+                    carNum: carNum,
+                    driver: driver,
+                    state: state
+                }, fillData);
             }
         });
     });
@@ -242,18 +267,18 @@
             var carNum = e.carNum;
             var driver = e.driver;
             var state = e.state;
-            if(state==1){
-                state="已派出";
-            }else if(state==0){
-                state="未派出";
+            if (state == 1) {
+                state = "已派出";
+            } else if (state == 0) {
+                state = "未派出";
             }
 
             var dataTr = "<tr>\n" +
                 "            <td>" + carNum + "</td>\n" +
                 "            <td>" + driver + "</td>\n" +
                 "            <td>" + state + "</td>\n" +
-                "            <td><a class='btn btn-outline-primary' href='updateInfoCar?id="+cid+"'>修改</a>&emsp;" +
-                "                   <a class='btn btn-outline-warning' href='deleteCar?id="+cid+"'>删除</a></td>\n" +
+                "            <td><a class='btn btn-outline-primary' href='updateInfoCar?id=" + cid + "'>修改</a>&emsp;" +
+                "                   <a class='btn btn-outline-warning' href='deleteCar?id=" + cid + "'>删除</a></td>\n" +
                 "        </tr>";
 
             $table.append(dataTr);

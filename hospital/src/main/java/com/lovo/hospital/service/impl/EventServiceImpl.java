@@ -12,6 +12,7 @@ import java.util.List;
 
 @Service(value = "eventService")
 public class EventServiceImpl implements EventService {
+
     @Autowired
     private EventDao eventDao;
     /**
@@ -25,8 +26,8 @@ public class EventServiceImpl implements EventService {
      */
     @Override
     public List<EventRecordListDto> getEventDtoList(Integer currPage, String eventName, String startTime, String endTime) {
-        Integer starIndext = (currPage - 1) * currPage;
-        List<Object> objects =eventDao.getEventDtoList( starIndext,  eventName,  startTime,  endTime);
+        Integer starIndex = (currPage - 1) * currPage;
+        List<Object> objects =eventDao.getEventDtoList(starIndex,10,eventName,startTime,endTime);
         List<EventRecordListDto> eventRecordListDtos = new ArrayList<>();
         EventRecordListDto eventRecordListDto = null;
         for (Object object : objects) {

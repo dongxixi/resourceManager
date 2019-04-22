@@ -1,5 +1,6 @@
 package com.lovo.hospital.dto;
 
+
 import java.util.Date;
 
 public class EventRecordListDto {

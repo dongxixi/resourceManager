@@ -26,7 +26,7 @@ public class ActiveMqClient {
                 @Override
                 public TextMessage createMessage(Session session) throws JMSException {
                     TextMessage textMessage = session.createTextMessage();
-                    textMessage.setText("消息来啦");
+                    textMessage.setText("消息来啦allalalalalalalala");
                     return textMessage;
                 }
             });

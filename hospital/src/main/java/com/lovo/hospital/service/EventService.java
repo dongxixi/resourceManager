@@ -14,7 +14,7 @@ public interface EventService {
      * @param endTime  条件结束时间
      * @return
      */
-    List<EventRecordListDto> getEventDtoList(Integer currPage, String eventName, String startTime, String endTime);
+    public List<EventRecordListDto> getEventDtoList(Integer currPage, String eventName, String startTime, String endTime);
 
     /**
      * 总页数
@@ -24,5 +24,5 @@ public interface EventService {
      * @param endTime 条件结束时间
      * @return
      */
-    Integer getTotalPage(Integer pageSize, String eventName, String startTime, String endTime);
+    public Integer getTotalPage(Integer pageSize, String eventName, String startTime, String endTime);
 }
