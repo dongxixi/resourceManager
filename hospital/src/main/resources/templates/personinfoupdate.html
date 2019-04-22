@@ -124,7 +124,7 @@
                                 <div class="form-group">
                                     <label for="name">姓名</label>
                                     <input type="text" class="form-control" id="name" aria-describedby="emailHelp"
-                                           placeholder="Enter Name" th:field="${personnelEntity.name}" name="name" disabled="disabled" >
+                                           placeholder="Enter Name" th:field="${personnelEntity.name}" name="name">
                                 </div>
                                 <div class="form-group">
                                     <label>编号</label><br/>
@@ -133,23 +133,23 @@
                                 <div class="form-group">
                                     <label for="pro-tel">电话</label>
                                     <input type="text" class="form-control" id="pro-tel" aria-describedby="emailHelp"
-                                           placeholder="Enter tel"  th:field="${personnelEntity.tel}" name="tel" disabled="disabled" >
+                                           placeholder="Enter tel"  th:field="${personnelEntity.tel}" name="tel">
                                 </div>
                                 <div class="form-group">
                                     <label>性别</label><br/>
-                                    <input type="text" name="sex" th:field="${personnelEntity.sex}" disabled="disabled" >
+                                    <input type="text" name="sex" th:field="${personnelEntity.sex}">
                                 </div>
                                 <div class="form-group">
                                     <label for="pro-position">职务</label>
                                     <input type="text" class="form-control" id="pro-position"
                                            aria-describedby="emailHelp" placeholder="Enter position"
-                                           th:field="${personnelEntity.position}" name="position" disabled="disabled" >
+                                           th:field="${personnelEntity.position}" name="position">
                                 </div>
 
                             </div>
 
                         </div>
-
+                        <button type="submit" class="btn btn-general btn-blue mr-2">提交</button>
                         <button  type="button" class="btn btn-general btn-blue mr-2" onclick="window.location.href='personAll'">返回</button>
 
                     </form>

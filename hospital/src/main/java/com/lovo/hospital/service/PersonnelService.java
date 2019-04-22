@@ -35,7 +35,7 @@ public interface PersonnelService {
      * @param position
      * @return
      */
-    public  PersonnelEntity saveOnePersonnel(String name,String tel,String sex,String position);
+    public  PersonnelEntity saveOnePersonnel(String name,String pnum,String tel,String sex,Integer workTime,String position);
 
     /**
      * 删除一条数据
@@ -48,5 +48,13 @@ public interface PersonnelService {
      * @param id
      */
     public PersonnelEntity selectOne(String id);
+
+    /**
+     * 修改一条数据
+     * @param personnelEntity
+     * @return
+     */
+    public PersonnelEntity updateOne(PersonnelEntity personnelEntity);
+
 
 }

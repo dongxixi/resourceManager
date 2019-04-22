@@ -109,9 +109,17 @@ public class CarController {
     }
 
     @RequestMapping("deleteCar")
-    public ModelAndView deleteCar(String id){
-        carService.deleteCar(id);
-        ModelAndView modelAndView=new ModelAndView("carAll");
-        return modelAndView;
+    @ResponseBody
+    public String deleteCar(String cid){
+        CarEntity carEntity = carService.infoCarById(cid);
+        if (carEntity.getState()==0) {
+            Integer integer = carService.deleteCar(cid);
+
+            return ""+integer;
+        }
+        else{
+            //车辆派出，不能删除
+            return "-1";
+        }
     }
 }

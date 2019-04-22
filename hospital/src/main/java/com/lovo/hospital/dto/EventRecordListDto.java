@@ -4,6 +4,7 @@ package com.lovo.hospital.dto;
 import java.util.Date;
 
 public class EventRecordListDto {
+
     private String eventIdNull;
     private String eventId;
     private String eventName;

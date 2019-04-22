@@ -57,6 +57,6 @@ public interface CarService {
      * @param carId 车辆Id
      * @return
      */
-    public void deleteCar(String carId);
+    public Integer deleteCar(String carId);
 
 }

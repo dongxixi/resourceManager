@@ -28,7 +28,7 @@ public interface EventDao extends CrudRepository<EventEntity, String> {
             " and if(:startTime is not null and :endTime is  null,event_time > :startTime ,1=1) " +
             " and if(:startTime is  null and :endTime is not null,event_time < :endTime,1=1) " +
             " limit :startIndex,:pageNum", nativeQuery = true)
-    public List<Object> getEventDtoList(@Param("starIndex") Integer starIndex,
+    public List<Object> getEventDtoList(@Param("startIndex") Integer startIndex,
                                         @Param("pageNum") Integer pageNum,
                                         @Param("eventName") String eventName,
                                         @Param("startTime") String startTime,
