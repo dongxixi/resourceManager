@@ -65,7 +65,8 @@
 
                 <!-- 全屏 -->
                 <li class="nav-item d-flex align-items-center full_scr_exp"><a class="nav-link" href="#"><img
-                        src="/staticResources/img/expand.png" onclick="toggleFullScreen(document.body)" class="img-fluid" alt=""></a>
+                        src="/staticResources/img/expand.png" onclick="toggleFullScreen(document.body)"
+                        class="img-fluid" alt=""></a>
                 </li>
 
                 <!-- 账号切换 -->
@@ -117,17 +118,15 @@
 
                         <div class="input-group ">
 
-                                <div class="input-group-addon">事件名称</div>
-                                <input type="text" class="form-control-sm" placeholder="事件名称" name="eventName">&emsp;
-                                <div class="input-group-addon">开始时间</div>
-                                <input type="date" class="form-control-sm" placeholder="开始时间" name="startTime">&emsp;
-                                <div class="input-group-addon">结束时间</div>
-                                <input type="date" class="form-control-sm" placeholder="结束时间" name="endTime">&emsp;
-                                <button type="button" class="btn btn-outline-primary">查询</button>
-                                <button type="button" class="btn btn-outline-primary">清空条件</button>
-                            <!--记录当前是第几页-->
-                            <input type="hidden" name="currPage">
-                            <input type="hidden" name="totalPage">
+                            <div class="input-group-addon">事件名称</div>
+                            <input type="text" class="form-control-sm" placeholder="事件名称" name="eventName">&emsp;
+                            <div class="input-group-addon">开始时间</div>
+                            <input type="date" class="form-control-sm" placeholder="开始时间" name="startTime">&emsp;
+                            <div class="input-group-addon">结束时间</div>
+                            <input type="date" class="form-control-sm" placeholder="结束时间" name="endTime">&emsp;
+                            <button type="button" class="btn btn-outline-primary">查询</button>
+                            <button type="button" class="btn btn-outline-primary">清空条件</button>
+
                         </div>
 
                         <br>
@@ -168,14 +167,16 @@
                 <from>
                     <div class="row">
                         <div class="col-md-4">
-                        </div>
-                        <div class="col-md-4">
-                            <button type="button" class="btn btn-outline-primary">上一页</button>
-
-                            <input type="text" class="form-control-sm" placeholder="输入页数" style="width: 100px"/>
+                            <button type="button" class="btn btn-outline-primary" value="上一页">上一页</button>
+                            <input type="text" class="form-control-sm" placeholder="输入页数" id="input"
+                                   style="width: 100px"/>
                             <span id="pageShow"></span>
-                            <button type="button" class="btn btn-outline-primary">GO</button>
-                            <button type="button" class="btn btn-outline-primary">下一页</button>
+                            <button type="button" class="btn btn-outline-primary" value="GO">GO</button>
+                            <button type="button" class="btn btn-outline-primary" value="下一页">下一页</button>
+
+                            <!--记录当前是第几页-->
+                            <input type="hidden" name="currPage">
+                            <input type="hidden" name="totalPage">
                         </div>
                     </div>
                 </from>
@@ -213,6 +214,9 @@
             var btn = this.value;
             var currPage = $(":hidden[name=currPage]").val();
             var totalPage = $(":hidden[name=totalPage]").val();
+            var eventName = $("[name=eventName]").val();
+            var startTime = $("[name=startTime]").val();
+            var endTime = $("[name=endTime]").val();
 
             currPage = parseInt(currPage);
             totalPage = parseInt(totalPage);
@@ -221,24 +225,41 @@
                 if (currPage < 1) {
                     currPage = 1;
                 }
-                $.getJSON("eventRecordList", {currPage: currPage}, fillData);
+                $.getJSON("eventRecordList", {
+                    currPage: currPage,
+                    eventName: eventName,
+                    startTime: startTime,
+                    endTime: endTime
+                }, fillData);
             } else if (btn == "下一页") {
                 currPage = currPage + 1;
                 if (currPage > totalPage) {
                     currPage = totalPage;
                 }
-                $.getJSON("eventRecordList", {currPage: currPage}, fillData);
-            } else if (btn=="GO"){
-                var inputPage=$(":input[name=input]").val();
+                $.getJSON("eventRecordList", {
+                    currPage: currPage,
+                    eventName: eventName,
+                    startTime: startTime,
+                    endTime: endTime
+                }, fillData);
+            } else if (btn == "GO") {
+                var inputPage = $(":input[name=input]").val();
                 currPage = inputPage;
-                $.getJSON("eventRecordList", {currPage: currPage}, fillData);
-            }else if (btn=="查询"){
-                var carNum=$("[name=carNum]").val();
-                var eventName=$("[name=eventName]").val();
-                var startTime=$("[name=startTime]").val();
-                var endTime=$("[name=endTime]").val();
+                $.getJSON("eventRecordList", {
+                    currPage: currPage,
+                    eventName: eventName,
+                    startTime: startTime,
+                    endTime: endTime
+                }, fillData);
+            } else if (btn == "查询") {
+
                 currPage = 1;
-                $.getJSON("eventRecordList", {currPage: currPage,carNum:carNum,eventName:eventName,startTime:startTime,endTime:endTime}, fillData);
+                $.getJSON("eventRecordList", {
+                    currPage: currPage,
+                    eventName: eventName,
+                    startTime: startTime,
+                    endTime: endTime
+                }, fillData);
             }
         });
     });
@@ -252,16 +273,16 @@
             var eventName = e.eventName;
             var eventBeginTime = e.eventBeginTime;
             var peopleNum = e.peopleNum;
-            var carNum = e.state;
+            var carNum = e.carNum;
             var state = e.state;
             var link = null;
 
-            if(state==1){
-               var href =" href =\"javascript:return false;\" "
-               var style=" style=\"opacity: 0.2\" "
+            if (state == 1) {
+                var href = " href =\"javascript:return false;\" "
+                var style = " style=\"opacity: 0.2\" "
                 link = href + style;
-            }else if(state==0){
-                link=" href=' 进入事件操作的方法（东升） ?id=\"+eventId+\"' ";
+            } else if (state == 0) {
+                link = " href=' 进入事件操作的方法（东升） ?id=\"+eventId+\"' ";
             }
 
             var dataTr = "<tr>\n" +
@@ -272,8 +293,8 @@
                 "            <td>" + carNum + "</td>\n" +
                 "            <td>" + state + "</td>\n" +
                 "            <td><a class='btn btn-outline-primary' " + link + ">事件处理</a>&emsp;" +
-                "                <a class='btn btn-outline-primary' href='updateCar?id="+eventId+"'>资源归队</a>&emsp;" +
-                "                <a class='btn btn-outline-warning' href='deleteCar?id="+eventId+"'>事件详情</a></td>\n" +
+                "                <a class='btn btn-outline-primary' href='updateCar?id=" + eventId + "'>资源归队</a>&emsp;" +
+                "                <a class='btn btn-outline-warning' href='deleteCar?id=" + eventId + "'>事件详情</a></td>\n" +
                 "        </tr>";
 
             $table.append(dataTr);

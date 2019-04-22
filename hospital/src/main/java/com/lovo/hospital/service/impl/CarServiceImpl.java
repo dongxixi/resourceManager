@@ -34,24 +34,28 @@ public class CarServiceImpl implements CarService {
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public CarEntity saveCar(String carNum, String dirveName) {
         CarEntity carEntity = new CarEntity();
         carEntity.setCarNum(carNum);
         carEntity.setDriver(dirveName);
         //默认添加状态为0，未派出
         carEntity.setState(0);
-        return carDao.save(carEntity);
-    }
-
-    @Override
-    @Transactional(rollbackFor = Exception.class)
-    public CarEntity updateCar(CarEntity carEntity) {
         CarEntity save = carDao.save(carEntity);
         //在资源表里面car加1
         ResourceStatisticsEntity rs = resourceStatisticsDao.findById("1").get();
         //在原有的基础上加1
         rs.setcVacantNum(rs.getcVacantNum() + 1);
         resourceStatisticsDao.save(rs);
+
+        return save;
+    }
+
+    @Override
+
+    public CarEntity updateCar(CarEntity carEntity) {
+        CarEntity save = carDao.save(carEntity);
+
         return save;
     }
 
