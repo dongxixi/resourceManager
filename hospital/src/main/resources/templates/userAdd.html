@@ -118,32 +118,28 @@
                         <h3><i class="fa fa-archive"></i>添加用户</h3>
                     </div>
                     <br>
-                    <form>
+                    <form form th:action="@{addUser}" method="post">
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="userName">用户名</label>
-                                    <input name="driver" type="text" class="form-control" id="userName">
+                                    <input name="userName" type="text" class="form-control" id="userName">
                                 </div>
                                 <div class="form-group">
                                     <label for="password">密码</label>
-                                    <input name="driver" type="text" class="form-control" id="password">
+                                    <input name="password" type="text" class="form-control" id="password">
                                 </div>
                                 <div class="form-group">
                                     <label for="role">角色</label>
-                                    <input type="text" class="form-control" id="role" value="医院管理员" disabled="true">
-                                </div>
-                                <div class="form-group">
-                                    <label for="power">权限</label>
-                                    <select class="form-control-feedback" id="power">
-                                        <option value="chakan">查看</option>
-                                        <option value="caozuo">操作</option>
+                                    <select class="form-control-feedback" id="role" name="roleName">
+                                        <option value="1">医院值班员</option>
+                                        <option value="2">医院管理员</option>
                                     </select>
                                 </div>
                             </div>
                         </div>
                         <button type="submit" class="btn btn-general btn-blue mr-2">添加</button>
-                        <button type="reset" class="btn btn-general btn-white">取消</button>
+                        <button type="reset" class="btn btn-general btn-white" >取消</button>
                     </form>
                 </div>
             </div>

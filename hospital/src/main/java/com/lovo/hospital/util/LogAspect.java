@@ -58,7 +58,7 @@ public class LogAspect {
         if (joinPoint.getArgs() == null) {// 没有参数
             return;
         }
-         String username=user.getUsername();
+//         String username=user.getUsername();
         // 获取方法名
 //        String methodName = joinPoint.getSignature().getName();
         // 获取操作内容
@@ -68,7 +68,7 @@ public class LogAspect {
 
 //        logService.insertLog(log);
 
-        System.out.println(username);
+//        System.out.println(username);
     }
 
 
