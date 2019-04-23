@@ -1,7 +1,6 @@
 package com.lovo.hospital.service.impl;
 
 import com.lovo.hospital.dao.EventDao;
-import com.lovo.hospital.dto.EventInfoDto;
 import com.lovo.hospital.dto.EventRecordListDto;
 import com.lovo.hospital.entity.CarEntity;
 import com.lovo.hospital.entity.EventEntity;

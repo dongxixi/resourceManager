@@ -1,11 +1,7 @@
 package com.lovo.hospital.dao;
 
-import com.lovo.hospital.dto.EventInfoDto;
-import com.lovo.hospital.dto.EventRecordListDto;
-import com.lovo.hospital.entity.CarEntity;
 import com.lovo.hospital.entity.EventEntity;
 
-import com.lovo.hospital.entity.PersonnelEntity;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
