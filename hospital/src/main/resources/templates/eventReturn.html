@@ -114,25 +114,17 @@
                         <div class="col-md-12">
                             <div class="form-group row">
                                 <div class="col-9">
-                                    <input class="form-control" type="text" value="008" id="requestId"
-                                           th:field="${dispatch.requestId}" readonly>
-                                </div>
-                                <label for="requestId" class=" col-form-label">派遣编号</label>
-                            </div>
-                            <div class="form-group row">
-                                <div class="col-9">
                                     <input class="form-control" type="text" value="009" id="thingsNo"
-                                           th:field="${thing.id}" readonly/>
+                                           th:field="${event.id}" readonly/>
                                 </div>
                                 <label for="thingsNo" style="width: 85px;" class=" col-form-label">事件编号</label>
                             </div>
                             <div class="form-group row">
                                 <div class="col-9">
                                     <input class="form-control" type="text" value="007" id="thingsName"
-                                           th:field="${thing.eventName}" readonly/>
+                                           th:field="${event.eventName}" readonly/>
                                 </div>
-                                <label for="thingsName" style="width: 85px;" class=" col-form-label"
-                                >事件名称</label>
+                                <label for="thingsName" style="width: 85px;" class=" col-form-label" >事件名称</label>
                             </div>
                         </div>
                     </div>
@@ -151,17 +143,11 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr>
-                            <th><input type="checkbox" class="checkbox"/><input type="hidden" value="0112"/></th>
-                            <td>011</td>
-                            <td>小七</td>
-                            <td>女</td>
-                        </tr>
-                        <tr th:each="op,ustate:${innerPerson}">
-                            <th><input type="checkbox"/><input type="hidden" th:value="${op.id}"/></th>
-                            <td th:text="${op.pnum}"></td>
-                            <td th:text="${op.name}"></td>
-                            <td th:text="${op.sex}"></td>
+                        <tr th:each="op,opstate:${outerPerson}">
+                            <th><input type="checkbox" th:value="${op.id}"/></th>
+                            <td th:text="${op.personnelEntity.pnum}"></td>
+                            <td th:text="${op.personnelEntity.name}"></td>
+                            <td th:text="${op.personnelEntity.sex}"></td>
                         </tr>
                         </tbody>
                     </table>
@@ -179,9 +165,9 @@
                         </thead>
                         <tbody>
                         <tr th:each="in,ustate:${innerPerson}">
-                            <td th:text="${in.pnum}"></td>
-                            <td th:text="${in.name}"></td>
-                            <td th:text="${in.sex}"></td>
+                            <td th:text="${in.personnelEntity.pnum}"></td>
+                            <td th:text="${in.personnelEntity.name}"></td>
+                            <td th:text="${in.personnelEntity.sex}"></td>
                         </tr>
                         </tbody>
                     </table>
@@ -207,15 +193,10 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr>
-                            <th><input type="checkbox" class="checkbox" value="00001"/></th>
-                            <td>川A.00001</td>
-                            <td>王司机</td>
-                        </tr>
                         <tr th:each="out,ustate:${outerCar}">
                             <th><input type="checkbox" class="checkbox" th:value="${out.id}"/></th>
-                            <td th:text="${out.carNum}"></td>
-                            <td th:text="${out.driver}"></td>
+                            <td th:text="${out.carEntity.carNum}"></td>
+                            <td th:text="${out.carEntity.driver}"></td>
                         </tr>
                         </tbody>
                     </table>
@@ -232,13 +213,9 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr>
-                            <td>川A.00032</td>
-                            <td>司机</td>
-                        </tr>
                         <tr th:each="in,ustate:${innerCar}">
-                            <td th:text="${in.carNum}"></td>
-                            <td th:text="${in.driver}"></td>
+                            <td th:text="${in.carEntity.carNum}"></td>
+                            <td th:text="${in.carEntity.driver}"></td>
                         </tr>
                         </tbody>
                     </table>
@@ -298,7 +275,7 @@
         $("#personChoose").val($personChoose.substr(1));
         $personChoose = "";
         $.each($("#outerPerson :checkbox:gt(0):checked"), function (i, n) {
-            $personChoose += "," + $(n).next().val();
+            $personChoose += "," + $(n).val();
         })
         $("#persons").val($personChoose.substr(1));
     }

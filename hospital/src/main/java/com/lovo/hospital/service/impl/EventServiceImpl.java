@@ -1,13 +1,17 @@
 package com.lovo.hospital.service.impl;
 
+import com.lovo.hospital.dao.CarLogDao;
 import com.lovo.hospital.dao.EventDao;
+import com.lovo.hospital.dao.PersonLogDao;
 import com.lovo.hospital.dto.EventRecordListDto;
 import com.lovo.hospital.entity.*;
 import com.lovo.hospital.service.EventService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -16,6 +20,10 @@ public class EventServiceImpl implements EventService {
 
     @Autowired
     private EventDao eventDao;
+    @Autowired
+    private CarLogDao carLogDao;
+    @Autowired
+    private PersonLogDao personLogDao;
 
     /**
      * 条件得到事件列表
@@ -33,16 +41,15 @@ public class EventServiceImpl implements EventService {
         List<EventRecordListDto> eventRecordListDtos = new ArrayList<>();
 
 
-
         for (Object[] objs : objects) {
             EventRecordListDto erDto = new EventRecordListDto();
             erDto.setEventId(objs[0].toString());
             erDto.setEventIdNull(objs[1].toString());
             erDto.setEventName(objs[2].toString());
             erDto.setEventBeginTime((Date) objs[3]);
-            erDto.setPeopleNum( Integer.parseInt(objs[4].toString()));
-            erDto.setCarNum( Integer.parseInt(objs[5].toString()));
-            erDto.setState( Integer.parseInt(objs[6].toString()));
+            erDto.setPeopleNum(Integer.parseInt(objs[4].toString()));
+            erDto.setCarNum(Integer.parseInt(objs[5].toString()));
+            erDto.setState(Integer.parseInt(objs[6].toString()));
 
 
             eventRecordListDtos.add(erDto);
@@ -67,7 +74,7 @@ public class EventServiceImpl implements EventService {
     }
 
     @Override
-    public EventEntity getEventInfo(String eid){
+    public EventEntity getEventInfo(String eid) {
         EventEntity eventEntity = eventDao.findById(eid).get();
         //通过事件编号查所有的派遣
 
@@ -75,16 +82,81 @@ public class EventServiceImpl implements EventService {
     }
 
     @Override
+    public List<PersonnelLogEntity> getOuterPersons(String eid) {
+        List<PersonnelLogEntity> ps = getEventInfoPersonnel(eid);
+        List<PersonnelLogEntity> list = new ArrayList<>();
+        for (PersonnelLogEntity p : ps) {
+            if (p.getState() > 0) {
+                list.add(p);
+            }
+        }
+        return list;
+    }
+
+    @Override
+    public List<PersonnelLogEntity> getInnerPersons(String eid) {
+        List<PersonnelLogEntity> list = new ArrayList<>();
+        for (PersonnelLogEntity p : getEventInfoPersonnel(eid)) {
+            if (p.getState() < 1) {
+                list.add(p);
+            }
+        }
+        return list;
+    }
+
+    @Override
+    public List<CarLogEntity> getOuterCars(String eid) {
+        List<CarLogEntity> list = new ArrayList<>();
+        for (CarLogEntity c : getEventInfoCar(eid)) {
+            if (c.getState() > 0) {
+                list.add(c);
+            }
+        }
+        return list;
+    }
+
+    @Override
+    public List<CarLogEntity> getInnerCars(String eid) {
+        List<CarLogEntity> list = new ArrayList<>();
+        for (CarLogEntity c : getEventInfoCar(eid)) {
+            if (c.getState() < 1) {
+                list.add(c);
+            }
+        }
+        return list;
+    }
+
+    @Override
+    public void returnPersonAndCar(String persons, String cars) {
+
+        Iterable<PersonnelLogEntity> ps = personLogDao.findAllById(Arrays.asList(persons.split(",")));
+        for (PersonnelLogEntity pl : ps) {
+            pl.setReturnTime(new Timestamp(System.currentTimeMillis()));
+            pl.setState(0);
+            pl.getPersonnelEntity().setState(0);
+        }
+        personLogDao.saveAll(ps);
+
+        Iterable<CarLogEntity> cs = carLogDao.findAllById(Arrays.asList(cars.split(",")));
+        for (CarLogEntity c : cs) {
+            c.setReturnTime(new Timestamp(System.currentTimeMillis()));
+            c.setState(0);
+            c.getCarEntity().setState(0);
+        }
+        carLogDao.saveAll(cs);
+    }
+
+    @Override
     public List<PersonnelLogEntity> getEventInfoPersonnel(String eid) {
         List<Object[]> objects = eventDao.getEventInfoPersonnel(eid);
-        List<PersonnelLogEntity> personnelLogEntityList=new ArrayList<>();
+        List<PersonnelLogEntity> personnelLogEntityList = new ArrayList<>();
 
         for (Object[] obj :
                 objects) {
-            PersonnelLogEntity pl=new PersonnelLogEntity();
+            PersonnelLogEntity pl = new PersonnelLogEntity();
             pl.setId(obj[8].toString());
 
-            PersonnelEntity p=new PersonnelEntity();
+            PersonnelEntity p = new PersonnelEntity();
             p.setId(obj[0].toString());
             p.setName(obj[1].toString());
             p.setPnum(obj[2].toString());
@@ -104,10 +176,10 @@ public class EventServiceImpl implements EventService {
     @Override
     public List<CarLogEntity> getEventInfoCar(String eid) {
         List<Object[]> objects = eventDao.getEventInfoCar(eid);
-        List<CarLogEntity> carLogEntityList=new ArrayList<>();
+        List<CarLogEntity> carLogEntityList = new ArrayList<>();
         for (Object[] obj :
                 objects) {
-            CarLogEntity cl=new CarLogEntity();
+            CarLogEntity cl = new CarLogEntity();
             cl.setId(obj[4].toString());
 
             CarEntity c = new CarEntity();

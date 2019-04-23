@@ -1,9 +1,7 @@
 package com.lovo.hospital.controller;
 
-import com.lovo.hospital.entity.CarEntity;
-import com.lovo.hospital.entity.DispatchEntity;
-import com.lovo.hospital.entity.EventEntity;
-import com.lovo.hospital.entity.PersonnelEntity;
+import com.lovo.hospital.entity.*;
+import com.lovo.hospital.service.EventService;
 import com.lovo.hospital.service.PersonnelService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -26,6 +24,8 @@ public class EventReturnController {
 
     @Autowired
     private PersonnelService personnelService;
+    @Autowired
+    private EventService eventService;
 
     @RequestMapping("test")
     public String gotoMainPage() {
@@ -33,54 +33,25 @@ public class EventReturnController {
     }
 
     @RequestMapping("eventReturn")
-    public ModelAndView eventReturn(String eventId) {
-//        System.out.println(eventId);
-
-
-        List<CarEntity> outerCar = new ArrayList<>();
-        List<CarEntity> innerCar = new ArrayList<>();
-        CarEntity outC = new CarEntity();
-        CarEntity innerC = new CarEntity();
-        outC.setId("0123");
-        outC.setCarNum("川A.00001");
-        outC.setDriver("王铁柱");
-        outC.setState(1);
-        innerC.setId("01234");
-        innerC.setCarNum("川A.00002");
-        innerC.setDriver("张柱");
-        innerC.setState(2);
-        outerCar.add(outC);
-        outerCar.add(outC);
-        innerCar.add(innerC);
-        innerCar.add(innerC);
-        EventEntity event = new EventEntity();
-
-        event.setId("event");
-        event.setEventName("成都遭遇袭击");
-        DispatchEntity dispatch = new DispatchEntity();
-        dispatch.setEventEntity(event);
-        dispatch.setRequestId("requestID");
-        dispatch.setcNum(9);
-        dispatch.setpNum(5);
-
+    public ModelAndView eventReturn(String id) {
         ModelAndView mv = new ModelAndView("eventReturn");
-        List<PersonnelEntity> ps = personnelService.getAllListBySearch("", "", "", 1, 5);
-        mv.addObject("outerPerson", ps);
-        mv.addObject("innerPerson", ps);
-        mv.addObject("outerCar", outerCar);
-        mv.addObject("innerCar", innerCar);
-        mv.addObject("thing", event);
-        mv.addObject("dispatch", dispatch);
+        List<PersonnelLogEntity> outerPersons = eventService.getOuterPersons(id);
+        mv.addObject("outerPerson", outerPersons);
+        List<PersonnelLogEntity> innerPersons = eventService.getInnerPersons(id);
+        mv.addObject("innerPerson", innerPersons);
+        List<CarLogEntity> outerCars = eventService.getOuterCars(id);
+        mv.addObject("outerCar", outerCars);
+        List<CarLogEntity> innerCars = eventService.getInnerCars(id);
+        mv.addObject("innerCar", innerCars);
+        EventEntity eventInfo = eventService.getEventInfo(id);
+        mv.addObject("event", eventInfo);
         return mv;
     }
 
     @RequestMapping("eventReturn.do")
-    public String doEventReturn(String eventId, String persons, String cars, RedirectAttributes reAttr) {
-
-        System.out.println(eventId);
-        System.out.println(persons);
-        System.out.println(cars);
-        reAttr.addAttribute("eventId", eventId);
+    public String doEventReturn(String id, String persons, String cars, RedirectAttributes reAttr) {
+        eventService.returnPersonAndCar(persons, cars);
+        reAttr.addAttribute("id", id);
         return "redirect:/eventReturn";
     }
 

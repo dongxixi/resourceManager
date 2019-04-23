@@ -49,4 +49,45 @@ public interface EventService {
      * @return
      */
     public EventEntity getEventInfo(String eid);
+
+
+    /**
+     * 通过事件id查询说关联的在外人员信息
+     *
+     * @param eid
+     * @return
+     */
+    public List<PersonnelLogEntity> getOuterPersons(String eid);
+
+    /**
+     * 通过事件id查询说关联的归巢人员信息
+     *
+     * @param eid
+     * @return
+     */
+    public List<PersonnelLogEntity> getInnerPersons(String eid);
+
+    /**
+     * 通过事件id查询说关联的在外车辆
+     *
+     * @param eid
+     * @return
+     */
+    public List<CarLogEntity> getOuterCars(String eid);
+
+    /**
+     * 通过事件id查询说关联的归巢车辆
+     *
+     * @param eid
+     * @return
+     */
+    public List<CarLogEntity> getInnerCars(String eid);
+
+    /**
+     *
+     * 将车辆人员作归队处理
+     * @param persons 人员ID字符串， 逗号分隔符
+     * @param cars  车辆ID字符串， 逗号分隔符
+     */
+    public void returnPersonAndCar(String persons, String cars);
 }
