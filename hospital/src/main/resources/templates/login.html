@@ -35,16 +35,16 @@
             <div class="col-md-12 ">
                 <div class="contact-h-cont"></br>
                   <h3 class="text-center" style="color: #0b96e5"><b>医院调度管理系统</b></h3></br>
-                  <form>
+                  <form class="form-horizontal col-md-offset-4" role="form" th:action="@{loginyanzheng}" method="post">
                     <div class="form-group">
-                      <label for="username">用户名</label>
-                      <input type="text" class="form-control" id="username" >
+                      <label for="userName">用户名</label>
+                      <input type="text" class="form-control" id="userName"  name="userName" placeholder="请输入用户名"/>
                     </div>  
                     <div class="form-group">
                       <label for="password">密码</label>
-                      <input class="form-control" type="password"  id="password">
+                      <input class="form-control" type="password"  id="password" name="password" placeholder="请输入密码"/>
                     </div>   
-                    <button class="btn btn-general btn-blue" role="button">登录</button>
+                    <button class="btn btn-general btn-blue" role="button" type="submit">登录</button>
                   </form>
                 </div>
             </div>

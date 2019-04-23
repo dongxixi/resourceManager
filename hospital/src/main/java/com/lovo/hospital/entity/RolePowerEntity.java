@@ -8,30 +8,39 @@ import java.util.Objects;
 @Entity
 @Table(name = "t_role_power")
 public class RolePowerEntity {
-    private String id;
-
     @Id
-    @Column(name="id",length=32)
-    @GenericGenerator(name="powerUUID",strategy="uuid")
-    @GeneratedValue(generator="powerUUID")
-    public String getId() {
-        return id;
+    @GenericGenerator(name="roleUserUUID",strategy="uuid")
+    @GeneratedValue(generator="roleUserUUID")
+    @Column(length=32)
+    private String rpId;
+    @ManyToOne
+    @JoinColumn(name="role_id")
+    private RoleEntity role;
+    @ManyToOne
+    @JoinColumn(name="power_id")
+    private PowerEntity power;
+
+    public String getRpId() {
+        return rpId;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setRpId(String rpId) {
+        this.rpId = rpId;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        RolePowerEntity that = (RolePowerEntity) o;
-        return Objects.equals(id, that.id);
+    public RoleEntity getRole() {
+        return role;
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(id);
+    public void setRole(RoleEntity role) {
+        this.role = role;
+    }
+
+    public PowerEntity getPower() {
+        return power;
+    }
+
+    public void setPower(PowerEntity power) {
+        this.power = power;
     }
 }

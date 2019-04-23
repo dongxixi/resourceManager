@@ -4,39 +4,42 @@ import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "t_user")
 public class UserEntity {
-    private String id;
-    private String username;
-    private String password;
-    private String systemName;
-
     @Id
-    @Column(name="id",length=32)
+    @Column(name="uid",length=32)
     @GenericGenerator(name="powerUUID",strategy="uuid")
     @GeneratedValue(generator="powerUUID")
-    public String getId() {
-        return id;
+    private String uId;
+    @Column(length=32)
+    private String userName;
+    @Column(length=32)
+    private String password;
+    @Column(length=32)
+    private String systemName;
+    @OneToMany(mappedBy="user")
+    private Set<UserRoleEntity> setUserRole;
+
+
+    public String getuId() {
+        return uId;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setuId(String uId) {
+        this.uId = uId;
     }
 
-    @Basic
-    @Column(name = "username")
-    public String getUsername() {
-        return username;
+    public String getUserName() {
+        return userName;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
-    @Basic
-    @Column(name = "password")
     public String getPassword() {
         return password;
     }
@@ -45,8 +48,6 @@ public class UserEntity {
         this.password = password;
     }
 
-    @Basic
-    @Column(name = "system_name")
     public String getSystemName() {
         return systemName;
     }
@@ -55,19 +56,11 @@ public class UserEntity {
         this.systemName = systemName;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        UserEntity that = (UserEntity) o;
-        return Objects.equals(id, that.id) &&
-                Objects.equals(username, that.username) &&
-                Objects.equals(password, that.password) &&
-                Objects.equals(systemName, that.systemName);
+    public Set<UserRoleEntity> getSetUserRole() {
+        return setUserRole;
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, username, password, systemName);
+    public void setSetUserRole(Set<UserRoleEntity> setUserRole) {
+        this.setUserRole = setUserRole;
     }
 }
