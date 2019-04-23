@@ -4,46 +4,52 @@ import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "t_role")
 public class RoleEntity {
-    private String id;
-    private String rolename;
-
     @Id
-    @Column(name="id",length=32)
-    @GenericGenerator(name="powerUUID",strategy="uuid")
-    @GeneratedValue(generator="powerUUID")
-    public String getId() {
-        return id;
+    @Column(name="rid",length=32)
+    @GenericGenerator(name="roleUUID",strategy="uuid")
+    @GeneratedValue(generator="roleUUID")
+    private String rId;
+    @Column(length=32)
+    private String roleName;
+    @OneToMany(mappedBy="role")
+    private Set<UserRoleEntity> setUserRole;
+	@OneToMany(mappedBy="role")
+    private Set<RolePowerEntity> setRolePower;
+
+    public String getrId() {
+        return rId;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setrId(String rId) {
+        this.rId = rId;
     }
 
-    @Basic
-    @Column(name = "rolename")
-    public String getRolename() {
-        return rolename;
+    public String getRoleName() {
+        return roleName;
     }
 
-    public void setRolename(String rolename) {
-        this.rolename = rolename;
+    public void setRoleName(String roleName) {
+        this.roleName = roleName;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        RoleEntity that = (RoleEntity) o;
-        return Objects.equals(id, that.id) &&
-                Objects.equals(rolename, that.rolename);
+    public Set<UserRoleEntity> getSetUserRole() {
+        return setUserRole;
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, rolename);
+    public void setSetUserRole(Set<UserRoleEntity> setUserRole) {
+        this.setUserRole = setUserRole;
+    }
+
+    public Set<RolePowerEntity> getSetRolePower() {
+        return setRolePower;
+    }
+
+    public void setSetRolePower(Set<RolePowerEntity> setRolePower) {
+        this.setRolePower = setRolePower;
     }
 }

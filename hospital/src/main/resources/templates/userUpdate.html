@@ -119,27 +119,26 @@
                         <h3><i class="fa fa-archive"></i>修改用户</h3>
                     </div>
                     <br>
-                    <form>
+                    <form th:action="@{updateInfoUser}" method="post">
                         <div class="row">
                             <div class="col-md-6">
-
                                 <div class="form-group">
-                                    <label for="userName">用户名</label>
-                                    <input name="driver" type="text" class="form-control" id="userName" >
+                                    <label for="userId">用户ID</label>
+                                    <input  type="text" class="form-control" id="userId" th:name="uid" th:value="${uid}" readonly>
                                 </div>
                                 <div class="form-group">
-                                    <label for="passwor">密码</label>
-                                    <input name="driver" type="text" class="form-control" id="passwor" >
+                                    <label for="userName">用户名</label>
+                                    <input  type="text" class="form-control" id="userName" th:name="userName" th:value="${user.getUserName()}" >
+                                </div>
+                                <div class="form-group">
+                                    <label for="password">密码</label>
+                                    <input  type="text" class="form-control" id="password"  th:name="password" th:value="${user.getPassword()}">
                                 </div>
                                 <div class="form-group">
                                     <label for="role">角色</label>
-                                    <input type="text" class="form-control" id="role"  value="医院管理员" disabled="true">
-                                </div>
-                                <div class="form-group">
-                                    <label for="power">权限</label>
-                                    <select class="form-control-feedback" id="power">
-                                        <option value="chakan">查看</option>
-                                        <option value="caozuo">操作</option>
+                                    <select class="form-control-feedback" id="role" th:name="roleName" th:value="${roleName}">
+                                        <option value="1">医院值班员</option>
+                                        <option value="2">医院管理员</option>
                                     </select>
                                 </div>
                             </div>

@@ -4,58 +4,42 @@ import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "t_power")
 public class PowerEntity {
-    private String id;
-    private String powername;
-    private String uri;
-
     @Id
-    @Column(name="id",length=32)
+    @Column(name="pid",length=32)
     @GenericGenerator(name="powerUUID",strategy="uuid")
     @GeneratedValue(generator="powerUUID")
-    public String getId() {
-        return id;
+    private String pId;
+    @Column(length=32)
+    private String powernName;
+    @OneToMany(mappedBy="power")
+    private Set<RolePowerEntity> setRolePower;
+
+    public String getpId() {
+        return pId;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setpId(String pId) {
+        this.pId = pId;
     }
 
-    @Basic
-    @Column(name = "powername")
-    public String getPowername() {
-        return powername;
+    public String getPowernName() {
+        return powernName;
     }
 
-    public void setPowername(String powername) {
-        this.powername = powername;
+    public void setPowernName(String powernName) {
+        this.powernName = powernName;
     }
 
-    @Basic
-    @Column(name = "uri")
-    public String getUri() {
-        return uri;
+    public Set<RolePowerEntity> getSetRolePower() {
+        return setRolePower;
     }
 
-    public void setUri(String uri) {
-        this.uri = uri;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        PowerEntity that = (PowerEntity) o;
-        return Objects.equals(id, that.id) &&
-                Objects.equals(powername, that.powername) &&
-                Objects.equals(uri, that.uri);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, powername, uri);
+    public void setSetRolePower(Set<RolePowerEntity> setRolePower) {
+        this.setRolePower = setRolePower;
     }
 }

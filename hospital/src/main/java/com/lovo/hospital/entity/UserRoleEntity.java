@@ -3,35 +3,46 @@ package com.lovo.hospital.entity;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
-import java.util.Objects;
 
 @Entity
 @Table(name = "t_user_role")
 public class UserRoleEntity {
-    private String id;
 
     @Id
-    @Column(name="id",length=32)
-    @GenericGenerator(name="powerUUID",strategy="uuid")
-    @GeneratedValue(generator="powerUUID")
-    public String getId() {
-        return id;
+    @GenericGenerator(name="roleUserUUID",strategy="uuid")
+    @GeneratedValue(generator="roleUserUUID")
+    @Column(length=32)
+    private String urId;
+
+    @ManyToOne
+    @JoinColumn(name="user_id")
+    private UserEntity user;
+
+    @ManyToOne
+    @JoinColumn(name="role_id")
+    private RoleEntity role;
+
+    public String getUrId() {
+        return urId;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setUrId(String urId) {
+        this.urId = urId;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        UserRoleEntity that = (UserRoleEntity) o;
-        return Objects.equals(id, that.id);
+    public UserEntity getUser() {
+        return user;
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(id);
+    public void setUser(UserEntity user) {
+        this.user = user;
+    }
+
+    public RoleEntity getRole() {
+        return role;
+    }
+
+    public void setRole(RoleEntity role) {
+        this.role = role;
     }
 }
