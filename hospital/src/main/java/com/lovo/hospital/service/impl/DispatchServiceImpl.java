@@ -71,12 +71,14 @@ public class DispatchServiceImpl implements DispatchService {
             Timestamp startTime = new Timestamp(System.currentTimeMillis());
             carLog.setStartTime(startTime);
 
-            carLog.setState(0);
+            carLog.setState(1);
 
             carList.add(carLog);
         }
 
         carLogDao.saveAll(carList);
+        dispatchEntity.setState(1);
+        dispatchDao.save(dispatchEntity);
 
 
         //通过返回的字符串，获取所有需要派出人员的id，在添加到记录里

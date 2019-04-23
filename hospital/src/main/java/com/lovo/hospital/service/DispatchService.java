@@ -17,4 +17,5 @@ public interface DispatchService {
     int dispatch(String dispatchId, String personInCharge, String personUpdateList, String carUpdateList);
 
     DispatchEntity getDispatchById(String id);
+
 }

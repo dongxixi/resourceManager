@@ -50,6 +50,8 @@ public class EventReturnController {
 
     @RequestMapping("eventReturn.do")
     public String doEventReturn(String id, String persons, String cars, RedirectAttributes reAttr) {
+        persons = persons == null ? "" : persons;
+        cars = cars == null ? "" : cars;
         eventService.returnPersonAndCar(persons, cars);
         reAttr.addAttribute("id", id);
         return "redirect:/eventReturn";
