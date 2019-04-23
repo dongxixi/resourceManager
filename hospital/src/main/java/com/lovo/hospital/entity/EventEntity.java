@@ -47,4 +47,83 @@ public class EventEntity {
     @Column(name = "p_id")
     private String pId;
 
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getEventName() {
+        return eventName;
+    }
+
+    public void setEventName(String eventName) {
+        this.eventName = eventName;
+    }
+
+    public String getEventType() {
+        return eventType;
+    }
+
+    public void setEventType(String eventType) {
+        this.eventType = eventType;
+    }
+
+    public String getEventArea() {
+        return eventArea;
+    }
+
+    public void setEventArea(String eventArea) {
+        this.eventArea = eventArea;
+    }
+
+    public Timestamp getEventTime() {
+        return eventTime;
+    }
+
+    public void setEventTime(Timestamp eventTime) {
+        this.eventTime = eventTime;
+    }
+
+    public String getAlarmPerson() {
+        return alarmPerson;
+    }
+
+    public void setAlarmPerson(String alarmPerson) {
+        this.alarmPerson = alarmPerson;
+    }
+
+    public String getAlarmTel() {
+        return alarmTel;
+    }
+
+    public void setAlarmTel(String alarmTel) {
+        this.alarmTel = alarmTel;
+    }
+
+    public String getAlarmAddress() {
+        return alarmAddress;
+    }
+
+    public void setAlarmAddress(String alarmAddress) {
+        this.alarmAddress = alarmAddress;
+    }
+
+    public Integer getEventProceed() {
+        return eventProceed;
+    }
+
+    public void setEventProceed(Integer eventProceed) {
+        this.eventProceed = eventProceed;
+    }
+
+    public String getpId() {
+        return pId;
+    }
+
+    public void setpId(String pId) {
+        this.pId = pId;
+    }
 }

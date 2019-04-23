@@ -3,14 +3,20 @@ package com.lovo.hospital.entity;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import javax.persistence.criteria.CriteriaBuilder;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "t_dispatch")
 public class DispatchEntity {
     private String requestId;
+
+
     private EventEntity eventEntity;
+
     private int pNum;
+
     private int cNum;
 
     @Id
@@ -55,15 +61,5 @@ public class DispatchEntity {
         this.eventEntity = eventEntity;
     }
 
-    public DispatchEntity(String requestId, EventEntity eventEntity, int pNum, int cNum) {
-        this.requestId = requestId;
-        this.eventEntity = eventEntity;
-        this.pNum = pNum;
-        this.cNum = cNum;
-    }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(requestId, pNum, cNum);
-    }
 }
