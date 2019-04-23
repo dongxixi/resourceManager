@@ -14,6 +14,29 @@ public class PersonnelLogEntity {
     private Timestamp returnTime;
     private int state;
 
+    private PersonnelEntity personnelEntity;
+    private DispatchEntity dispatchEntity;
+
+    @ManyToOne
+    @JoinColumn(name = "p_id")
+    public PersonnelEntity getPersonnelEntity() {
+        return personnelEntity;
+    }
+
+    public void setPersonnelEntity(PersonnelEntity personnelEntity) {
+        this.personnelEntity = personnelEntity;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "d_id")
+    public DispatchEntity getDispatchEntity() {
+        return dispatchEntity;
+    }
+
+    public void setDispatchEntity(DispatchEntity dispatchEntity) {
+        this.dispatchEntity = dispatchEntity;
+    }
+
     @Id
     @Column(name="id",length=32)
     @GenericGenerator(name="powerUUID",strategy="uuid")

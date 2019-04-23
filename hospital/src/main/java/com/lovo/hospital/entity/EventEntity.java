@@ -44,8 +44,9 @@ public class EventEntity {
     @Column(name = "event_proceed")
     private Integer eventProceed;
 
-    @Column(name = "p_id")
-    private String pId;
+    @OneToOne
+    @JoinColumn(name = "p_id")
+    private PersonnelEntity personnelEntity;
 
     public String getId() {
         return id;
@@ -119,11 +120,11 @@ public class EventEntity {
         this.eventProceed = eventProceed;
     }
 
-    public String getpId() {
-        return pId;
+    public PersonnelEntity getPersonnelEntity() {
+        return personnelEntity;
     }
 
-    public void setpId(String pId) {
-        this.pId = pId;
+    public void setPersonnelEntity(PersonnelEntity personnelEntity) {
+        this.personnelEntity = personnelEntity;
     }
 }

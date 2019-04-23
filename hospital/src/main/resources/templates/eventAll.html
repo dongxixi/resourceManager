@@ -230,7 +230,7 @@
                     endTime: endTime
                 }, fillData);
             } else if (btn == "GO") {
-                var inputPage = $(":input[name=input]").val();
+                var inputPage = $("#input").val();
                 currPage = inputPage;
                 $.getJSON("eventRecordList", {
                     currPage: currPage,

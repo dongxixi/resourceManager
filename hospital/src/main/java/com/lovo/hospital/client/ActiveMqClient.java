@@ -13,7 +13,7 @@ import javax.jms.Session;
 import javax.jms.TextMessage;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("api")
 public class ActiveMqClient {
 
     @Autowired
