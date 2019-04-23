@@ -53,7 +53,7 @@ public class XUTestController {
         innerCar.add(innerC);
         innerCar.add(innerC);
         EventEntity event = new EventEntity();
-        event.setEventId("event01");
+//        event.setEventId("event01");
         event.setId("event");
         event.setEventName("成都遭遇袭击");
 
