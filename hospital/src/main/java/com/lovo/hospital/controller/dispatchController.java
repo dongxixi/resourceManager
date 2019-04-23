@@ -5,14 +5,16 @@ import com.lovo.hospital.entity.PersonnelEntity;
 import com.lovo.hospital.service.CarService;
 import com.lovo.hospital.service.PersonnelService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@RestController
+@Controller
 public class dispatchController {
 
     @Autowired
@@ -21,7 +23,7 @@ public class dispatchController {
     @Autowired
     private PersonnelService personService;
 
-    @RequestMapping("getCarList")
+    @RequestMapping("getCarList")@ResponseBody
     public Map<String, Object> getCarList(Integer pageNo) {
 
         List<CarEntity> carList = carService.findCarByCondition(pageNo, 2, null, null, null);
@@ -34,7 +36,7 @@ public class dispatchController {
         return map;
     }
 
-    @RequestMapping("getPersonList")
+    @RequestMapping("getPersonList")@ResponseBody
     public Map<String, Object> getPersonList(Integer pageNo) {
 
         List<PersonnelEntity> personList = personService.getAllListBySearch(null, null, null, pageNo,2);
@@ -45,5 +47,13 @@ public class dispatchController {
         map.put("list", personList);
 
         return map;
+    }
+
+    @RequestMapping("dispatch")
+    public ModelAndView dispatch(String thingId, String personInCharge, String personUpdateList, String carUpdateList) {
+        ModelAndView mv = new ModelAndView();
+
+
+        return mv;
     }
 }
