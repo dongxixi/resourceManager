@@ -55,7 +55,37 @@ public class PersonnelLogEntity {
     @JoinColumn(name = "p_id")
     private PersonnelEntity personnelEntity;
 
+    public String getId() {
+        return id;
+    }
 
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public Timestamp getStartTime() {
+        return startTime;
+    }
+
+    public void setStartTime(Timestamp startTime) {
+        this.startTime = startTime;
+    }
+
+    public Timestamp getReturnTime() {
+        return returnTime;
+    }
+
+    public void setReturnTime(Timestamp returnTime) {
+        this.returnTime = returnTime;
+    }
+
+    public int getState() {
+        return state;
+    }
+
+    public void setState(int state) {
+        this.state = state;
+    }
 
     @Override
     public boolean equals(Object o) {

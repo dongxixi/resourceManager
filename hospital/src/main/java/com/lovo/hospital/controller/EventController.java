@@ -2,9 +2,7 @@ package com.lovo.hospital.controller;
 
 import com.lovo.hospital.bean.PaginationBean;
 import com.lovo.hospital.dto.EventRecordListDto;
-import com.lovo.hospital.entity.CarEntity;
-import com.lovo.hospital.entity.EventEntity;
-import com.lovo.hospital.entity.PersonnelEntity;
+import com.lovo.hospital.entity.*;
 import com.lovo.hospital.service.EventService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -55,13 +53,13 @@ public class EventController {
 
     @RequestMapping("eventInfo")
     public ModelAndView eventInfo(String eid){
-        List<CarEntity> eventInfoCar = eventService.getEventInfoCar(eid);
-        List<PersonnelEntity> eventInfoPersonnel = eventService.getEventInfoPersonnel(eid);
+        List<CarLogEntity> eventInfoCarLog = eventService.getEventInfoCar(eid);
+        List<PersonnelLogEntity> eventInfoPersonnelLog = eventService.getEventInfoPersonnel(eid);
         EventEntity eventInfo = eventService.getEventInfo(eid);
         ModelAndView modelAndView=new ModelAndView("eventDetails");
         modelAndView.addObject("eventInfo",eventInfo);
-        modelAndView.addObject("eventCarList",eventInfoCar);
-        modelAndView.addObject("eventPersonnelList",eventInfoPersonnel);
+        modelAndView.addObject("eventCarLogList",eventInfoCarLog);
+        modelAndView.addObject("eventPersonnelLogList",eventInfoPersonnelLog);
         return modelAndView;
     }
 
