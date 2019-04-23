@@ -3,7 +3,6 @@ package com.lovo.hospital.entity;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
-import javax.persistence.criteria.CriteriaBuilder;
 import java.util.Objects;
 import java.util.Set;
 
@@ -11,13 +10,33 @@ import java.util.Set;
 @Table(name = "t_dispatch")
 public class DispatchEntity {
     private String requestId;
-
-
     private EventEntity eventEntity;
-
     private int pNum;
-
     private int cNum;
+
+
+    private Set<PersonnelLogEntity> personnelLogEntities;
+
+
+    private Set<CarLogEntity> carLogEntities;
+
+    @OneToMany(mappedBy = "dispatchEntity")
+    public Set<CarLogEntity> getCarLogEntities() {
+        return carLogEntities;
+    }
+
+    public void setCarLogEntities(Set<CarLogEntity> carLogEntities) {
+        this.carLogEntities = carLogEntities;
+    }
+
+    @OneToMany(mappedBy = "dispatchEntity")
+    public Set<PersonnelLogEntity> getPersonnelLogEntities() {
+        return personnelLogEntities;
+    }
+
+    public void setPersonnelLogEntities(Set<PersonnelLogEntity> personnelLogEntities) {
+        this.personnelLogEntities = personnelLogEntities;
+    }
 
     @Id
     @Column(name="request_id",length=32)
@@ -61,5 +80,18 @@ public class DispatchEntity {
         this.eventEntity = eventEntity;
     }
 
+    public DispatchEntity() {
+    }
 
+    public DispatchEntity(String requestId, EventEntity eventEntity, int pNum, int cNum) {
+        this.requestId = requestId;
+        this.eventEntity = eventEntity;
+        this.pNum = pNum;
+        this.cNum = cNum;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(requestId, pNum, cNum);
+    }
 }

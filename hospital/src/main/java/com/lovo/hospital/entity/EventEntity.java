@@ -48,6 +48,10 @@ public class EventEntity {
     @JoinColumn(name = "p_id")
     private PersonnelEntity personnelEntity;
 
+
+
+
+
     public String getId() {
         return id;
     }

@@ -26,7 +26,7 @@ public class CarLogEntity {
         this.dispatchEntity = dispatchEntity;
     }
 
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "c_id")
     public CarEntity getCarEntity() {
         return carEntity;

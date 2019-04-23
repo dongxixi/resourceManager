@@ -18,7 +18,7 @@ import org.springframework.stereotype.Component;
 import java.sql.Timestamp;
 
 
-@Aspect
+//@Aspect
 @Component
 public class LogAspect {
     private String username;
