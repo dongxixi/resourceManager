@@ -4,7 +4,6 @@ import com.lovo.hospital.bean.PaginationBean;
 import com.lovo.hospital.entity.LogEntity;
 import com.lovo.hospital.entity.UserEntity;
 import com.lovo.hospital.service.ILogService;
-import com.lovo.hospital.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,15 +15,6 @@ import java.util.List;
 public class LogController {
     @Autowired
     private ILogService logService;
-    @Autowired
-    private IUserService userService;
-    @RequestMapping("showlog")
-    public String showlog(){
-        String s="canshu";
-        String s2="canshu3";
-        UserEntity login = userService.loginLog(s,s2);
-        return "showlog";
-    }
 
     @RequestMapping("findLog")
     @ResponseBody
