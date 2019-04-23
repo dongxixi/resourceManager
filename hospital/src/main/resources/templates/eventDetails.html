@@ -149,7 +149,7 @@
                             <div class="form-group row">
                                 <label for="caller" style="width: 85px;" class=" col-form-label">报警人</label>
                                 <div class="col-9">
-                                    <input class="form-control" type="text" value="事件编号" id="caller" disabled="disabled"
+                                    <input class="form-control" type="text" value="报警人" id="caller" disabled="disabled"
                                            th:value="${eventInfo.alarmPerson}">
                                 </div>
                             </div>
@@ -179,7 +179,7 @@
                             <div class="form-group row">
                                 <label for="type" style="width: 85px;" class=" col-form-label">事件类型</label>
                                 <div class="col-9">
-                                    <input class="form-control" type="text" value="处理进度" id="type" disabled="disabled"
+                                    <input class="form-control" type="text" value="事件类型" id="type" disabled="disabled"
                                            th:value="${eventInfo.eventType}">
                                 </div>
                             </div>
@@ -241,10 +241,10 @@
                                         <th>职位</th>
                                     </tr>
                                     </thead>
-                                    <tbody th:each="person,pState:${eventPersonnelList}">
+                                    <tbody th:each="person,pState:${eventPersonnelLogList}">
                                     <tr>
-                                        <td th:text="${person.name}"></td>
-                                        <td th:text="${person.position}"></td>
+                                        <td th:text="${person.personnelEntity.name}"></td>
+                                        <td th:text="${person.personnelEntity.position}"></td>
                                     </tr>
                                     </tbody>
                                 </table>
@@ -261,10 +261,10 @@
                                         <th>司机</th>
                                     </tr>
                                     </thead>
-                                    <tbody th:each="car,cState:${eventCarList}">
+                                    <tbody th:each="car,cState:${eventCarLogList}">
                                     <tr>
-                                        <td th:text="${car.carNum}"></td>
-                                        <td th:text="${car.driver}"></td>
+                                        <td th:text="${car.carEntity.carNum}"></td>
+                                        <td th:text="${car.carEntity.driver}"></td>
                                     </tr>
                                     </tbody>
                                 </table>

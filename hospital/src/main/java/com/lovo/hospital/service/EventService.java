@@ -1,9 +1,7 @@
 package com.lovo.hospital.service;
 
 import com.lovo.hospital.dto.EventRecordListDto;
-import com.lovo.hospital.entity.CarEntity;
-import com.lovo.hospital.entity.EventEntity;
-import com.lovo.hospital.entity.PersonnelEntity;
+import com.lovo.hospital.entity.*;
 import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
@@ -36,14 +34,14 @@ public interface EventService {
      * @param eid
      * @return
      */
-    public List<PersonnelEntity> getEventInfoPersonnel (String eid);
+    public List<PersonnelLogEntity> getEventInfoPersonnel (String eid);
 
     /**
      * 通过事件信息查询关联的所有的car信息
      * @param eid
      * @return
      */
-    public List<CarEntity> getEventInfoCar (String eid);
+    public List<CarLogEntity> getEventInfoCar (String eid);
 
     /**
      * 通过事件id查询事件详情

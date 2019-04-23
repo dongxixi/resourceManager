@@ -261,6 +261,7 @@
             var peopleNum = e.peopleNum;
             var carNum = e.carNum;
             var state = e.state;
+
             var link = null;
 
             if (state == 1) {
@@ -269,6 +270,11 @@
                 link = href + style;
             } else if (state == 0) {
                 link = " href=' 进入事件操作的方法（东升） ?id=\"+eventId+\"' ";
+            }
+            if(state=="0"){
+                state="未处理";
+            }else if(state=="1"){
+                state="已处理";
             }
 
             var dataTr = "<tr>\n" +
