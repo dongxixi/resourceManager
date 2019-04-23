@@ -41,20 +41,20 @@ public interface PersonnelService {
      * 删除一条数据
      * @param id
      */
-    public void deleteOne(String id);
+    public void deleteOnePerson(String id);
 
     /**
      * 查看一条数据
      * @param id
      */
-    public PersonnelEntity selectOne(String id);
+    public PersonnelEntity selectOnePerson(String id);
 
     /**
      * 修改一条数据
      * @param personnelEntity
      * @return
      */
-    public PersonnelEntity updateOne(PersonnelEntity personnelEntity);
+    public PersonnelEntity updateOnePerson(PersonnelEntity personnelEntity);
 
 
 }

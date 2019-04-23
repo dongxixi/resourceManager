@@ -10,7 +10,7 @@ import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.Objects;
 
-@Entity@Data@NoArgsConstructor@AllArgsConstructor
+@Entity@Data@NoArgsConstructor@AllArgsConstructor    //实体类，get\set方法，无参构造器，有参构造器
 @Table(name = "t_event")
 public class EventEntity {
 
