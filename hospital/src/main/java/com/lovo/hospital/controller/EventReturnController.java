@@ -16,7 +16,7 @@ import java.util.List;
 
 
 @Controller
-public class XUTestController {
+public class EventReturnController {
 
     /**
      * 跳到日照页面
