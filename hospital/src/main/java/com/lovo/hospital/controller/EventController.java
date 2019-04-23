@@ -3,13 +3,17 @@ package com.lovo.hospital.controller;
 import com.lovo.hospital.bean.PaginationBean;
 import com.lovo.hospital.dto.EventRecordListDto;
 import com.lovo.hospital.entity.CarEntity;
+import com.lovo.hospital.entity.DispatchEntity;
 import com.lovo.hospital.entity.EventEntity;
 import com.lovo.hospital.entity.PersonnelEntity;
+import com.lovo.hospital.service.DispatchService;
 import com.lovo.hospital.service.EventService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.DispatcherServlet;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.xml.ws.soap.Addressing;
@@ -21,6 +25,9 @@ import java.util.List;
 public class EventController {
     @Autowired
     private EventService eventService;
+
+    @Autowired
+    private DispatchService dispatchService;
 
     @RequestMapping("eventAll")
     public String eventAll() {
@@ -66,7 +73,19 @@ public class EventController {
     }
 
 
-
+    @RequestMapping("/eventOperation/{id}")
+    public ModelAndView main(@PathVariable("id") String id) {
+        ModelAndView mv = new ModelAndView();
+        mv.addObject("dispatchId", id);
+        DispatchEntity dispatchEntity = dispatchService.getDispatchById(id);
+        mv.addObject("personNum", dispatchEntity.getpNum());
+        mv.addObject("carNum", dispatchEntity.getcNum());
+        EventEntity eventEntity = dispatchEntity.getEventEntity();
+        mv.addObject("thingName", eventEntity.getEventName());
+        mv.addObject("thingAddress", eventEntity.getAlarmAddress());
+        mv.setViewName("event");
+        return mv;
+    }
 
 
 

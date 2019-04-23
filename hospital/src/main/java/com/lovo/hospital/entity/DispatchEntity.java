@@ -13,7 +13,7 @@ public class DispatchEntity {
     private EventEntity eventEntity;
     private int pNum;
     private int cNum;
-
+    private int state;
 
     private Set<PersonnelLogEntity> personnelLogEntities;
 
@@ -39,9 +39,9 @@ public class DispatchEntity {
     }
 
     @Id
-    @Column(name="request_id",length=32)
-    @GenericGenerator(name="powerUUID",strategy="uuid")
-    @GeneratedValue(generator="powerUUID")
+    @Column(name = "request_id", length = 32)
+    @GenericGenerator(name = "powerUUID", strategy = "uuid")
+    @GeneratedValue(generator = "powerUUID")
     public String getRequestId() {
         return requestId;
     }
@@ -78,6 +78,15 @@ public class DispatchEntity {
 
     public void setEventEntity(EventEntity eventEntity) {
         this.eventEntity = eventEntity;
+    }
+
+    @Column(name = "state")
+    public int getState() {
+        return state;
+    }
+
+    public void setState(int state) {
+        this.state = state;
     }
 
     public DispatchEntity() {

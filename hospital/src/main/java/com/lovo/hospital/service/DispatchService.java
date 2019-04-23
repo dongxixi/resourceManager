@@ -1,5 +1,7 @@
 package com.lovo.hospital.service;
 
+import com.lovo.hospital.entity.DispatchEntity;
+
 public interface DispatchService {
     /**
      *
@@ -13,4 +15,6 @@ public interface DispatchService {
      *          0:表示派出成功
      */
     int dispatch(String dispatchId, String personInCharge, String personUpdateList, String carUpdateList);
+
+    DispatchEntity getDispatchById(String id);
 }

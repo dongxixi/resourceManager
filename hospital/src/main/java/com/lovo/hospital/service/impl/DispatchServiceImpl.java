@@ -85,7 +85,7 @@ public class DispatchServiceImpl implements DispatchService {
             PersonnelLogEntity personnelLog = new PersonnelLogEntity();
             personnelLog.setDispatchEntity(dispatchEntity);
 
-            PersonnelEntity person = personnelService.selectOne(personId);
+            PersonnelEntity person = personnelService.selectOnePerson(personId);
             personnelLog.setPersonnelEntity(person);
 
             Timestamp startTime = new Timestamp(System.currentTimeMillis());
@@ -100,5 +100,10 @@ public class DispatchServiceImpl implements DispatchService {
 
 
         return 0;//正常完成返回0
+    }
+
+    @Override
+    public DispatchEntity getDispatchById(String id) {
+        return dispatchDao.findById(id).get();
     }
 }
