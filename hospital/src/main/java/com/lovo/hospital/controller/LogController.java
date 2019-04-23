@@ -15,6 +15,10 @@ import java.util.List;
 public class LogController {
     @Autowired
     private ILogService logService;
+    @RequestMapping("showlog")
+    public String showlog(){
+        return "showlog";
+    }
 
     @RequestMapping("findLog")
     @ResponseBody
