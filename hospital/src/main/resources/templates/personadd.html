@@ -222,12 +222,13 @@
         });
 
         function funname() {
-            var namet = $("input[name='name']");//这种取值是取到整个文本框
-            var show1 =$("#nametest");
-            if (namet.text().length==0){  //这样就是取到文本框里面所有的文本的长度，等于的是一个int类型
-                show1.html("姓名不能为空")
+            var $namet = $("input[name='name']");//这种取值是取到整个文本框
+            var $show1 =$("#nametest");
+            if ($namet.val().length==0){  //这样就是取到文本框里面所有的文本的长度，等于的是一个int类型
+                $show1.html("姓名不能为空");
                 return false;
             }else{
+                $show1.html("姓名输入正确");
                 return true;
             }
         }
