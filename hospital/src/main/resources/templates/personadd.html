@@ -123,7 +123,8 @@
                                 <div class="form-group">
                                     <label for="name">姓名</label>
                                     <input  name="name" type="text" class="form-control" id="name" aria-describedby="emailHelp"
-                                           placeholder="请输入姓名">
+                                           onblur="funname()">
+                                    <span id="nametest" style="color: #db4437"></span>
                                 </div>
                                 <div class="form-group">
                                     <label for="pro-tel">编号</label>
@@ -133,8 +134,8 @@
                                 <div class="form-group">
                                     <label for="pro-tel">电话</label>
                                     <input  name="tel" type="text" class="form-control" id="pro-tel" aria-describedby="emailHelp"
-                                           placeholder="请输入电话">
-                                </div>
+                                           placeholder="请输入电话" onblur="fun()">
+                                </div><span id="teltest" style="color: #db4437"></span>
                                 <div class="form-group">
                                     <label>性别</label><br/>
                                     <label for="male">男：</label><input type ="radio"id="male" name = "sex" value="男" checked="checked">
@@ -142,13 +143,26 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="pro-tel">排班</label>
-                                    <input  name="workTime" type="text" class="form-control" id="pro-worktime" aria-describedby="emailHelp"
-                                            placeholder="请输入排班时间">
+                                    <!--<input  name="workTime" type="text" class="form-control" id="pro-worktime" aria-describedby="emailHelp"-->
+                                            <!--placeholder="请输入数字1、2、3，排班时间（1）0：00-8：00，（2）8：00-16：00，（3）16：00-24：00">-->
+                                    <select name="workTime" id="pro-worktime"  style="width:150px">
+                                        <option value="1">00:00-8:00</option>
+                                        <option value="2">8:00-16:00</option>
+                                        <option value="3">16:00-24:00</option>
+
+                                    </select>
                                 </div>
                                 <div class="form-group">
                                     <label for="position">职务</label>
-                                    <input name="position" type="text" class="form-control" id="position"
-                                           aria-describedby="emailHelp" placeholder="请输入职位">
+                                    <!--<input name="position" type="text" class="form-control" id="position"-->
+                                           <!--aria-describedby="emailHelp" placeholder="请输入职位">-->
+                                    <select name="position" id="position"  style="width:150px">
+                                        <option value="医生">医生</option>
+                                        <option value="护士">护士</option>
+                                        <option value="护士长">护士长</option>
+                                        <option value="通勤人员">通勤人员</option>
+                                        <option value="司机">司机</option>
+                                    </select>
                                 </div>
 
                             </div>
@@ -206,6 +220,34 @@
                 }
             }
         });
+
+        function funname() {
+            var namet = $("input[name='name']");//这种取值是取到整个文本框
+            var show1 =$("#nametest");
+            if (namet.text().length==0){  //这样就是取到文本框里面所有的文本的长度，等于的是一个int类型
+                show1.html("姓名不能为空")
+                return false;
+            }else{
+                return true;
+            }
+        }
+
+
+        // 电话的正则表达式验证
+        function fun() {
+
+            var tel = $("input[name='tel']").val();
+            var teltest= new RegExp(/^[0-9]{11}$/);
+            var show =$("#teltest");
+
+            if (tel.match(teltest)){
+                show.html("输入正确")
+                return true;
+            }else{
+                show.html("位数输入有误")
+                return false;
+            }
+                }
     </script>
 </body>
 

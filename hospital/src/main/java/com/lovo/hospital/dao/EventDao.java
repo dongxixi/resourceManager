@@ -1,6 +1,5 @@
 package com.lovo.hospital.dao;
 
-import com.lovo.hospital.dto.EventRecordListDto;
 import com.lovo.hospital.entity.EventEntity;
 
 import org.springframework.data.jpa.repository.Query;
@@ -10,7 +9,15 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 
 public interface EventDao extends CrudRepository<EventEntity, String> {
-
+    /**
+     * 待条件查询事件信息
+     * @param startIndex    开始下标
+     * @param pageNum       要显示多少条
+     * @param eventName     事件名字
+     * @param startTime     事件开始时间
+     * @param endTime       事件结束时间
+     * @return
+     */
     @Query(value = "SELECT " +
             " e.id AS eventIdNull, " +
             "e.event_id AS eventId, " +
@@ -34,6 +41,13 @@ public interface EventDao extends CrudRepository<EventEntity, String> {
                                         @Param("startTime") String startTime,
                                         @Param("endTime") String endTime);
 
+    /**
+     * 查询事件的总条数
+     * @param eventName     事件名字
+     * @param startTime     事件开始时间
+     * @param endTime       事件结束时间
+     * @return
+     */
     @Query(value = "select count(*)" +
             "          FROM " +
             "          t_event e  " +
@@ -47,4 +61,32 @@ public interface EventDao extends CrudRepository<EventEntity, String> {
     public Integer getTotalCountByCondition(@Param("eventName") String eventName,
                                             @Param("startTime") String startTime,
                                             @Param("endTime") String endTime);
+
+    /**
+     * 通过事件id查询说关联的所有人员信息
+     * @param eid
+     * @return
+     */
+    @Query(value = "SELECT \n" +
+            "p.id , p.name ,p.pnum ,p.position,p.sex,p.state ,p.tel ,p.work_time\n" +
+            "from t_event e\n" +
+            "INNER JOIN t_dispatch d on e.id=d.e_id\n" +
+            "INNER JOIN t_personnel_log pl on d.request_id=pl.d_id\n" +
+            "INNER JOIN t_personnel p on p.id=pl.p_id" +
+            " where e.id=?1",nativeQuery = true)
+    public List<Object[]> getEventInfoPersonnel (String eid);
+
+    /**
+     * 通过事件信息查询所有的car信息
+     * @param eid
+     * @return
+     */
+    @Query(value = "SELECT \n" +
+            "c.id ,c.car_num ,c.driver ,c.state \n" +
+            "from t_event e\n" +
+            "INNER JOIN t_dispatch d on e.id=d.e_id\n" +
+            "INNER JOIN t_car_log cl on d.request_id=cl.d_id\n" +
+            "INNER JOIN t_car c on c.id=cl.c_id " +
+            "where e.id=?1",nativeQuery = true)
+    public List<Object[]> getEventInfoCar (String eid);
 }

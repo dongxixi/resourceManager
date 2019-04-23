@@ -263,6 +263,16 @@
                 state = "未派出";
             }
             var workTime = e.workTime;
+            if(workTime==1){
+                workTime="0:00-8:00";
+            }else if(workTime==2){
+                workTime="8:00-16:00";
+            }else if(workTime==3){
+                workTime="16:00-24:00";
+            }
+
+
+
 
             //以表格的形式展现出来
 
