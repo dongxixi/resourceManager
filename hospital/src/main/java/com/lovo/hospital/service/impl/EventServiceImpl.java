@@ -1,8 +1,11 @@
 package com.lovo.hospital.service.impl;
 
 import com.lovo.hospital.dao.EventDao;
+import com.lovo.hospital.dto.EventInfoDto;
 import com.lovo.hospital.dto.EventRecordListDto;
+import com.lovo.hospital.entity.CarEntity;
 import com.lovo.hospital.entity.EventEntity;
+import com.lovo.hospital.entity.PersonnelEntity;
 import com.lovo.hospital.service.EventService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -66,5 +69,48 @@ public class EventServiceImpl implements EventService {
         return totalPage;
     }
 
+    @Override
+    public EventEntity getEventInfo(String eid){
+        EventEntity eventEntity = eventDao.findById(eid).get();
+        //通过事件编号查所有的派遣
 
+        return eventEntity;
+    }
+
+    @Override
+    public List<PersonnelEntity> getEventInfoPersonnel(String eid) {
+        List<Object[]> objects = eventDao.getEventInfoPersonnel(eid);
+        List<PersonnelEntity> personnelEntityList=new ArrayList<>();
+
+        for (Object[] obj :
+                objects) {
+            PersonnelEntity p=new PersonnelEntity();
+            p.setId(obj[0].toString());
+            p.setName(obj[1].toString());
+            p.setPnum(obj[2].toString());
+            p.setPosition(obj[3].toString());
+            p.setSex(obj[4].toString());
+            p.setState(Integer.parseInt(obj[5].toString()));
+            p.setTel(obj[6].toString());
+            p.setWorkTime(Integer.parseInt(obj[7].toString()));
+            personnelEntityList.add(p);
+        }
+        return personnelEntityList;
+    }
+
+    @Override
+    public List<CarEntity> getEventInfoCar(String eid) {
+        List<Object[]> objects = eventDao.getEventInfoCar(eid);
+        List<CarEntity> carEntityList=new ArrayList<>();
+        for (Object[] obj :
+                objects) {
+            CarEntity c = new CarEntity();
+            c.setId(obj[0].toString());
+            c.setCarNum(obj[1].toString());
+            c.setDriver(obj[2].toString());
+            c.setState(Integer.parseInt(obj[3].toString()));
+            carEntityList.add(c);
+        }
+        return carEntityList;
+    }
 }

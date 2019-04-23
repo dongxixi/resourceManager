@@ -10,8 +10,8 @@ import java.util.Objects;
 @Table(name = "t_car_log")
 public class CarLogEntity {
     private String id;
-    private String startTime;
-    private String returnTime;
+    private Timestamp startTime;
+    private Timestamp returnTime;
     private int state;
     private CarEntity carEntity;
     private DispatchEntity dispatchEntity;
@@ -49,21 +49,21 @@ public class CarLogEntity {
 
     @Basic
     @Column(name = "start_time")
-    public String getStartTime() {
+    public Timestamp getStartTime() {
         return startTime;
     }
 
-    public void setStartTime(String startTime) {
+    public void setStartTime(Timestamp startTime) {
         this.startTime = startTime;
     }
 
     @Basic
     @Column(name = "return_time")
-    public String getReturnTime() {
+    public Timestamp getReturnTime() {
         return returnTime;
     }
 
-    public void setReturnTime(String returnTime) {
+    public void setReturnTime(Timestamp returnTime) {
         this.returnTime = returnTime;
     }
 

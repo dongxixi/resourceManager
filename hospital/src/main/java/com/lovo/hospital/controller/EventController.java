@@ -53,6 +53,18 @@ public class EventController {
     }
 
 
+    @RequestMapping("eventInfo")
+    public ModelAndView eventInfo(String eid){
+        List<CarEntity> eventInfoCar = eventService.getEventInfoCar(eid);
+        List<PersonnelEntity> eventInfoPersonnel = eventService.getEventInfoPersonnel(eid);
+        EventEntity eventInfo = eventService.getEventInfo(eid);
+        ModelAndView modelAndView=new ModelAndView("eventDetails");
+        modelAndView.addObject("eventInfo",eventInfo);
+        modelAndView.addObject("eventCarList",eventInfoCar);
+        modelAndView.addObject("eventPersonnelList",eventInfoPersonnel);
+        return modelAndView;
+    }
+
 
 
 

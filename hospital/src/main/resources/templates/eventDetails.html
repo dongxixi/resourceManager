@@ -24,7 +24,7 @@
 </head>
 
 <body>
-    
+
 <!--====================================================
                      MAIN NAVBAR
 ======================================================-->
@@ -63,7 +63,8 @@
 
                 <!-- 全屏 -->
                 <li class="nav-item d-flex align-items-center full_scr_exp"><a class="nav-link" href="#"><img
-                        src="/staticResources/img/expand.png" onclick="toggleFullScreen(document.body)" class="img-fluid" alt=""></a>
+                        src="/staticResources/img/expand.png" onclick="toggleFullScreen(document.body)"
+                        class="img-fluid" alt=""></a>
                 </li>
 
                 <!-- 账号切换 -->
@@ -98,214 +99,225 @@
 <!--====================================================
                     PAGE CONTENT
 ======================================================-->
-    <div class="page-content d-flex align-items-stretch">
+<div class="page-content d-flex align-items-stretch">
 
-        <!--***** SIDE NAVBAR *****-->
+    <!--***** SIDE NAVBAR *****-->
 
 
-        <div class="content-inner chart-cont">
+    <div class="content-inner chart-cont">
 
-            <div class="row">
-                <div class="col-md-12">
-                    <!--***** FORM INPUTS *****-->
-                    <div class="card form" id="form2">
-                        <div class="card-header">
-                            <h3>
-                                <i class="fa fa-indent">》</i>事件详情
-                            </h3>
-
-                        </div>
-                        <br>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group row">
-                                    <label for="thingsNo" style="width: 85px;" class=" col-form-label">事件编号</label>
-                                    <div class="col-9">
-                                        <input class="form-control" type="text" value="事件编号" id="thingsNo" disabled="disabled">
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <label for="thingsName" style="width: 85px;" class=" col-form-label">事件名称</label>
-                                    <div class="col-9">
-                                        <input class="form-control" type="text" value="事件名称" id="thingsName" disabled="disabled">
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <label for="thingsTime" style="width: 85px;" class=" col-form-label">发生时间</label>
-                                    <div class="col-9">
-                                        <input class="form-control" type="datetime-local" value="2011-08-19T13:45:00" id="thingsTime" disabled="disabled">
-                                    </div>
-                                </div>
-                                <!--<div class="form-group row">
-                                    <label for="thingsLevel" style="width: 85px;" class=" col-form-label">事件等级</label>
-                                    <div class="col-9">
-                                        <input class="form-control" type="text" value="事件等级" id="thingsLevel" disabled="disabled">
-                                    </div>
-                                </div>-->
-                                <div class="form-group row">
-                                    <label for="caller" style="width: 85px;" class=" col-form-label">报警人</label>
-                                    <div class="col-9">
-                                        <input class="form-control" type="text" value="事件编号" id="caller" disabled="disabled">
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <label for="principal" style="width: 85px;" class=" col-form-label">负责人</label>
-                                    <div class="col-9">
-                                        <input class="form-control" type="text" value="负责人" id="principal" disabled="disabled">
-                                    </div>
-                                </div>
-                                <!--<div class="form-group row">
-                                    <label for="casualty" style="width: 85px;" class=" col-form-label">伤亡人数</label>
-                                    <div class="col-9">
-                                        <input class="form-control" type="text" value="事件编号" id="casualty" disabled="disabled">
-                                    </div>
-                                </div>-->
-
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group row">
-                                    <label for="state" style="width: 85px;" class=" col-form-label">处理进度</label>
-                                    <div class="col-9">
-                                        <input class="form-control" type="text" value="处理进度" id="state" disabled="disabled">
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <label for="type" style="width: 85px;" class=" col-form-label">事件类型</label>
-                                    <div class="col-9">
-                                        <input class="form-control" type="text" value="处理进度" id="type" disabled="disabled">
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <label for="detailedAddress" style="width: 85px;" class=" col-form-label">详细地址</label>
-                                    <div class="col-9">
-                                        <input class="form-control" type="text" value="详细地址" id="detailedAddress" disabled="disabled">
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <label for="area" style="width: 85px;" class=" col-form-label">发生区域</label>
-                                    <div class="col-9">
-                                        <input class="form-control" type="text" value="发生区域" id="area" disabled="disabled">
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <label for="callerPhoneNumber" style="width: 85px;" class=" col-form-label">报警人电话</label>
-                                    <div class="col-9">
-                                        <input class="form-control" type="text" value="报警人电话" id="callerPhoneNumber" disabled="disabled">
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <label for="principalPhoneNumber" style="width: 85px;" class=" col-form-label">负责人电话</label>
-                                    <div class="col-9">
-                                        <input class="form-control" type="text" value="负责人电话" id="principalPhoneNumber" disabled="disabled">
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-                        <br><br>
-
-                        <div class="row">
-                            <div class="col-md-5">
-                                <h5><i class="fa fa-users">》</i>派出人员</h5>
-                            </div>
-
-                            <div class="col-md-1"></div>
-                            <div class="col-md-5">
-                                <h5><i class="fa fa-truck">》</i>派出车辆</h5>
-                            </div>
-                            <div class="col-md-1"></div>
-                        </div>
-
-                        <div class="row" id="peopleAndCar" >
-                            <div class="col-md-5" >
-                                <!--style="overflow:scroll"-->
-                                <div style="overflow-x: auto; overflow-y: auto; height: 500px; width:550px;">
-                                    <table class="table table-hover"  align="center" style=" width:300px; height:200px">
-                                        <thead>
-                                        <tr>
-                                            <th>名字</th>
-                                            <th>职位</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        <tr>
-                                            <td>张三</td>
-                                            <td>医生</td>
-                                        </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-
-                            </div>
-                            <div class="col-md-1"></div>
-                            <div class="col-md-5">
-                                <div style="overflow-x: auto; overflow-y: auto; height: 500px; width:550px;">
-                                    <table class="table table-hover"  align="center" style=" width:300px; height:200px">
-                                        <thead>
-                                        <tr>
-                                            <th>车牌</th>
-                                            <th>司机</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        <tr>
-                                            <td>歘A15468</td>
-                                            <td>老李</td>
-                                        </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                            <div class="col-md-1"></div>
-                            </div>
+        <div class="row">
+            <div class="col-md-12">
+                <!--***** FORM INPUTS *****-->
+                <div class="card form" id="form2">
+                    <div class="card-header">
+                        <h3>
+                            <i class="fa fa-indent">》</i>事件详情
+                        </h3>
 
                     </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group row">
+                                <label for="thingsNo" style="width: 85px;" class=" col-form-label">事件编号</label>
+                                <div class="col-9">
+                                    <input class="form-control" type="text" value="事件编号" id="thingsNo"
+                                           disabled="disabled" th:value="${eventInfo.id}">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="thingsName" style="width: 85px;" class=" col-form-label">事件名称</label>
+                                <div class="col-9">
+                                    <input class="form-control" type="text" value="事件名称" id="thingsName"
+                                           disabled="disabled" th:value="${eventInfo.eventName}">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="thingsTime" style="width: 85px;" class=" col-form-label">发生时间</label>
+                                <div class="col-9">
+                                    <input class="form-control" type="text" id="thingsTime" disabled="disabled"
+                                           th:value="${eventInfo.eventTime}">
+                                </div>
+                            </div>
+                            <!--<div class="form-group row">
+                                <label for="thingsLevel" style="width: 85px;" class=" col-form-label">事件等级</label>
+                                <div class="col-9">
+                                    <input class="form-control" type="text" value="事件等级" id="thingsLevel" disabled="disabled">
+                                </div>
+                            </div>-->
+                            <div class="form-group row">
+                                <label for="caller" style="width: 85px;" class=" col-form-label">报警人</label>
+                                <div class="col-9">
+                                    <input class="form-control" type="text" value="事件编号" id="caller" disabled="disabled"
+                                           th:value="${eventInfo.alarmPerson}">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="principal" style="width: 85px;" class=" col-form-label">负责人</label>
+                                <div class="col-9">
+                                    <input class="form-control" type="text" value="负责人" id="principal"
+                                           disabled="disabled">
+                                </div>
+                            </div>
+                            <!--<div class="form-group row">
+                                <label for="casualty" style="width: 85px;" class=" col-form-label">伤亡人数</label>
+                                <div class="col-9">
+                                    <input class="form-control" type="text" value="事件编号" id="casualty" disabled="disabled">
+                                </div>
+                            </div>-->
 
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group row">
+                                <label for="state" style="width: 85px;" class=" col-form-label">处理进度</label>
+                                <div class="col-9">
+                                    <input class="form-control" type="text" value="处理进度" id="state" disabled="disabled"
+                                           th:value="${eventInfo.eventProceed==0?'未派遣':'已派遣'}">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="type" style="width: 85px;" class=" col-form-label">事件类型</label>
+                                <div class="col-9">
+                                    <input class="form-control" type="text" value="处理进度" id="type" disabled="disabled"
+                                           th:value="${eventInfo.eventType}">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="detailedAddress" style="width: 85px;" class=" col-form-label">详细地址</label>
+                                <div class="col-9">
+                                    <input class="form-control" type="text" value="详细地址" id="detailedAddress"
+                                           disabled="disabled" th:value="${eventInfo.alarmAddress}">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="area" style="width: 85px;" class=" col-form-label">发生区域</label>
+                                <div class="col-9">
+                                    <input class="form-control" type="text" value="发生区域" id="area" disabled="disabled"
+                                           th:value="${eventInfo.eventArea}">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="callerPhoneNumber" style="width: 85px;"
+                                       class=" col-form-label">报警人电话</label>
+                                <div class="col-9">
+                                    <input class="form-control" type="text" value="报警人电话" id="callerPhoneNumber"
+                                           disabled="disabled" th:value="${eventInfo.alarmTel}">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="principalPhoneNumber" style="width: 85px;"
+                                       class=" col-form-label">负责人电话</label>
+                                <div class="col-9">
+                                    <input class="form-control" type="text" value="负责人电话" id="principalPhoneNumber"
+                                           disabled="disabled">
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <br><br>
+
+                    <div class="row">
+                        <div class="col-md-5">
+                            <h5><i class="fa fa-users">》</i>派出人员</h5>
+                        </div>
+
+                        <div class="col-md-1"></div>
+                        <div class="col-md-5">
+                            <h5><i class="fa fa-truck">》</i>派出车辆</h5>
+                        </div>
+                        <div class="col-md-1"></div>
+                    </div>
+
+                    <div class="row" id="peopleAndCar">
+                        <div class="col-md-5">
+                            <!--style="overflow:scroll"-->
+                            <div style="overflow-x: auto; overflow-y: auto; height: 500px; width:550px;">
+                                <table class="table table-hover" align="center" style=" width:300px; height:200px">
+                                    <thead>
+                                    <tr>
+                                        <th>名字</th>
+                                        <th>职位</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody th:each="person,pState:${eventPersonnelList}">
+                                    <tr>
+                                        <td th:text="${person.name}"></td>
+                                        <td th:text="${person.position}"></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                        </div>
+                        <div class="col-md-1"></div>
+                        <div class="col-md-5">
+                            <div style="overflow-x: auto; overflow-y: auto; height: 500px; width:550px;">
+                                <table class="table table-hover" align="center" style=" width:300px; height:200px">
+                                    <thead>
+                                    <tr>
+                                        <th>车牌</th>
+                                        <th>司机</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody th:each="car,cState:${eventCarList}">
+                                    <tr>
+                                        <td th:text="${car.carNum}"></td>
+                                        <td th:text="${car.driver}"></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="col-md-1"></div>
                     </div>
 
                 </div>
+
             </div>
+
         </div>
     </div>
+</div>
+</div>
 
-    <!--Global Javascript -->
-    <script src="js/jquery.min.js"></script>
-    <script src="js/popper/popper.min.js"></script>
-    <script src="js/tether.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <script src="js/jquery.cookie.js"></script>
-    <script src="js/jquery.validate.min.js"></script>
-    <script src="js/chart.min.js"></script> 
-    <script src="js/front.js"></script> 
-    
-    <!--Core Javascript -->
-    <script>
-        new Chart(document.getElementById("myChart-nav").getContext('2d'), {
-          type: 'doughnut',
-          data: {
+<!--Global Javascript -->
+<script th:src="@{staticResources/js/jquery.min.js}"></script>
+<script th:src="@{staticResources/js/popper/popper.min.js}"></script>
+<script th:src="@{staticResources/js/tether.min.js}"></script>
+<script th:src="@{staticResources/js/bootstrap.min.js}"></script>
+<script th:src="@{staticResources/js/jquery.cookie.js}"></script>
+<script th:src="@{staticResources/js/jquery.validate.min.js}"></script>
+
+<!--Core Javascript -->
+<script>
+    new Chart(document.getElementById("myChart-nav").getContext('2d'), {
+        type: 'doughnut',
+        data: {
             labels: ["M", "T", "W", "T", "F", "S", "S"],
             datasets: [{
-              backgroundColor: [
-                "#2ecc71",
-                "#3498db",
-                "#95a5a6",
-                "#9b59b6",
-                "#f1c40f",
-                "#e74c3c",
-                "#34495e"
-              ],
-              data: [12, 19, 3, 17, 28, 24, 7]
+                backgroundColor: [
+                    "#2ecc71",
+                    "#3498db",
+                    "#95a5a6",
+                    "#9b59b6",
+                    "#f1c40f",
+                    "#e74c3c",
+                    "#34495e"
+                ],
+                data: [12, 19, 3, 17, 28, 24, 7]
             }]
-          },
-          options: {
-              legend: { display: false },
-              title: {
+        },
+        options: {
+            legend: {display: false},
+            title: {
                 display: true,
                 text: ''
-               } 
             }
-        });
-    </script>
+        }
+    });
+</script>
 </body>
 
 </html>
