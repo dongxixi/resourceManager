@@ -8,6 +8,7 @@ import com.lovo.hospital.entity.*;
 import com.lovo.hospital.service.EventService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -126,24 +127,39 @@ public class EventServiceImpl implements EventService {
         return list;
     }
 
-    @Override
+    @Override@Transactional(rollbackFor = Exception.class)
     public void returnPersonAndCar(String persons, String cars) {
-
-        Iterable<PersonnelLogEntity> ps = personLogDao.findAllById(Arrays.asList(persons.split(",")));
-        for (PersonnelLogEntity pl : ps) {
+        String[] split = persons.split("[,]");
+        for (String s :split) {
+            PersonnelLogEntity pl = personLogDao.findById(s).get();
             pl.setReturnTime(new Timestamp(System.currentTimeMillis()));
             pl.setState(0);
             pl.getPersonnelEntity().setState(0);
+            personLogDao.save(pl);
         }
-        personLogDao.saveAll(ps);
-
-        Iterable<CarLogEntity> cs = carLogDao.findAllById(Arrays.asList(cars.split(",")));
-        for (CarLogEntity c : cs) {
+        String[] split1 = cars.split(",");
+        for (String id : split1) {
+            CarLogEntity c = carLogDao.findById(id).get();
             c.setReturnTime(new Timestamp(System.currentTimeMillis()));
             c.setState(0);
             c.getCarEntity().setState(0);
+            carLogDao.save(c);
         }
-        carLogDao.saveAll(cs);
+//        Iterable<PersonnelLogEntity> ps = personLogDao.findAllById(Arrays.asList(persons.split(",")));
+//        for (PersonnelLogEntity pl : ps) {
+//            pl.setReturnTime(new Timestamp(System.currentTimeMillis()));
+//            pl.setState(0);
+//            pl.getPersonnelEntity().setState(0);
+//        }
+//        personLogDao.saveAll(ps);
+//
+//        Iterable<CarLogEntity> cs = carLogDao.findAllById(Arrays.asList(cars.split(",")));
+//        for (CarLogEntity c : cs) {
+//            c.setReturnTime(new Timestamp(System.currentTimeMillis()));
+//            c.setState(0);
+//            c.getCarEntity().setState(0);
+//        }
+//        carLogDao.saveAll(cs);
     }
 
     @Override
@@ -155,6 +171,7 @@ public class EventServiceImpl implements EventService {
                 objects) {
             PersonnelLogEntity pl = new PersonnelLogEntity();
             pl.setId(obj[8].toString());
+            pl.setState(Integer.parseInt(obj[9].toString()));
 
             PersonnelEntity p = new PersonnelEntity();
             p.setId(obj[0].toString());
@@ -181,6 +198,7 @@ public class EventServiceImpl implements EventService {
                 objects) {
             CarLogEntity cl = new CarLogEntity();
             cl.setId(obj[4].toString());
+            cl.setState(Integer.parseInt(obj[5].toString()));
 
             CarEntity c = new CarEntity();
             c.setId(obj[0].toString());
