@@ -79,7 +79,7 @@ public class PensonnelServiceImpl implements PersonnelService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)//事务回滚
-    public void deleteOne(String id) {
+    public void deleteOnePerson(String id) {
 
       personnelDao.deleteById(id);
         //在资源表里面car-1
@@ -91,12 +91,12 @@ public class PensonnelServiceImpl implements PersonnelService {
     }
 
     @Override
-    public PersonnelEntity selectOne(String id) {
+    public PersonnelEntity selectOnePerson(String id) {
       return  personnelDao.findById(id).get();
     }
 
     @Override
-    public PersonnelEntity updateOne(PersonnelEntity personnelEntity) {
+    public PersonnelEntity updateOnePerson(PersonnelEntity personnelEntity) {
         return personnelDao.save(personnelEntity);
 
     }

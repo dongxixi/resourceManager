@@ -3,9 +3,12 @@ package com.lovo.hospital.util;
 
 import com.lovo.hospital.entity.CarEntity;
 import com.lovo.hospital.entity.LogEntity;
+import com.lovo.hospital.entity.PersonnelEntity;
 import com.lovo.hospital.entity.UserEntity;
 import com.lovo.hospital.service.CarService;
 import com.lovo.hospital.service.ILogService;
+import com.lovo.hospital.service.IUserService;
+import com.lovo.hospital.service.PersonnelService;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.AfterReturning;
@@ -14,11 +17,11 @@ import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
 import java.sql.Timestamp;
 
 
-//@Aspect
+
+@Aspect
 @Component
 public class LogAspect {
     private String username;
@@ -26,6 +29,10 @@ public class LogAspect {
     private ILogService logService;
     @Autowired
     private CarService carService;
+    @Autowired
+    private IUserService userService;
+    @Autowired
+    private PersonnelService personnelService;
 
     /**
      * 管理员登录方法的切入点
@@ -91,7 +98,7 @@ public class LogAspect {
         //获取添加的信息
         String log = getLog(joinPoint, object);
         //添加日志
-        addlogin("添加了"+log);
+        addlogin("添加"+log);
     }
 
     /**
@@ -101,21 +108,104 @@ public class LogAspect {
      */
     @Around(value = "updateCell()")
     public Object updateLog(ProceedingJoinPoint joinPoint) throws Throwable {
-        //修改之前的对象
-        CarEntity carEntity=null;
+        String methodName = joinPoint.getSignature().getName();
+        Object proceed=null;
+        String description=null;
         Object[] args = joinPoint.getArgs();
-        //修改以后的对象
-        CarEntity s = (CarEntity)args[0];
-        String id = s.getId();
-        carEntity = carService.infoCarById(id);
-        Object proceed  = joinPoint.proceed();
-        String description="修改前:"+carEntity.getDriver()+"修改后:"+s.getDriver();
+        if(methodName.contains("Car")){
+            //修改之前的对象
+            CarEntity carEntity=null;
+            //修改以后的对象
+            CarEntity s = (CarEntity)args[0];
+            carEntity = carService.infoCarById(s.getId());
+            proceed  = joinPoint.proceed();
+            //拼接日志信息
+            description="修改前:"+carEntity.getDriver()+"修改后:"+s.getDriver();
+        }else if(methodName.contains("User")){
+            String id=args[0].toString();
+            UserEntity user = userService.findUserById(id);
+            String userName = user.getUserName();
+            description="修改前:"+userName+"修改后:"+args[1].toString();
+        }else if(methodName.contains("Person")){
+            //修改之前的对象
+            PersonnelEntity personnelEntity=null;
+            //修改以后的对象
+            PersonnelEntity p = (PersonnelEntity)args[0];
+            personnelEntity = personnelService.selectOnePerson(p.getId());
+            proceed  = joinPoint.proceed();
+            //拼接日志信息
+            description="修改前:"+personnelEntity.getName()+"修改后:"+personnelEntity.getName();
+        }
+
         addlogin(description);
         return proceed;
     }
 
 
+    /**
+     *删除日志操作（环绕通知）
+     * @param joinPoint
+     * @throws Throwable
+     */
+    @Around(value = "deleteCell()")
+    public Object deleteLog(ProceedingJoinPoint joinPoint) throws Throwable {
+        String methodName = joinPoint.getSignature().getName();
+        Object proceed=null;
+        String description=null;
+        Object[] args = joinPoint.getArgs();
+        if(methodName.contains("Car")){
+            //删除之前的对象
+            CarEntity carEntity=null;
+            CarEntity s = (CarEntity)args[0];
+            carEntity = carService.infoCarById(s.getId());
+            proceed  = joinPoint.proceed();
+            description="删除车辆:"+carEntity.getCarNum();
+        }else if(methodName.contains("User")){
+            //获取删除前的ID
+            String id=args[0].toString();
+            UserEntity user = userService.findUserById(id);
+            String userName = user.getUserName();
+            proceed  = joinPoint.proceed();
+            description="删除用户:"+userName;
+        }else if(methodName.contains("Person")){
+            //获取删除前的ID
+            String id=args[0].toString();
+            PersonnelEntity personnelEntity = personnelService.selectOnePerson(id);
+            String personnelName = personnelEntity.getName();
+            proceed  = joinPoint.proceed();
+            description="删除人员:"+personnelName;
+        }
 
+        addlogin(description);
+        return proceed;
+    }
+
+
+    /**
+     *  获取增加的内容
+     * @param joinPoint
+     * @param object
+     * @return 返回操作的相关的信息
+     */
+    public String getLog(JoinPoint joinPoint,Object object){
+        // 获取方法名
+        String methodName = joinPoint.getSignature().getName();
+        // 获取操作内容,判断增加的对象
+        String description=null;
+        if(methodName.contains("Car")){
+            CarEntity car=(CarEntity)object;
+            description="车牌"+car.getCarNum();
+        }else if(methodName.contains("User")){
+            Object[] args = joinPoint.getArgs();
+            String username=args[0].toString();
+            description="新增用户名:"+username;
+        }else if(methodName.contains("Personnel")){
+            Object[] args = joinPoint.getArgs();
+            String name=args[0].toString();
+            description="新增人员名:"+name;
+        }
+        return description;
+    }
 
     /**
      *
@@ -130,25 +220,6 @@ public class LogAspect {
         log.setDescription(description);
         logService.add(log);
         return log;
-    }
-
-    /**
-     *
-     * @param joinPoint
-     * @param object
-     * @return 返回操作的相关的信息
-     */
-    public String getLog(JoinPoint joinPoint,Object object){
-        // 获取方法名
-        String methodName = joinPoint.getSignature().getName();
-        // 获取操作内容,判断增加的对象
-        String description=null;
-        if(methodName.contains("Car")){
-            CarEntity car=(CarEntity)object;
-            description=car.getCarNum();
-            return description;
-        }
-        return null;
     }
 
 }

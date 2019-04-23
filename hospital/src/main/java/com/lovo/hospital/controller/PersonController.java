@@ -68,7 +68,7 @@ public class PersonController {
 	 */
 	@RequestMapping("selectperson")
 	public ModelAndView personinfo(String id){
-       PersonnelEntity personnelEntity =  personnelService.selectOne(id);
+       PersonnelEntity personnelEntity =  personnelService.selectOnePerson(id);
         ModelAndView modelAndView = new ModelAndView();
 
         modelAndView.addObject("personnelEntity",personnelEntity);//把获取的数据，添加到传输界面
@@ -83,7 +83,7 @@ public class PersonController {
 	 */
 	@RequestMapping("selectpersonupdate")
 	public ModelAndView personinfoupdate(String id){
-		PersonnelEntity personnelEntity =  personnelService.selectOne(id);
+		PersonnelEntity personnelEntity =  personnelService.selectOnePerson(id);
 		ModelAndView modelAndView = new ModelAndView();
 
 		modelAndView.addObject("personnelEntity",personnelEntity);//把获取的数据，添加到传输界面
@@ -106,7 +106,7 @@ public class PersonController {
 		personnelEntity1.setTel(tel);
 		personnelEntity1.setSex(sex);
 		personnelEntity1.setPosition(position);
-		PersonnelEntity personnelEntity = personnelService.updateOne(personnelEntity1);
+		PersonnelEntity personnelEntity = personnelService.updateOnePerson(personnelEntity1);
 		if(personnelEntity!=null){
 			modelAndView.setViewName("personpage");
 		}
@@ -121,10 +121,10 @@ public class PersonController {
 	@RequestMapping("persondelete")
 	@ResponseBody
 	public String persondelete(String id){
-		PersonnelEntity personnelEntity = personnelService.selectOne(id);
+		PersonnelEntity personnelEntity = personnelService.selectOnePerson(id);
 		if (personnelEntity.getState()==0) {
 			//该人员没有派出
-			personnelService.deleteOne(id);
+			personnelService.deleteOnePerson(id);
 			return "1";
 		}else{
 			return "-1";
