@@ -1,6 +1,7 @@
 package com.lovo.hospital.controller;
 
 import com.lovo.hospital.entity.CarEntity;
+import com.lovo.hospital.entity.DispatchEntity;
 import com.lovo.hospital.entity.EventEntity;
 import com.lovo.hospital.entity.PersonnelEntity;
 import com.lovo.hospital.service.PersonnelService;
@@ -32,8 +33,8 @@ public class XUTestController {
     }
 
     @RequestMapping("eventReturn")
-    public ModelAndView eventReturn(String thingID) {
-//        System.out.println(thingID);
+    public ModelAndView eventReturn(String eventId) {
+//        System.out.println(eventId);
 
 
         List<CarEntity> outerCar = new ArrayList<>();
@@ -53,9 +54,14 @@ public class XUTestController {
         innerCar.add(innerC);
         innerCar.add(innerC);
         EventEntity event = new EventEntity();
-        event.setEventId("event01");
+
         event.setId("event");
         event.setEventName("成都遭遇袭击");
+        DispatchEntity dispatch = new DispatchEntity();
+        dispatch.setEventEntity(event);
+        dispatch.setRequestId("requestID");
+        dispatch.setcNum(9);
+        dispatch.setpNum(5);
 
         ModelAndView mv = new ModelAndView("eventReturn");
         List<PersonnelEntity> ps = personnelService.getAllListBySearch("", "", "", 1, 5);
@@ -64,16 +70,17 @@ public class XUTestController {
         mv.addObject("outerCar", outerCar);
         mv.addObject("innerCar", innerCar);
         mv.addObject("thing", event);
+        mv.addObject("dispatch", dispatch);
         return mv;
     }
 
     @RequestMapping("eventReturn.do")
-    public String doEventReturn(String thingID, String persons, String cars, RedirectAttributes reAttr) {
+    public String doEventReturn(String eventId, String persons, String cars, RedirectAttributes reAttr) {
 
-        System.out.println(thingID);
+        System.out.println(eventId);
         System.out.println(persons);
         System.out.println(cars);
-        reAttr.addAttribute("thingID", thingID);
+        reAttr.addAttribute("eventId", eventId);
         return "redirect:/eventReturn";
     }
 

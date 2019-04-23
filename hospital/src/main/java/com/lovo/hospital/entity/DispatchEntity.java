@@ -62,6 +62,9 @@ public class DispatchEntity {
         this.cNum = cNum;
     }
 
+    public DispatchEntity() {
+    }
+
     @Override
     public int hashCode() {
         return Objects.hash(requestId, pNum, cNum);
