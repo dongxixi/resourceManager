@@ -1,21 +1,16 @@
 package com.lovo.hospital.entity;
 
+import lombok.Data;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.Objects;
 
-@Entity
+@Entity@Data
 @Table(name = "t_personnel_log")
 public class PersonnelLogEntity {
-    private String id;
-    private Timestamp startTime;
-    private Timestamp returnTime;
-    private int state;
 
-    private PersonnelEntity personnelEntity;
-    private DispatchEntity dispatchEntity;
 
     @ManyToOne
     @JoinColumn(name = "p_id")
@@ -41,43 +36,26 @@ public class PersonnelLogEntity {
     @Column(name="id",length=32)
     @GenericGenerator(name="powerUUID",strategy="uuid")
     @GeneratedValue(generator="powerUUID")
-    public String getId() {
-        return id;
-    }
+    private String id;
 
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    @Basic
     @Column(name = "start_time")
-    public Timestamp getStartTime() {
-        return startTime;
-    }
+    private Timestamp startTime;
 
-    public void setStartTime(Timestamp startTime) {
-        this.startTime = startTime;
-    }
-
-    @Basic
     @Column(name = "return_time")
-    public Timestamp getReturnTime() {
-        return returnTime;
-    }
+    private Timestamp returnTime;
 
-    public void setReturnTime(Timestamp returnTime) {
-        this.returnTime = returnTime;
-    }
-
-    @Basic
     @Column(name = "state")
-    public int getState() {
-        return state;
-    }
+    private int state;
 
-    public void setState(int state) {
-        this.state = state;
-    }
+    @ManyToOne
+    @JoinColumn(name = "d_id")
+    private DispatchEntity dispatchEntity;
+
+    @OneToOne
+    @JoinColumn(name = "p_id")
+    private PersonnelEntity personnelEntity;
+
+
 
     @Override
     public boolean equals(Object o) {

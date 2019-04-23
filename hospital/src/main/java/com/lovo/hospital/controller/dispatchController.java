@@ -3,6 +3,7 @@ package com.lovo.hospital.controller;
 import com.lovo.hospital.entity.CarEntity;
 import com.lovo.hospital.entity.PersonnelEntity;
 import com.lovo.hospital.service.CarService;
+import com.lovo.hospital.service.DispatchService;
 import com.lovo.hospital.service.PersonnelService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -23,11 +24,12 @@ public class dispatchController {
     @Autowired
     private PersonnelService personService;
 
-    @RequestMapping("getCarList")@ResponseBody
+    @RequestMapping("getCarList")
+    @ResponseBody
     public Map<String, Object> getCarList(Integer pageNo) {
 
-        List<CarEntity> carList = carService.findCarByCondition(pageNo, 2, null, null, null);
-        int pageTotal = carService.findTotalPageByCondition(null, null, null, 2);
+        List<CarEntity> carList = carService.findCarByCondition(pageNo, 5, null, null, null);
+        int pageTotal = carService.findTotalPageByCondition(null, null, null, 5);
 
         Map<String, Object> map = new HashMap<>();
         map.put("pageTotal", pageTotal);
@@ -36,11 +38,12 @@ public class dispatchController {
         return map;
     }
 
-    @RequestMapping("getPersonList")@ResponseBody
+    @RequestMapping("getPersonList")
+    @ResponseBody
     public Map<String, Object> getPersonList(Integer pageNo) {
 
-        List<PersonnelEntity> personList = personService.getAllListBySearch(null, null, null, pageNo,2);
-        int pageTotal = personService.findTotalPageByCondition(null, null, null, 2);
+        List<PersonnelEntity> personList = personService.getAllListBySearch(null, null, null, pageNo, 5);
+        int pageTotal = personService.findTotalPageByCondition(null, null, null, 5);
 
         Map<String, Object> map = new HashMap<>();
         map.put("pageTotal", pageTotal);
@@ -49,11 +52,37 @@ public class dispatchController {
         return map;
     }
 
+    @Autowired
+    private DispatchService dispatchService;
+
     @RequestMapping("dispatch")
-    public ModelAndView dispatch(String thingId, String personInCharge, String personUpdateList, String carUpdateList) {
+    public ModelAndView dispatch(String dispatchId, String personInCharge, String personUpdateList, String carUpdateList) {
         ModelAndView mv = new ModelAndView();
 
+        int flag = dispatchService.dispatch(dispatchId, personInCharge, personUpdateList, carUpdateList);
 
+        String msg = "";
+        switch (flag) {
+            case 0:
+                msg = "派出成功";
+                break;
+            case 1:
+                msg = "派出单错误";
+                break;
+            case 2:
+                msg = "车辆数量错误";
+                break;
+            case 3:
+                msg = "人员数量错误";
+                break;
+        }
+        mv.addObject("msg", msg);
+
+        if (flag == 0) {
+            mv.setViewName("eventAll");
+        } else {
+            mv.setViewName("error");
+        }
         return mv;
     }
 }

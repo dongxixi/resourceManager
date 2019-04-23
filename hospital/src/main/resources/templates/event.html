@@ -46,6 +46,7 @@
                 }
             })
         }
+        showCarList();
         saveCharge();
     }
 
@@ -64,6 +65,7 @@
                 }
             })
         }
+        showPersonList();
         inCharge();
         saveCharge();
     }
@@ -105,6 +107,10 @@
                         if (e.id == f.id) {
                             str = "checked";
                             return false;
+                        } else {
+                            if (carCheckedList.length == $("#carNum").val()) {
+                                str = "disabled"
+                            }
                         }
                     });
                     $("#carList").append($("<tr>" +
@@ -133,6 +139,10 @@
                         if (e.id == f.id) {
                             str = "checked";
                             return false;
+                        } else {
+                            if (personCheckedList.length == $("#personNum").val()) {
+                                str = "disabled"
+                            }
                         }
                     });
                     $("#personList").append($("<tr>" +
@@ -167,13 +177,18 @@
         $("#personUpdateList").val(list);
     }
 
+
     $(function () {
         showCarList();
         paginate("pageCarNo", "pageCarTotal", "firstCarPage", "prevCarPage", "nextCarPage", "lastCarPage", showCarList);
         showPersonList();
         paginate("pagePersonNo", "pagePersonTotal", "firstPersonPage", "prevPersonPage", "nextPersonPage", "lastPersonPage", showPersonList);
 
-
+        $("#dispatch").click(function () {
+            if (carCheckedList.length != $("#carNum").val() || personCheckedList.length != $("#personNum").val()) {
+                return false;
+            }
+        })
     })
 </script>
 <body>
@@ -255,14 +270,16 @@
         </div>
         <br/>
         <form action="/dispatch" method="post">
-            <input type="hidden" name="dispatchId" id="dispatchId"/>
+            <input type="hidden" name="dispatchId" id="dispatchId" th:value="${dispatchId}"/>
+            <input type="hidden" id="personNum" th:value="${personNum}"/>
+            <input type="hidden" id="carNum" th:value="${carNum}"/>
             <div class="row form-group">
                 <div class="col-sm-3"></div>
                 <div class="col-sm-2">
                     <label for="thingName">事件名称：</label>
                 </div>
                 <div class="col-sm-4">
-                    <input type="text" class="form-control" id="thingName">
+                    <label class="form-control" id="thingName"  th:text="${thingName}"></label>
                 </div>
             </div>
             <div class="row form-group">
@@ -271,7 +288,7 @@
                     <label for="thingAddress">事件地点：</label>
                 </div>
                 <div class="col-sm-4">
-                    <input type="text" class="form-control" id="thingAddress">
+                    <label class="form-control" id="thingAddress"  th:text="${thingAddress}"></label>
                 </div>
             </div>
             <div class="row form-group">
@@ -369,7 +386,7 @@
                 <div class="col-sm-6"></div>
                 <input type="hidden" name="personUpdateList" id="personUpdateList"/>
                 <input type="hidden" name="carUpdateList" id="carUpdateList"/>
-                <button type="submit" class="btn btn-general btn-blue">派出</button>
+                <button type="submit" class="btn btn-general btn-blue" id="dispatch">派出</button>
             </div>
         </form>
     </div>

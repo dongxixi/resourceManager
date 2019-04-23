@@ -4,6 +4,7 @@ import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "t_dispatch")
@@ -12,6 +13,30 @@ public class DispatchEntity {
     private EventEntity eventEntity;
     private int pNum;
     private int cNum;
+
+
+    private Set<PersonnelLogEntity> personnelLogEntities;
+
+
+    private Set<CarLogEntity> carLogEntities;
+
+    @OneToMany(mappedBy = "dispatchEntity")
+    public Set<CarLogEntity> getCarLogEntities() {
+        return carLogEntities;
+    }
+
+    public void setCarLogEntities(Set<CarLogEntity> carLogEntities) {
+        this.carLogEntities = carLogEntities;
+    }
+
+    @OneToMany(mappedBy = "dispatchEntity")
+    public Set<PersonnelLogEntity> getPersonnelLogEntities() {
+        return personnelLogEntities;
+    }
+
+    public void setPersonnelLogEntities(Set<PersonnelLogEntity> personnelLogEntities) {
+        this.personnelLogEntities = personnelLogEntities;
+    }
 
     @Id
     @Column(name="request_id",length=32)
