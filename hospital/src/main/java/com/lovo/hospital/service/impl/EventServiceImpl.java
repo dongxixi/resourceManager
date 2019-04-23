@@ -2,9 +2,7 @@ package com.lovo.hospital.service.impl;
 
 import com.lovo.hospital.dao.EventDao;
 import com.lovo.hospital.dto.EventRecordListDto;
-import com.lovo.hospital.entity.CarEntity;
-import com.lovo.hospital.entity.EventEntity;
-import com.lovo.hospital.entity.PersonnelEntity;
+import com.lovo.hospital.entity.*;
 import com.lovo.hospital.service.EventService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -77,12 +75,15 @@ public class EventServiceImpl implements EventService {
     }
 
     @Override
-    public List<PersonnelEntity> getEventInfoPersonnel(String eid) {
+    public List<PersonnelLogEntity> getEventInfoPersonnel(String eid) {
         List<Object[]> objects = eventDao.getEventInfoPersonnel(eid);
-        List<PersonnelEntity> personnelEntityList=new ArrayList<>();
+        List<PersonnelLogEntity> personnelLogEntityList=new ArrayList<>();
 
         for (Object[] obj :
                 objects) {
+            PersonnelLogEntity pl=new PersonnelLogEntity();
+            pl.setId(obj[8].toString());
+
             PersonnelEntity p=new PersonnelEntity();
             p.setId(obj[0].toString());
             p.setName(obj[1].toString());
@@ -92,24 +93,32 @@ public class EventServiceImpl implements EventService {
             p.setState(Integer.parseInt(obj[5].toString()));
             p.setTel(obj[6].toString());
             p.setWorkTime(Integer.parseInt(obj[7].toString()));
-            personnelEntityList.add(p);
+
+            pl.setPersonnelEntity(p);
+
+            personnelLogEntityList.add(pl);
         }
-        return personnelEntityList;
+        return personnelLogEntityList;
     }
 
     @Override
-    public List<CarEntity> getEventInfoCar(String eid) {
+    public List<CarLogEntity> getEventInfoCar(String eid) {
         List<Object[]> objects = eventDao.getEventInfoCar(eid);
-        List<CarEntity> carEntityList=new ArrayList<>();
+        List<CarLogEntity> carLogEntityList=new ArrayList<>();
         for (Object[] obj :
                 objects) {
+            CarLogEntity cl=new CarLogEntity();
+            cl.setId(obj[4].toString());
+
             CarEntity c = new CarEntity();
             c.setId(obj[0].toString());
             c.setCarNum(obj[1].toString());
             c.setDriver(obj[2].toString());
             c.setState(Integer.parseInt(obj[3].toString()));
-            carEntityList.add(c);
+
+            cl.setCarEntity(c);
+            carLogEntityList.add(cl);
         }
-        return carEntityList;
+        return carLogEntityList;
     }
 }

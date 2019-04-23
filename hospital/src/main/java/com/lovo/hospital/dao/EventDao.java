@@ -68,7 +68,7 @@ public interface EventDao extends CrudRepository<EventEntity, String> {
      * @return
      */
     @Query(value = "SELECT \n" +
-            "p.id , p.name ,p.pnum ,p.position,p.sex,p.state ,p.tel ,p.work_time\n" +
+            "p.id , p.name ,p.pnum ,p.position,p.sex,p.state ,p.tel ,p.work_time,pl.id as pl_id\n" +
             "from t_event e\n" +
             "INNER JOIN t_dispatch d on e.id=d.e_id\n" +
             "INNER JOIN t_personnel_log pl on d.request_id=pl.d_id\n" +
@@ -82,7 +82,7 @@ public interface EventDao extends CrudRepository<EventEntity, String> {
      * @return
      */
     @Query(value = "SELECT \n" +
-            "c.id ,c.car_num ,c.driver ,c.state \n" +
+            "c.id ,c.car_num ,c.driver ,c.state,cl.id as cl_id \n" +
             "from t_event e\n" +
             "INNER JOIN t_dispatch d on e.id=d.e_id\n" +
             "INNER JOIN t_car_log cl on d.request_id=cl.d_id\n" +
