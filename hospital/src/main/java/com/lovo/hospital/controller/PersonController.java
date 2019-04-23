@@ -96,15 +96,17 @@ public class PersonController {
 	 * @return
 	 */
 	@RequestMapping("personupdate")
-	public ModelAndView personupdate(String name,String pnum,String tel,String sex,String position){
+	public ModelAndView personupdate(String id,String name,String pnum,Integer workTime, String tel,String sex,String position){
 		ModelAndView modelAndView = new ModelAndView();
-		PersonnelEntity personnelEntity =new PersonnelEntity();
-		personnelEntity.setName(name);
-		personnelEntity.setPnum(pnum);
-		personnelEntity.setTel(tel);
-		personnelEntity.setSex(sex);
-		personnelEntity.setPosition(position);
-		PersonnelEntity personnelEntity1 = personnelService.updateOne(personnelEntity);
+		PersonnelEntity personnelEntity1 =new PersonnelEntity();
+		personnelEntity1.setId(id);
+		personnelEntity1.setName(name);
+		personnelEntity1.setPnum(pnum);
+		personnelEntity1.setWorkTime(workTime);
+		personnelEntity1.setTel(tel);
+		personnelEntity1.setSex(sex);
+		personnelEntity1.setPosition(position);
+		PersonnelEntity personnelEntity = personnelService.updateOne(personnelEntity1);
 		if(personnelEntity!=null){
 			modelAndView.setViewName("personpage");
 		}
