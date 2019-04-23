@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Service(value = "eventService")
@@ -15,6 +16,7 @@ public class EventServiceImpl implements EventService {
 
     @Autowired
     private EventDao eventDao;
+
     /**
      * 条件得到事件列表
      *
@@ -27,12 +29,23 @@ public class EventServiceImpl implements EventService {
     @Override
     public List<EventRecordListDto> getEventDtoList(Integer currPage, String eventName, String startTime, String endTime) {
         Integer starIndex = (currPage - 1) * currPage;
-        List<Object> objects =eventDao.getEventDtoList(starIndex,10,eventName,startTime,endTime);
+        List<Object[]> objects = eventDao.getEventDtoList(starIndex, 10, eventName, startTime, endTime);
         List<EventRecordListDto> eventRecordListDtos = new ArrayList<>();
-        EventRecordListDto eventRecordListDto = null;
-        for (Object object : objects) {
-            eventRecordListDto = (EventRecordListDto) object;
-            eventRecordListDtos.add(eventRecordListDto);
+
+
+
+        for (Object[] objs : objects) {
+            EventRecordListDto erDto = new EventRecordListDto();
+            erDto.setEventId(objs[0].toString());
+            erDto.setEventIdNull(objs[1].toString());
+            erDto.setEventName(objs[2].toString());
+            erDto.setEventBeginTime((Date) objs[3]);
+            erDto.setPeopleNum( Integer.parseInt(objs[4].toString()));
+            erDto.setCarNum( Integer.parseInt(objs[5].toString()));
+            erDto.setState( Integer.parseInt(objs[6].toString()));
+
+
+            eventRecordListDtos.add(erDto);
         }
         return eventRecordListDtos;
     }
@@ -48,7 +61,7 @@ public class EventServiceImpl implements EventService {
      */
     @Override
     public Integer getTotalPage(Integer pageSize, String eventName, String startTime, String endTime) {
-        Integer totalCount = eventDao.getTotalCountByCondition(eventName,startTime,endTime);
+        Integer totalCount = eventDao.getTotalCountByCondition(eventName, startTime, endTime);
         Integer totalPage = (totalCount + pageSize - 1) / pageSize;
         return totalPage;
     }
