@@ -2,6 +2,8 @@ package com.lovo.hospital.service;
 
 import com.lovo.hospital.entity.DispatchEntity;
 
+import java.util.List;
+
 public interface DispatchService {
     /**
      *
@@ -23,6 +25,6 @@ public interface DispatchService {
      * @param id 事件ID
      * @return
      */
-    List<DispatchEntity> getDispatchByEventId(String id,Integer state);
+    List<DispatchEntity> getDispatchByEventId(String id, Integer state);
 
 }

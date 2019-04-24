@@ -4,13 +4,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.lovo.hospital.entity.UserEntity;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
 @Component
 public class PowerInterceptor implements HandlerInterceptor {
-
+	Logger logger = LoggerFactory.getLogger(PowerInterceptor.class);
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
@@ -19,6 +21,8 @@ public class PowerInterceptor implements HandlerInterceptor {
 		if("/loginyanzheng".equals(request.getRequestURI())||user!=null){
 			return true;
 		}
+		logger.info("------:跳转到login页面！");
+		response.sendRedirect(request.getContextPath()+"/loginyanzheng");
 		return false;
 	}
 

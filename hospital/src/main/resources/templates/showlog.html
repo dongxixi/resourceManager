@@ -184,7 +184,13 @@
                 }
             } else if (btn=="GO"){
                 var inputPage=$("#input").val();
-                currPage = inputPage;
+                if(inputPage>totalPage){
+                    currPage=totalPage
+                }else if(inputPage<=0){
+                    currPage=1;
+                }else {
+                    currPage = inputPage;
+                }
             }else if (btn=="查询"){
                 currPage = 1;
             }
