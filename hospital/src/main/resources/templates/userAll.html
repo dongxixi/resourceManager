@@ -50,7 +50,7 @@
                     <a href="404.html" class="navbar-brand">
                         <div class="brand-text brand-big hidden-lg-down nav-link">日志</div>
                     </a>
-                    <a href="404.html" class="navbar-brand">
+                    <a href="gotoUserAll" class="navbar-brand">
                         <div class="brand-text brand-big hidden-lg-down nav-link">系统用户管理</div>
                     </a>
                     <!--<a id="toggle-btn" href="#" class="menu-btn active">-->
@@ -210,21 +210,18 @@
                 if (currPage < 1) {
                     currPage = 1;
                 }
-                $.getJSON("findAllUser", {currPage: currPage}, fillData);
             } else if (btn == "下一页") {
                 currPage = currPage + 1;
                 if (currPage > totalPage) {
                     currPage = totalPage;
                 }
-                $.getJSON("findAllUser", {currPage: currPage}, fillData);
             } else if (btn == "GO") {
                 var inputPage = $(":input[name=input]").val();
                 currPage = inputPage;
-                $.getJSON("findAllUser", {currPage: currPage}, fillData);
             } else if (btn == "查询") {
                 currPage = 1;
-                $.getJSON("findAllUser", {currPage: currPage, userName: userName, powerName: powerName}, fillData);
             }
+            $.getJSON("findAllUser", {currPage: currPage, userName: userName, powerName: powerName}, fillData);
         });
     });
 
