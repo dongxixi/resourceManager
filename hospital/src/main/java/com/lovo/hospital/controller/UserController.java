@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @Controller
@@ -45,11 +46,12 @@ public class UserController {
      * @return 查栈出来的user对象返回给页面操作
      */
     @RequestMapping("loginyanzheng")
-    public ModelAndView findBy(String userName, String password){
+    public ModelAndView findBy(String userName, String password, HttpServletRequest request){
         ModelAndView mv=new ModelAndView();
         UserEntity user=userService.logindBy(userName,password);
-        if (user!=null){
+        if (user!=null&&!" ".equals(user)){
             //重定向到查询controller
+            request.getSession().setAttribute("user",user);
             RedirectView rv=new RedirectView("gotoUserAll");
             mv.setView(rv);
         }

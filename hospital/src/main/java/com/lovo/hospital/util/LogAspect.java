@@ -34,6 +34,9 @@ public class LogAspect {
     @Autowired
     private PersonnelService personnelService;
 
+
+
+
     /**
      * 管理员登录方法的切入点
      */
@@ -114,30 +117,72 @@ public class LogAspect {
         Object[] args = joinPoint.getArgs();
         if(methodName.contains("Car")){
             //修改之前的对象
-            CarEntity carEntity=null;
-            //修改以后的对象
+            CarEntity oldCarEntity=new CarEntity();
             CarEntity s = (CarEntity)args[0];
-            carEntity = carService.infoCarById(s.getId());
+            String id=s.getId();
+            s = carService.infoCarById(id);
+            String id1 = s.getId();
+            String carNum = s.getCarNum();
+            String driver = s.getDriver();
+            int state = s.getState();
+            oldCarEntity.setState(state);
+            oldCarEntity.setDriver(driver);
+            oldCarEntity.setCarNum(carNum);
+            oldCarEntity.setId(id1);
             proceed  = joinPoint.proceed();
+            CarEntity newCarEntity = carService.infoCarById(id);
             //拼接日志信息
-            description="修改前:"+carEntity.getDriver()+"修改后:"+s.getDriver();
+            Compare<CarEntity> carEntityCompare = new Compare<>();
+            description = carEntityCompare.contrastObj(oldCarEntity,newCarEntity);
+            if(description!=null&&!"".equals(description)){
+                description="修改："+oldCarEntity.getCarNum()+"内容："+description;
+                addlogin(description);
+            }
         }else if(methodName.contains("User")){
             String id=args[0].toString();
             UserEntity user = userService.findUserById(id);
-            String userName = user.getUserName();
-            description="修改前:"+userName+"修改后:"+args[1].toString();
+            UserEntity oldUserEntity1 = new UserEntity();
+            oldUserEntity1.setuId(user.getuId());
+            oldUserEntity1.setPassword(user.getPassword());
+            oldUserEntity1.setSystemName(user.getSystemName());
+            oldUserEntity1.setSetUserRole(user.getSetUserRole());
+            proceed  = joinPoint.proceed();
+            UserEntity newUserEntity = new UserEntity();
+            newUserEntity=userService.findUserById(id);
+            //拼接日志信息
+            Compare<UserEntity> userEntityCompare = new Compare<>();
+            description = userEntityCompare.contrastObj(oldUserEntity1,newUserEntity);
+            if(description!=null&&!"".equals(description)){
+                description="修改用户id："+id+"内容："+description;
+                addlogin(description);
+            }
         }else if(methodName.contains("Person")){
             //修改之前的对象
-            PersonnelEntity personnelEntity=null;
-            //修改以后的对象
             PersonnelEntity p = (PersonnelEntity)args[0];
-            personnelEntity = personnelService.selectOnePerson(p.getId());
+            String id=p.getId();
+            PersonnelEntity  ps = personnelService.selectOnePerson(id);
+            //修改之前的对象
+            PersonnelEntity oldPersonnelEntity=new PersonnelEntity();
+            oldPersonnelEntity.setId(id);
+            oldPersonnelEntity.setName(ps.getName());
+            oldPersonnelEntity.setPnum(ps.getPnum());
+            oldPersonnelEntity.setPosition(ps.getPosition());
+            oldPersonnelEntity.setSex(ps.getSex());
+            oldPersonnelEntity.setState(ps.getState());
+            oldPersonnelEntity.setTel(ps.getTel());
+            oldPersonnelEntity.setWorkTime(ps.getWorkTime());
             proceed  = joinPoint.proceed();
+            //修改后的对象
+            PersonnelEntity newPersonnelEntity=personnelService.selectOnePerson(id);
             //拼接日志信息
-            description="修改前:"+personnelEntity.getName()+"修改后:"+personnelEntity.getName();
+            Compare<UserEntity> userEntityCompare = new Compare<>();
+            description = userEntityCompare.contrastObj(oldPersonnelEntity,newPersonnelEntity);
+            if(description!=null&&!"".equals(description)){
+                description="修改人员id："+id+"内容："+description;
+                addlogin(description);
+            }
         }
 
-        addlogin(description);
         return proceed;
     }
 
