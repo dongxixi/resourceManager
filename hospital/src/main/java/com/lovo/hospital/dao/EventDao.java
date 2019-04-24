@@ -1,5 +1,6 @@
 package com.lovo.hospital.dao;
 
+import com.lovo.hospital.entity.DispatchEntity;
 import com.lovo.hospital.entity.EventEntity;
 
 import org.springframework.data.jpa.repository.Query;

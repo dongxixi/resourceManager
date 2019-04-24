@@ -183,7 +183,7 @@
                 <h4 class="modal-title" id="myModalLabel">资源派出记录</h4>
             </div>
             <div class="modal-body">
-                <h3>申请资源</h3>
+                <h3>资源派出记录</h3>
                 <table class="table table-hover">
                     <thead>
                     <tr class="bg-info text-white">
@@ -298,20 +298,17 @@
             var peopleNum = e.peopleNum;
             var carNum = e.carNum;
             var state = e.state;
+            var strstate="";
+            var link ="";
 
-            var link = null;
-
-            if (state == 1) {
+            if (state == "1") {
                 var href = " href =\"javascript:return false;\" "
-                var style = " style=\"opacity: 0.2\" "
+                var style = " style=\"opacity: 0.2\;display: none\" "
                 link = href + style;
-            } else if (state == 0) {
-                link = " href=' /eventOperation/"+ eventId +"' ";
-            }
-            if(state=="0"){
-                state="未处理";
-            }else if(state=="1"){
-                state="已处理";
+                strstate="已处理";
+
+            }else if(state == "0"){
+                strstate="未处理";
             }
 
             var dataTr = "<tr>" +
@@ -320,9 +317,9 @@
                 "            <td>" + eventBeginTime + "</td>" +
                 "            <td>" + peopleNum + "</td>" +
                 "            <td>" + carNum + "</td>" +
-                "            <td>" + state + "</td>" +
-                "            <td><button class=\"btn btn-outline-primary\" data-toggle=\"modal\" data-target=\"#despatchModal\" onclick='getDispatch(this)'>处理请求</button>&emsp;" +
-                "                <a class='btn btn-outline-primary' href='updateCar?eid=" + eventId + "'>资源归队</a>&emsp;" +
+                "            <td>" + strstate + "</td>" +
+                "            <td><button class=\"btn btn-outline-primary\" data-toggle=\"modal\" data-target=\"#despatchModal\" onclick='getDispatch(this)' "+link+">处理请求</button>&emsp;" +
+                "                <a class='btn btn-outline-primary' href='eventReturn?id=" + eventId + "'>资源归队</a>&emsp;" +
                 "                <a class='btn btn-outline-primary' href='eventInfo?eid=" + eventId + "'>事件详情</a></td>" +
                 "        </tr>";
 
@@ -340,7 +337,7 @@
 
     function getDispatch(obj) {
         var eventId = $(obj).parent().siblings().get(0).innerText;
-        alert(eventId);
+        // alert(eventId);
         $.post("/"+eventId+"/getDispatchByEventId", {}, disptchList);
     }
     // 根据事件ID找到资源派出列表
@@ -354,7 +351,7 @@
             var pNum = e.pNum;
             var cNum = e.cNum;
             var state = e.state;
-            var chishu = num-1;
+            num = num - 1;
             var link = null;
 
             if (state == 1) {
@@ -366,7 +363,7 @@
             }
             var dataTr = "<tr> " +
                 " <td>" + disptchId + "</td> " +
-                " <td>" + chishu + "</td> " +
+                " <td>" + num + "</td> " +
                 " <td>" + pNum + "</td> " +
                 " <td>" + cNum + "</td> " +
                 " <td> <a value='处理' class='btn btn-outline-primary' "+link+">处理</a></td> " +
@@ -377,7 +374,6 @@
     }
 </script>
 
-<a></a>
 </body>
 
 </html>

@@ -78,7 +78,6 @@ public class EventServiceImpl implements EventService {
     public EventEntity getEventInfo(String eid) {
         EventEntity eventEntity = eventDao.findById(eid).get();
         //通过事件编号查所有的派遣
-
         return eventEntity;
     }
 
@@ -167,6 +166,8 @@ public class EventServiceImpl implements EventService {
 
 
     }
+
+
 
     @Override
     public List<PersonnelLogEntity> getEventInfoPersonnel(String eid) {

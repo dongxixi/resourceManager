@@ -112,8 +112,8 @@ public class DispatchServiceImpl implements DispatchService {
 
     /**
      * 通过事件ID得到该事件的资源请求集合
-     *
      * @param id 事件ID
+     * @param state 处理状态
      * @return
      */
     @Override
