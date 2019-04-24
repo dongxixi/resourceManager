@@ -49,11 +49,10 @@ public class EventServiceImpl implements EventService {
             EventRecordListDto erDto = new EventRecordListDto();
             String eventId = objs[0].toString();
             erDto.setEventId(eventId);
-            erDto.setEventIdNull(objs[1].toString());
-            erDto.setEventName(objs[2].toString());
-            erDto.setEventBeginTime((Date) objs[3]);
-            erDto.setPeopleNum(Integer.parseInt(objs[4].toString()));
-            erDto.setCarNum(Integer.parseInt(objs[5].toString()));
+            erDto.setEventName(objs[1].toString());
+            erDto.setEventBeginTime((Date) objs[2]);
+            erDto.setPeopleNum(Integer.parseInt(objs[3].toString()));
+            erDto.setCarNum(Integer.parseInt(objs[4].toString()));
 
             //判断有没有没有处理的资源请求
             List<DispatchEntity> dispatchEntities = dispatchService.getDispatchByEventId(eventId, 0);

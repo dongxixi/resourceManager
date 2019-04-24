@@ -20,8 +20,7 @@ public interface EventDao extends CrudRepository<EventEntity, String> {
      * @return
      */
     @Query(value = "SELECT " +
-            " e.id AS eventIdNull, " +
-            "e.event_id AS eventId, " +
+            "e.id AS eventId, " +
             "e.event_name AS eventName, " +
             "e.event_time AS eventBeginTime, " +
             "sum(d.p_num) AS peopleNum, " +

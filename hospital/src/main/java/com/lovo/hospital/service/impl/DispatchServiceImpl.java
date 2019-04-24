@@ -5,6 +5,7 @@ import com.lovo.hospital.entity.*;
 import com.lovo.hospital.service.CarService;
 import com.lovo.hospital.service.DispatchService;
 import com.lovo.hospital.service.PersonnelService;
+import com.lovo.hospital.service.ResourceStatisticsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,6 +25,8 @@ public class DispatchServiceImpl implements DispatchService {
     private CarService carService;
     @Autowired
     private PersonnelService personnelService;
+    @Autowired
+    private ResourceStatisticsService resourceStatisticsService;
 
     @Autowired
     private DispatchDao dispatchDao;
@@ -60,6 +63,9 @@ public class DispatchServiceImpl implements DispatchService {
             return 3;//选择的入数不正确
         }
 
+        //获取库存实例
+        ResourceStatisticsEntity resourceStatisticsEntity = resourceStatisticsService.getResourceStatisticsEntity();
+
         //通过返回的字符串，获取所有需要派出车辆的id，在添加到记录里
         ArrayList<CarLogEntity> carList = new ArrayList<>();
         for (String carId : carArray) {
@@ -76,6 +82,8 @@ public class DispatchServiceImpl implements DispatchService {
 
             carList.add(carLog);
         }
+
+        resourceStatisticsEntity.setcVacantNum(resourceStatisticsEntity.getcVacantNum() - carList.size());
 
         carLogDao.saveAll(carList);
         dispatchEntity.setState(1);
@@ -94,10 +102,12 @@ public class DispatchServiceImpl implements DispatchService {
             Timestamp startTime = new Timestamp(System.currentTimeMillis());
             personnelLog.setStartTime(startTime);
 
-            personnelLog.setState(0);
+            personnelLog.setState(1);
 
             personList.add(personnelLog);
         }
+
+        resourceStatisticsEntity.setpRescuingNum(resourceStatisticsEntity.getpRescuingNum() - personList .size());
 
         personLogDao.saveAll(personList);
 
