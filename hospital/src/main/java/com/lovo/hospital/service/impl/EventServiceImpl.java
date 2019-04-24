@@ -5,6 +5,7 @@ import com.lovo.hospital.dao.EventDao;
 import com.lovo.hospital.dao.PersonLogDao;
 import com.lovo.hospital.dto.EventRecordListDto;
 import com.lovo.hospital.entity.*;
+import com.lovo.hospital.service.DispatchService;
 import com.lovo.hospital.service.EventService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,6 +26,8 @@ public class EventServiceImpl implements EventService {
     private CarLogDao carLogDao;
     @Autowired
     private PersonLogDao personLogDao;
+    @Autowired
+    private DispatchService dispatchService;
 
     /**
      * 条件得到事件列表
@@ -44,15 +47,21 @@ public class EventServiceImpl implements EventService {
 
         for (Object[] objs : objects) {
             EventRecordListDto erDto = new EventRecordListDto();
-            erDto.setEventId(objs[0].toString());
+            String eventId = objs[0].toString();
+            erDto.setEventId(eventId);
             erDto.setEventIdNull(objs[1].toString());
             erDto.setEventName(objs[2].toString());
             erDto.setEventBeginTime((Date) objs[3]);
             erDto.setPeopleNum(Integer.parseInt(objs[4].toString()));
             erDto.setCarNum(Integer.parseInt(objs[5].toString()));
-            erDto.setState(Integer.parseInt(objs[6].toString()));
 
-
+            //判断有没有没有处理的资源请求
+            List<DispatchEntity> dispatchEntities = dispatchService.getDispatchByEventId(eventId, 0);
+            if (dispatchEntities.size()>0) {
+                erDto.setState(0);
+            }else {
+                erDto.setState(1);
+            }
             eventRecordListDtos.add(erDto);
         }
         return eventRecordListDtos;
