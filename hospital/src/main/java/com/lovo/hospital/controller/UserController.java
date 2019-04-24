@@ -13,6 +13,9 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.List;
 
 @Controller
@@ -20,6 +23,10 @@ public class UserController {
     @Autowired
     private IUserService userService;
 
+    @RequestMapping("gotoeventAll")
+    public String gotoeventAll() {
+        return "eventAll";
+    }
     @RequestMapping("gotoUserAll")
     public String gotoUser(){
         return "userAll";
@@ -52,7 +59,7 @@ public class UserController {
         if (user!=null&&!" ".equals(user)){
             //重定向到查询controller
             request.getSession().setAttribute("user",user);
-            RedirectView rv=new RedirectView("gotoUserAll");
+            RedirectView rv=new RedirectView("gotoeventAll");
             mv.setView(rv);
         }
         else {
@@ -124,16 +131,15 @@ public class UserController {
      * 修改用户信息
      * @param userName  用户名
      * @param password  密码
-     * @param roleName  角色名
      * @param uid   用户id
      * @return
      */
     @RequestMapping("updateInfoUser")
-    public ModelAndView updateInfoUser(String userName,String password,String roleName,String uid) {
+    public ModelAndView updateInfoUser(String uid,String userName,String password) {
         ModelAndView mv=new ModelAndView();
         UserEntity user=userService.findByUserName(userName);
         if (user==null){
-            userService.updateInfoUser(userName,password,roleName,uid);
+            userService.updateInfoUser(uid,userName,password);
             //重定向到查询controller
             RedirectView rv=new RedirectView("gotoUserAll");
             mv.setView(rv);
@@ -162,4 +168,27 @@ public class UserController {
         return mv;
     }
 
+    /**
+     * 根据用户名查询用户
+     * @param userName
+     * @return
+     */
+    @RequestMapping("findByUserName")
+    public String findByUserName(String userName,HttpServletResponse response) {
+        UserEntity user = userService.findByUserName(userName);
+        response.setContentType("text/html");
+        response.setCharacterEncoding("utf-8");
+        PrintWriter out = null;
+        try {
+            out = response.getWriter();
+            if (user.equals("")&&user==null) {
+                out.println("0");
+            } else {
+                out.println("1");
+            }
+        }catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 }

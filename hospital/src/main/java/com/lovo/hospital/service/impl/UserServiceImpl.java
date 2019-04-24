@@ -129,11 +129,12 @@ public class UserServiceImpl implements IUserService {
      * @param uid 用户id
      * @param userName  用户名
      * @param password  密码
-     * @param roleName  角色名
      */
     @Transactional
-    public void updateInfoUser(String uid, String userName, String password, String roleName) {
-        userDao.updateInfoUser(uid,userName,password,roleName);
+    public void updateInfoUser(String uid, String userName, String password) {
+        UserEntity user=(UserEntity)userDao.findById(uid).get();
+        user.setUserName(userName);
+        user.setPassword(password);
     }
 
     /**
