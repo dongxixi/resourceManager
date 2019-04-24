@@ -34,9 +34,6 @@ public class LogAspect {
     @Autowired
     private PersonnelService personnelService;
 
-
-
-
     /**
      * 管理员登录方法的切入点
      */
@@ -101,7 +98,9 @@ public class LogAspect {
         //获取添加的信息
         String log = getLog(joinPoint, object);
         //添加日志
-        addlogin("添加"+log);
+        if(log!=null){
+            addlogin("添加"+log);
+        }
     }
 
     /**
@@ -205,6 +204,7 @@ public class LogAspect {
             carEntity = carService.infoCarById(s.getId());
             proceed  = joinPoint.proceed();
             description="删除车辆:"+carEntity.getCarNum();
+            addlogin(description);
         }else if(methodName.contains("User")){
             //获取删除前的ID
             String id=args[0].toString();
@@ -212,6 +212,7 @@ public class LogAspect {
             String userName = user.getUserName();
             proceed  = joinPoint.proceed();
             description="删除用户:"+userName;
+            addlogin(description);
         }else if(methodName.contains("Person")){
             //获取删除前的ID
             String id=args[0].toString();
@@ -219,9 +220,10 @@ public class LogAspect {
             String personnelName = personnelEntity.getName();
             proceed  = joinPoint.proceed();
             description="删除人员:"+personnelName;
+            addlogin(description);
         }
 
-        addlogin(description);
+
         return proceed;
     }
 
