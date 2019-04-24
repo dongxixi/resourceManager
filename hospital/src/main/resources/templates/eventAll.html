@@ -86,28 +86,28 @@
 
 
 <div class="container">
-    <div class="card-header">
-        <h3><i class="fa fa-user-circle"></i>事件管理</h3>
-    </div>
-    <br/>
     <!--查询div-->
-    <div class="card form">
-        <div class="row">
-            <div class="input-group ">
+    <div class="card form" style="min-height: 490px;">
+        <div class="card-header">
+            <h3><i class="fa fa-user-circle"></i>事件管理</h3>
+        </div>
+        <br/>
+        <div class="row form-group">
+            <div class="col-sm-1"></div>
+            <div class="input-group-addon">事件名称</div>
+            <input type="text" class="form-control-sm" placeholder="事件名称" name="eventName">&emsp;
+            <div class="input-group-addon">开始时间</div>
+            <input type="date" class="form-control-sm" placeholder="开始时间" name="startTime">&emsp;
+            <div class="input-group-addon">结束时间</div>
+            <input type="date" class="form-control-sm" placeholder="结束时间" name="endTime">&emsp;
+            <button type="button" class="btn btn-outline-primary">查询</button>
 
-                <div class="input-group-addon">事件名称</div>
-                <input type="text" class="form-control-sm" placeholder="事件名称" name="eventName">&emsp;
-                <div class="input-group-addon">开始时间</div>
-                <input type="date" class="form-control-sm" placeholder="开始时间" name="startTime">&emsp;
-                <div class="input-group-addon">结束时间</div>
-                <input type="date" class="form-control-sm" placeholder="结束时间" name="endTime">&emsp;
-                <button type="button" class="btn btn-outline-primary">查询</button>
 
-            </div>
             <br>
         </div>
-        <div class="row">
-            <table class="table table-hover">
+        <div class="row form-group">
+            <div class="col-sm-1"></div>
+            <table class="table table-hover col-sm-10">
                 <thead>
                 <tr class="bg-info text-white">
                     <th>事件编号</th>
@@ -124,7 +124,8 @@
                 </tbody>
             </table>
         </div>
-        <div class="row">
+        <div class="row form-group">
+            <div class="col-sm-1"></div>
             <div class="col-md-4">
                 <button type="button" class="btn btn-outline-primary" value="上一页">上一页</button>
                 <input type="text" class="form-control-sm" placeholder="输入页数" id="input"
@@ -283,9 +284,9 @@
                 "            <td>" + peopleNum + "</td>" +
                 "            <td>" + carNum + "</td>" +
                 "            <td>" + strstate + "</td>" +
-                "            <td><button class=\"btn btn-outline-primary\" data-toggle=\"modal\" data-target=\"#despatchModal\" onclick='getDispatch(this)' " + link + ">处理请求</button>&emsp;" +
-                "                <a class='btn btn-outline-primary' href='eventReturn?id=" + eventId + "'>资源归队</a>&emsp;" +
-                "                <a class='btn btn-outline-primary' href='eventInfo?eid=" + eventId + "'>事件详情</a></td>" +
+                "            <td><button class=\"btn btn-outline-primary\" data-toggle=\"modal\" data-target=\"#despatchModal\" onclick='getDispatch(this)' " + link + ">处理</button>&emsp;" +
+                "                <a class='btn btn-outline-primary' href='eventReturn?id=" + eventId + "'>归队</a>&emsp;" +
+                "                <a class='btn btn-outline-primary' href='eventInfo?eid=" + eventId + "'>详情</a></td>" +
                 "        </tr>";
 
             $table.append(dataTr);
