@@ -39,26 +39,6 @@
                         <div class="brand-text brand-big hidden-lg-down">华西医院应急系统</div>
                     </a>
 
-                    <!-- 导航栏 -->
-                    <a href="404.html" class="navbar-brand">
-                        <div class="brand-text brand-big hidden-lg-down nav-link">人员管理</div>
-                    </a>
-
-
-                    <a href="/carAll" class="navbar-brand">
-                        <div class="brand-text brand-big hidden-lg-down nav-link">车辆管理</div>
-                    </a>
-                    <a href="404.html" class="navbar-brand">
-                        <div class="brand-text brand-big hidden-lg-down nav-link">日志</div>
-                    </a>
-                    <a href="404.html" class="navbar-brand">
-                        <div class="brand-text brand-big hidden-lg-down nav-link">系统用户管理</div>
-                    </a>
-                    <!--<a id="toggle-btn" href="#" class="menu-btn active">-->
-                    <!--<span></span>-->
-                    <!--<span></span>-->
-                    <!--<span></span>-->
-                    <!--</a>-->
                 </div>
             </div>
             <ul class="nav-menu list-unstyled d-flex flex-md-row align-items-md-center">
@@ -104,78 +84,67 @@
                         PAGE CONTENT
 ======================================================-->
 
-<div class="page-content d-flex align-items-stretch">
 
-    <div class="content-inner">
+<div class="container">
+    <div class="card-header">
+        <h3><i class="fa fa-user-circle"></i>事件管理</h3>
+    </div>
+    <br/>
+    <!--查询div-->
+    <div class="card form">
+        <div class="row">
+            <div class="input-group ">
 
-        <div class="content-inner chart-cont">
-
-            <!--***** CONTENT *****-->
-            <!--查询div-->
-            <div>
-                <div>
-                    <from>
-
-                        <div class="input-group ">
-
-                            <div class="input-group-addon">事件名称</div>
-                            <input type="text" class="form-control-sm" placeholder="事件名称" name="eventName">&emsp;
-                            <div class="input-group-addon">开始时间</div>
-                            <input type="date" class="form-control-sm" placeholder="开始时间" name="startTime">&emsp;
-                            <div class="input-group-addon">结束时间</div>
-                            <input type="date" class="form-control-sm" placeholder="结束时间" name="endTime">&emsp;
-                            <button type="button" class="btn btn-outline-primary">查询</button>
-
-                        </div>
-
-                        <br>
-
-                    </from>
-                </div>
-                <div class="row">
-                    <table class="table table-hover">
-                        <thead>
-                        <tr class="bg-info text-white">
-                            <th>事件编号</th>
-                            <th>事件名称</th>
-                            <th>事件时间</th>
-                            <th>需要人员</th>
-                            <th>需要车辆</th>
-                            <th>处理阶段</th>
-                            <th>操作</th>
-                        </tr>
-                        </thead>
-                        <tbody id="infotable">
-
-                        </tbody>
-                    </table>
-                </div>
-                <from>
-                    <div class="row">
-                        <div class="col-md-4">
-                            <button type="button" class="btn btn-outline-primary" value="上一页">上一页</button>
-                            <input type="text" class="form-control-sm" placeholder="输入页数" id="input"
-                                   style="width: 100px"/>
-                            <span id="pageShow"></span>
-                            <button type="button" class="btn btn-outline-primary" value="GO">GO</button>
-                            <button type="button" class="btn btn-outline-primary" value="下一页">下一页</button>
-
-                            <!--记录当前是第几页-->
-                            <input type="hidden" name="currPage">
-                            <input type="hidden" name="totalPage">
-                        </div>
-                    </div>
-                </from>
-                <br>
+                <div class="input-group-addon">事件名称</div>
+                <input type="text" class="form-control-sm" placeholder="事件名称" name="eventName">&emsp;
+                <div class="input-group-addon">开始时间</div>
+                <input type="date" class="form-control-sm" placeholder="开始时间" name="startTime">&emsp;
+                <div class="input-group-addon">结束时间</div>
+                <input type="date" class="form-control-sm" placeholder="结束时间" name="endTime">&emsp;
+                <button type="button" class="btn btn-outline-primary">查询</button>
 
             </div>
-
+            <br>
         </div>
+        <div class="row">
+            <table class="table table-hover">
+                <thead>
+                <tr class="bg-info text-white">
+                    <th>事件编号</th>
+                    <th>事件名称</th>
+                    <th>事件时间</th>
+                    <th>需要人员</th>
+                    <th>需要车辆</th>
+                    <th>处理阶段</th>
+                    <th>操作</th>
+                </tr>
+                </thead>
+                <tbody id="infotable">
+
+                </tbody>
+            </table>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <button type="button" class="btn btn-outline-primary" value="上一页">上一页</button>
+                <input type="text" class="form-control-sm" placeholder="输入页数" id="input"
+                       style="width: 100px"/>
+                <span id="pageShow"></span>
+                <button type="button" class="btn btn-outline-primary" value="GO">GO</button>
+                <button type="button" class="btn btn-outline-primary" value="下一页">下一页</button>
+
+                <!--记录当前是第几页-->
+                <input type="hidden" name="currPage">
+                <input type="hidden" name="totalPage">
+            </div>
+        </div>
+        <br>
     </div>
 </div>
 
 <!-- 模态框页面-->
-<div class="modal fade bs-example-modal-lg" id="despatchModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+<div class="modal fade bs-example-modal-lg" id="despatchModal" tabindex="-1" role="dialog"
+     aria-labelledby="myLargeModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
@@ -206,10 +175,6 @@
     </div><!-- /.modal -->
 </div>
 
-<!--模态框数据显示-->
-<script>
-
-</script>
 <!-- FOOTER -->
 <footer class="footer navbar-fixed-bottom text-md-center" style="background-color: #5e67d6">
     <div class="" style="padding-top: 30px;color: white;">应急系统 &copy; 2018.Company name LOVO J165 3组.</div>
@@ -298,17 +263,17 @@
             var peopleNum = e.peopleNum;
             var carNum = e.carNum;
             var state = e.state;
-            var strstate="";
-            var link ="";
+            var strstate = "";
+            var link = "";
 
             if (state == "1") {
                 var href = " href =\"javascript:return false;\" "
                 var style = " style=\"opacity: 0.2\;display: none\" "
                 link = href + style;
-                strstate="已处理";
+                strstate = "已处理";
 
-            }else if(state == "0"){
-                strstate="未处理";
+            } else if (state == "0") {
+                strstate = "未处理";
             }
 
             var dataTr = "<tr>" +
@@ -318,7 +283,7 @@
                 "            <td>" + peopleNum + "</td>" +
                 "            <td>" + carNum + "</td>" +
                 "            <td>" + strstate + "</td>" +
-                "            <td><button class=\"btn btn-outline-primary\" data-toggle=\"modal\" data-target=\"#despatchModal\" onclick='getDispatch(this)' "+link+">处理请求</button>&emsp;" +
+                "            <td><button class=\"btn btn-outline-primary\" data-toggle=\"modal\" data-target=\"#despatchModal\" onclick='getDispatch(this)' " + link + ">处理请求</button>&emsp;" +
                 "                <a class='btn btn-outline-primary' href='eventReturn?id=" + eventId + "'>资源归队</a>&emsp;" +
                 "                <a class='btn btn-outline-primary' href='eventInfo?eid=" + eventId + "'>事件详情</a></td>" +
                 "        </tr>";
@@ -338,13 +303,14 @@
     function getDispatch(obj) {
         var eventId = $(obj).parent().siblings().get(0).innerText;
         // alert(eventId);
-        $.post("/"+eventId+"/getDispatchByEventId", {}, disptchList);
+        $.post("/" + eventId + "/getDispatchByEventId", {}, disptchList);
     }
+
     // 根据事件ID找到资源派出列表
     function disptchList(data) {
         //循环返回的list，填入数据
         var $table = $("#disptchList");
-        var  num = data.length + 1;
+        var num = data.length + 1;
         $table.empty();
         $.each(data, function (i, e) {
             var disptchId = e.requestId;
@@ -359,15 +325,15 @@
                 var style = " style=\"opacity: 0.2\" "
                 link = href + style;
             } else if (state == 0) {
-                link = " href=\" eventOperation\/"+ disptchId +" \" ";
+                link = " href=\" eventOperation\/" + disptchId + " \" ";
             }
             var dataTr = "<tr> " +
                 " <td>" + disptchId + "</td> " +
                 " <td>" + num + "</td> " +
                 " <td>" + pNum + "</td> " +
                 " <td>" + cNum + "</td> " +
-                " <td> <a value='处理' class='btn btn-outline-primary' "+link+">处理</a></td> " +
-                " </tr> " ;
+                " <td> <a value='处理' class='btn btn-outline-primary' " + link + ">处理</a></td> " +
+                " </tr> ";
 
             $table.append(dataTr);
         });
