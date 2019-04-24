@@ -129,6 +129,7 @@
                                     <label for="pro-tel">司机</label>
                                     <input name="driver" type="text" class="form-control" id="pro-tel" aria-describedby="emailHelp" placeholder="司机"
                                     th:field="${car.driver}">
+                                    <span style="color: #db4437"></span>
                                 </div>
                                 <input name="state" type="hidden" th:field="${car.state}">
                                 <input name="id" type="hidden" th:field="${car.id}">
@@ -159,6 +160,16 @@
 <script th:src="@{staticResources/js/chart.min.js}"></script>
 <script th:src="@{staticResources/js/front.js}"></script>
 
+
+<script src="/staticResources/jquery-2.1.4.js"></script>
+<script>
+    $("[name=driver]").blur(function () {
+        var driver=$(this).val();
+        if (driver==""||driver.length==0){
+            $(this).next().html("请输入司机姓名");
+        }
+    });
+</script>
 <!--Core Javascript -->
 <script>
     new Chart(document.getElementById("myChart-nav").getContext('2d'), {
