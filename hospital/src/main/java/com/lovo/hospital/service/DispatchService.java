@@ -18,4 +18,11 @@ public interface DispatchService {
 
     DispatchEntity getDispatchById(String id);
 
+    /**
+     * 通过事件ID得到该事件的资源请求集合
+     * @param id 事件ID
+     * @return
+     */
+    List<DispatchEntity> getDispatchByEventId(String id,Integer state);
+
 }

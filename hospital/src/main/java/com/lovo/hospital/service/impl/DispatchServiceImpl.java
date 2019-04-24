@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class DispatchServiceImpl implements DispatchService {
@@ -107,5 +108,16 @@ public class DispatchServiceImpl implements DispatchService {
     @Override
     public DispatchEntity getDispatchById(String id) {
         return dispatchDao.findById(id).get();
+    }
+
+    /**
+     * 通过事件ID得到该事件的资源请求集合
+     *
+     * @param id 事件ID
+     * @return
+     */
+    @Override
+    public List<DispatchEntity> getDispatchByEventId(String id,Integer state) {
+        return dispatchDao.getDispatchByEventId(id,state);
     }
 }

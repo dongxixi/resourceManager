@@ -11,10 +11,12 @@ import com.lovo.hospital.service.EventService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -84,6 +86,15 @@ public class EventController {
         return mv;
     }
 
+    @RequestMapping("{id}/getDispatchByEventId")
+    @ResponseBody
+    public List<DispatchEntity> getDispatchByEventId(@PathVariable("id") String id){
 
+        List<DispatchEntity> dispatchEntities = new ArrayList<>();
+
+        dispatchEntities =  dispatchService.getDispatchByEventId(id,0);
+
+        return dispatchEntities;
+    }
 
 }
