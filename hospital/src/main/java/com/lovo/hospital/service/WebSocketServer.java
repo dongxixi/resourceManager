@@ -22,7 +22,9 @@ public class WebSocketServer {
     @JmsListener(destination = "queue")
     public void receiveQueue(String message) {
         System.out.println("监听queue=============监听queue");
+        //收到数据，保存数据库
 
+        //把数据通过ws传到页面上
         this.onMessage(message, session);
     }
 

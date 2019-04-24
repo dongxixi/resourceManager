@@ -1,5 +1,6 @@
 package com.lovo.hospital.client;
 
+import com.lovo.hospital.util.MQUtil;
 import org.apache.activemq.Message;
 import org.apache.activemq.broker.region.Queue;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,21 +16,13 @@ import javax.jms.TextMessage;
 @RestController
 @RequestMapping("api")
 public class ActiveMqClient {
-
     @Autowired
-    private JmsTemplate jmsTemplate;
+    private MQUtil mqUtil;
 
     @RequestMapping("/send")
     public void send(){
         for (int i = 0; i < 10; i++){
-            jmsTemplate.send("queue", new MessageCreator() {
-                @Override
-                public TextMessage createMessage(Session session) throws JMSException {
-                    TextMessage textMessage = session.createTextMessage();
-                    textMessage.setText("消息来啦allalalalalalalala");
-                    return textMessage;
-                }
-            });
+            mqUtil.sendMQ("啦啦啦" + i);
             try {
                 Thread.sleep(10000);
             } catch (InterruptedException e) {

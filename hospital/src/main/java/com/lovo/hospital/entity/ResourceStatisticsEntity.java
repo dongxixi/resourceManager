@@ -43,19 +43,4 @@ public class ResourceStatisticsEntity {
     public void setcVacantNum(int cVacantNum) {
         this.cVacantNum = cVacantNum;
     }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        ResourceStatisticsEntity that = (ResourceStatisticsEntity) o;
-        return pRescuingNum == that.pRescuingNum &&
-                cVacantNum == that.cVacantNum &&
-                Objects.equals(id, that.id);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, pRescuingNum, cVacantNum);
-    }
 }
