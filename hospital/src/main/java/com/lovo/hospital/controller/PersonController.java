@@ -56,9 +56,14 @@ public class PersonController {
 	 * @return
 	 */
 	@RequestMapping("addperson")
-	public ModelAndView addperson(String name,String pnum,String tel,String sex,Integer workTime,String position){
+	public ModelAndView addperson(String name,String tel,String sex,Integer workTime,String position){
+		String telhead =tel.substring(0,3);
+		String telend =tel.substring(7,11);
+
+		String pnum=telhead+telend;
 		PersonnelEntity personnelEntity = personnelService.saveOnePersonnel(name,pnum, tel, sex,workTime, position);
 		ModelAndView modelAndView = new ModelAndView("personpage");
+
 		return modelAndView;
 	}
 
