@@ -130,37 +130,42 @@ public class EventServiceImpl implements EventService {
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void returnPersonAndCar(String persons, String cars) {
-        if (persons != null && !"".equals(persons))
-            for (String s : persons.split("[,]")) {
-                PersonnelLogEntity pl = personLogDao.findById(s).get();
+//        if (persons != null && !"".equals(persons))
+//            for (String s : persons.split("[,]")) {
+//                PersonnelLogEntity pl = personLogDao.findById(s).get();
+//                pl.setReturnTime(new Timestamp(System.currentTimeMillis()));
+//                pl.setState(0);
+//                pl.getPersonnelEntity().setState(0);
+//                personLogDao.save(pl);
+//            }
+//        if (cars != null && !"".equals(cars))
+//            for (String id : cars.split(",")) {
+//                CarLogEntity c = carLogDao.findById(id).get();
+//                c.setReturnTime(new Timestamp(System.currentTimeMillis()));
+//                c.setState(0);
+//                c.getCarEntity().setState(0);
+//                carLogDao.save(c);
+//            }
+        if (persons != null && !"".equals(persons)) {
+            Iterable<PersonnelLogEntity> ps = personLogDao.findAllById(Arrays.asList(persons.split(",")));
+            for (PersonnelLogEntity pl : ps) {
                 pl.setReturnTime(new Timestamp(System.currentTimeMillis()));
                 pl.setState(0);
                 pl.getPersonnelEntity().setState(0);
-                personLogDao.save(pl);
             }
-        if (cars != null && !"".equals(cars))
-            for (String id : cars.split(",")) {
-                CarLogEntity c = carLogDao.findById(id).get();
+            personLogDao.saveAll(ps);
+        }
+        if (cars != null && !"".equals(cars)) {
+            Iterable<CarLogEntity> cs = carLogDao.findAllById(Arrays.asList(cars.split(",")));
+            for (CarLogEntity c : cs) {
                 c.setReturnTime(new Timestamp(System.currentTimeMillis()));
                 c.setState(0);
                 c.getCarEntity().setState(0);
-                carLogDao.save(c);
             }
-//        Iterable<PersonnelLogEntity> ps = personLogDao.findAllById(Arrays.asList(persons.split(",")));
-//        for (PersonnelLogEntity pl : ps) {
-//            pl.setReturnTime(new Timestamp(System.currentTimeMillis()));
-//            pl.setState(0);
-//            pl.getPersonnelEntity().setState(0);
-//        }
-//        personLogDao.saveAll(ps);
-//
-//        Iterable<CarLogEntity> cs = carLogDao.findAllById(Arrays.asList(cars.split(",")));
-//        for (CarLogEntity c : cs) {
-//            c.setReturnTime(new Timestamp(System.currentTimeMillis()));
-//            c.setState(0);
-//            c.getCarEntity().setState(0);
-//        }
-//        carLogDao.saveAll(cs);
+            carLogDao.saveAll(cs);
+        }
+
+
     }
 
     @Override
