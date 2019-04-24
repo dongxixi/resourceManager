@@ -70,7 +70,7 @@ public class EventController {
     }
 
 
-    @RequestMapping("/eventOperation/{id}")
+    @RequestMapping("eventOperation/{id}")
     public ModelAndView main(@PathVariable("id") String id) {
         ModelAndView mv = new ModelAndView();
         mv.addObject("dispatchId", id);

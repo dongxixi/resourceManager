@@ -23,12 +23,27 @@ public class UserServiceImpl implements IUserService {
     private UserRoleDao userRoleDao;
     @Autowired
     private RoleDao roleDao;
+
+    /**
+     * 登录验证
+     * @param userName  用户名
+     * @param password  密码
+     * @return
+     */
     @Override
     public UserEntity logindBy(String userName, String password) {
 
         return userDao.logindBy(userName,password);
     }
 
+    /**
+     * 查询用户所有信息
+     * @param userName  用户名
+     * @param powerName 权限名
+     * @param showNum   每页显示条数
+     * @param pageNum   当前页
+     * @return
+     */
     @Override
     public List<UserAllDto> findAllUser(String userName, String powerName, Integer showNum, Integer pageNum) {
         int startIndex = (showNum - 1) * pageNum;
@@ -48,6 +63,13 @@ public class UserServiceImpl implements IUserService {
         return listDto;
     }
 
+    /**
+     * 查询总页数
+     * @param userName  用户名
+     * @param powerName 权限名
+     * @param showNum   每页显示条数
+     * @return
+     */
     @Override
     public int findTotalPageByCondition(String userName, String powerName, Integer showNum) {
         int totalCount = userDao.findTotalPageByCondition(userName, powerName);
@@ -55,11 +77,21 @@ public class UserServiceImpl implements IUserService {
         return totalPage;
     }
 
+    /**
+     * 删除用户
+     * @param uId  用户id
+     */
     @Override
     public void deleteUser(String uId) {
         userDao.deleteById(uId);
     }
 
+    /**
+     * 新增用户
+     * @param userName  用户名
+     * @param password  密码
+     * @param roleName  角色名
+     */
     @Override
     public void saveUserAll(String userName, String password,String roleName ) {
         if (roleName.equals("1")){
@@ -92,21 +124,48 @@ public class UserServiceImpl implements IUserService {
 
     }
 
+    /**
+     * 修改用户
+     * @param uid 用户id
+     * @param userName  用户名
+     * @param password  密码
+     * @param roleName  角色名
+     */
     @Transactional
     public void updateInfoUser(String uid, String userName, String password, String roleName) {
         userDao.updateInfoUser(uid,userName,password,roleName);
     }
 
+    /**
+     * 根据用户id查询用户
+     * @param uid   用户id
+     * @return  用户对象
+     */
     @Override
     public UserEntity findUserById(String uid) {
 
         return userDao.findById(uid).get();
     }
 
+    /**
+     * 根据用户id查询角色名
+     * @param uid 用户id
+     * @return
+     */
     @Override
     public String findRoleNameByUserId(String uid) {
 
         return roleDao.findRoleNameByUserId(uid);
+    }
+
+    /**
+     * 根据用户名查询用户
+     * @param userName  用户名
+     * @return  用户对象
+     */
+    @Override
+    public UserEntity findByUserName(String userName) {
+        return userDao.findByUserName(userName);
     }
 
 
