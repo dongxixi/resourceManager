@@ -1,5 +1,6 @@
 package com.lovo.hospital.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -17,7 +18,7 @@ public class CarLogEntity {
     private DispatchEntity dispatchEntity;
 
     @ManyToOne
-    @JoinColumn(name = "d_id")
+    @JoinColumn(name = "d_id")@JsonIgnore
     public DispatchEntity getDispatchEntity() {
         return dispatchEntity;
     }

@@ -1,5 +1,6 @@
 package com.lovo.hospital.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import org.hibernate.annotations.GenericGenerator;
 
@@ -48,7 +49,7 @@ public class PersonnelLogEntity {
     private int state;
 
     @ManyToOne
-    @JoinColumn(name = "d_id")
+    @JoinColumn(name = "d_id")@JsonIgnore
     private DispatchEntity dispatchEntity;
 
     @OneToOne
