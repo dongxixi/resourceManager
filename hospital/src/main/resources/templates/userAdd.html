@@ -171,25 +171,26 @@
         var $show1 =$("#passwordtest");
         if ($namet.val().length==0){  //这样就是取到文本框里面所有的文本的长度，等于的是一个int类型
             $show1.html("密码不能为空");
-            return false;
+        }else {
+            $show1.html(" ");
         }
     }
 
     function funname(){
             $("#userName").mouseleave(function(){
                 var userName=$("#userName").val();
-                if(userName==""){
-                    $("#nametest").html("用户名不为空");
-                    return ;
-                }
                 $.post("findByUserName", {
                     userName: userName
                 }, function(data){
                     if (data==1){
                         $("#nametest").html("用户名重复")
-                    }else if (data==0) {
+                    } else if(userName==""){
+                        $("#nametest").html("用户名不为空");
+                    }else {
                         $("#nametest").html("用户名可以使用")
                     }
+
+
                 });
             });
         }
