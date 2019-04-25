@@ -51,10 +51,9 @@ public interface IUserService {
     /**
      * 修改用户
      * @param uid 用户id
-     * @param userName  用户名
      * @param password  密码
      */
-    public void updateInfoUser(String uid,String userName,String password);
+    public void updateInfoUser(String uid,String password);
 
     /**
      * 根据用户id查询用户

@@ -95,10 +95,13 @@ public class LogAspect {
         if (joinPoint.getArgs() == null) {// 没有参数
             return;
         }
+        if (object==null) {//没有返回对象
+            return;
+        }
         //获取添加的信息
         String log = getLog(joinPoint, object);
         //添加日志
-        if(log!=null||"".equals(log)){
+        if(log!=null){
             addlogin("添加"+log);
         }
     }
@@ -146,8 +149,7 @@ public class LogAspect {
             oldUserEntity1.setSystemName(user.getSystemName());
             oldUserEntity1.setSetUserRole(user.getSetUserRole());
             proceed  = joinPoint.proceed();
-            UserEntity newUserEntity = new UserEntity();
-            newUserEntity=userService.findUserById(id);
+            UserEntity newUserEntity =userService.findUserById(id);
             //拼接日志信息
             Compare<UserEntity> userEntityCompare = new Compare<>();
             description = userEntityCompare.contrastObj(oldUserEntity1,newUserEntity);
@@ -200,10 +202,11 @@ public class LogAspect {
         if(methodName.contains("Car")){
             //删除之前的对象
             CarEntity carEntity=null;
-            CarEntity s = (CarEntity)args[0];
-            carEntity = carService.infoCarById(s.getId());
+            String id= args[0].toString();
+            carEntity = carService.infoCarById(id);
+            String carNum=carEntity.getCarNum();
             proceed  = joinPoint.proceed();
-            description="删除车辆:"+carEntity.getCarNum();
+            description="删除车辆:"+carNum;
             addlogin(description);
         }else if(methodName.contains("User")){
             //获取删除前的ID

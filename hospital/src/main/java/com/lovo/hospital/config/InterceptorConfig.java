@@ -21,7 +21,7 @@ public class InterceptorConfig implements WebMvcConfigurer {
     //添加多个拦截器
     public void addInterceptors(InterceptorRegistry registry) {
         //注册权限的拦截器
-        registry.addInterceptor(new PowerInterceptor()).addPathPatterns("/**").excludePathPatterns("/loginyanzheng").excludePathPatterns("/staticResources/**");
+        registry.addInterceptor(new PowerInterceptor()).addPathPatterns("/**").excludePathPatterns("/gotoLogin").excludePathPatterns("/loginyanzheng").excludePathPatterns("/loginMessage").excludePathPatterns("/staticResources/**");
     }
 
 }
