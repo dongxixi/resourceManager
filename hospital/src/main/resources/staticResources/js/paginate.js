@@ -21,4 +21,14 @@ function paginate(pageNo, pageTotal, firstPage, prevPage, nextPage, lastPage, ca
         $("#" + pageNo).val($("#" + pageTotal).text());
         callback();
     });
+    $("#" + pageNo).blur(function () {
+        if (parseInt($("#" + pageNo).val()) > 0 && parseInt($("#" + pageNo).val()) <= parseInt($("#" + pageTotal).text())) {
+            callback();
+        } else {
+            alert("页码错误！");
+            $("#" + pageNo).val(1);
+            callback();
+        }
+
+    })
 }

@@ -30,6 +30,8 @@
 <script>
     var carCheckedList = JSON.parse("[]");
     var personCheckedList = JSON.parse("[]");
+    var inChargeable = true;
+    var Charge;
 
     function addCar(obj) {
         var val = JSON.parse($(obj).siblings().eq(0).val());
@@ -158,10 +160,30 @@
     }
 
     function inCharge() {
-        $("#personInCharge").empty();
-        $.each(personCheckedList, function (i, e) {
-            $("#personInCharge").append($("<option value='"+ e.id +"'>"+ e.name +"</option>"))
-        })
+        if (inChargeable) {
+            $("#personInCharge").empty();
+            $.each(personCheckedList, function (i, e) {
+                $("#personInCharge").append($("<option value='" + e.id + "'>" + e.name + "</option>"));
+            });
+        }
+    }
+
+    function isFirst() {
+        $.post("/isFirst",
+            {
+                dispatchId:$("#dispatchId").val()
+            },
+        function (json) {
+            inChargeable = json;
+            if (!json.isFirst) {
+                Charge = json.inCharge;
+                $("#personInCharge").empty();
+                $("#personInCharge").append($("<option value='" + Charge.id + "'>" + Charge.name + "</option>"));
+                $("#personInCharge").parent().attr("disabled", true);
+            }
+        },
+        "json"
+        );
     }
 
     function saveCharge() {
@@ -179,6 +201,7 @@
 
 
     $(function () {
+        isFirst();
         showCarList();
         paginate("pageCarNo", "pageCarTotal", "firstCarPage", "prevCarPage", "nextCarPage", "lastCarPage", showCarList);
         showPersonList();
@@ -220,7 +243,7 @@
                 <li class="nav-item dropdown">
                     <a id="profile" class="nav-link logout" data-target="#" href="#"
                        data-toggle="dropdown">
-                        <img src="staticResources/img/avatar-1.jpg" alt="..." class="img-fluid rounded-circle"
+                        <img src="/staticResources/img/avatar-1.jpg" alt="..." class="img-fluid rounded-circle"
                              style="height: 30px; width: 30px;">
                     </a>
                     <ul aria-labelledby="profile" class="dropdown-menu profile">
