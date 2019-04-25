@@ -68,10 +68,14 @@ public interface UserDao extends PagingAndSortingRepository<UserEntity,String> {
      * @param password
      * @param roleName
      */
-    @Modifying
-    @Query("update UserRoleEntity ur set " +
-            " ur.user.userName=?2,ur.user.password=?3,ur.role.rId=?4 " +
-            " where ur.user.uId=?1")
-    public void updateInfoUser(String uid, String userName, String password, String roleName);
+
+//    @Query(value = " UPDATE t_user u " +
+//            " LEFT JOIN t_user_role ur ON u.uid = ur.user_id " +
+//            " LEFT JOIN t_role r ON r.rid = ur.role_id " +
+//            " SET u.user_name =?2, " +
+//            " u.PASSWORD =?3, ur.role_id =?4" +
+//            " WHERE " +
+//            " u.uid =?1",nativeQuery = true)
+//    public void updateInfoUser(String uid, String userName, String password, String roleName);
 
 }

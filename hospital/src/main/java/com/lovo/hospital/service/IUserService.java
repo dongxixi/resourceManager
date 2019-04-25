@@ -53,9 +53,8 @@ public interface IUserService {
      * @param uid 用户id
      * @param userName  用户名
      * @param password  密码
-     * @param roleName  角色名
      */
-    public void updateInfoUser(String uid,String userName,String password,String roleName);
+    public void updateInfoUser(String uid,String userName,String password);
 
     /**
      * 根据用户id查询用户
@@ -72,7 +71,7 @@ public interface IUserService {
     public String findRoleNameByUserId(String uid);
 
     /**
-     * 根据用户id查询用户
+     * 根据用户名查询用户
      * @param userName  用户名
      * @return  用户对象
      */

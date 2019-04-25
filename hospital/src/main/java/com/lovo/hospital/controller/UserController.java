@@ -14,6 +14,9 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.List;
 import java.util.Set;
 
@@ -22,6 +25,10 @@ public class UserController {
     @Autowired
     private IUserService userService;
 
+    @RequestMapping("gotoeventAll")
+    public String gotoeventAll() {
+        return "eventAll";
+    }
     @RequestMapping("gotoUserAll")
     public String gotoUser(){
         return "userAll";
@@ -52,11 +59,19 @@ public class UserController {
         ModelAndView mv=new ModelAndView();
         UserEntity user=userService.logindBy(userName,password);
         if (user!=null&&!" ".equals(user)){
-            //重定向到查询controller
-
             request.getSession().setAttribute("user",user);
-            RedirectView rv=new RedirectView("gotoUserAll");
-            mv.setView(rv);
+            String uid=user.getuId();
+            String roleName=userService.findRoleNameByUserId(uid);
+            request.getSession().setAttribute("roleName",roleName);
+            if("医院值班员".equals(roleName)){
+                //重定向到查询controller
+                RedirectView rv=new RedirectView("gotoeventAll");
+                mv.setView(rv);
+            }else {
+                //重定向到查询controller
+                RedirectView rv=new RedirectView("gotoUserAll");
+                mv.setView(rv);
+            }
         }
         else {
             mv.setViewName("login");
@@ -112,10 +127,10 @@ public class UserController {
         UserEntity user=userService.findByUserName(userName);
         if (user==null){
             userService.saveUserAll(userName,password,roleName);
-            //重定向到查询controller
-            RedirectView rv=new RedirectView("gotoUserAll");
-            mv.setView(rv);
-        }else {
+                //重定向到查询controller
+                RedirectView rv=new RedirectView("gotoUserAll");
+                mv.setView(rv);
+            } else {
             //重定向到查询controller
             RedirectView rv=new RedirectView("gotoLogin");
             mv.setView(rv);
@@ -127,16 +142,15 @@ public class UserController {
      * 修改用户信息
      * @param userName  用户名
      * @param password  密码
-     * @param roleName  角色名
      * @param uid   用户id
      * @return
      */
     @RequestMapping("updateInfoUser")
-    public ModelAndView updateInfoUser(String userName,String password,String roleName,String uid) {
+    public ModelAndView updateInfoUser(String uid,String userName,String password) {
         ModelAndView mv=new ModelAndView();
         UserEntity user=userService.findByUserName(userName);
         if (user==null){
-            userService.updateInfoUser(userName,password,roleName,uid);
+            userService.updateInfoUser(uid,userName,password);
             //重定向到查询controller
             RedirectView rv=new RedirectView("gotoUserAll");
             mv.setView(rv);
@@ -165,4 +179,27 @@ public class UserController {
         return mv;
     }
 
+    /**
+     * 根据用户名查询用户
+     * @param userName
+     * @return
+     */
+    @RequestMapping("findByUserName")
+    public String findByUserName(String userName,HttpServletResponse response) {
+        UserEntity user = userService.findByUserName(userName);
+        response.setContentType("text/html");
+        response.setCharacterEncoding("utf-8");
+        PrintWriter out = null;
+        try {
+            out = response.getWriter();
+            if (user.equals("")&&user==null) {
+                out.println("0");
+            } else {
+                out.println("1");
+            }
+        }catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 }
