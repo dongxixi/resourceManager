@@ -8,6 +8,7 @@ import com.lovo.hospital.entity.*;
 import com.lovo.hospital.service.DispatchService;
 import com.lovo.hospital.service.EventService;
 import com.lovo.hospital.service.ResourceStatisticsService;
+import com.lovo.hospital.util.DateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -43,8 +44,12 @@ public class EventServiceImpl implements EventService {
      */
     @Override
     public List<EventRecordListDto> getEventDtoList(Integer currPage, String eventName, String startTime, String endTime) {
-        Integer starIndex = (currPage - 1) * currPage;
-        List<Object[]> objects = eventDao.getEventDtoList(starIndex, 10, eventName, startTime, endTime);
+        Integer starIndex = (currPage - 1) * 10;
+
+        Timestamp startTimeTamp = DateUtil.stringToTimestamp(startTime);
+        Timestamp endTimeTamp = DateUtil.stringToTimestamp(endTime);
+
+        List<Object[]> objects = eventDao.getEventDtoList(starIndex, 10, eventName, startTimeTamp, endTimeTamp);
         List<EventRecordListDto> eventRecordListDtos = new ArrayList<>();
 
 
@@ -80,7 +85,10 @@ public class EventServiceImpl implements EventService {
      */
     @Override
     public Integer getTotalPage(Integer pageSize, String eventName, String startTime, String endTime) {
-        Integer totalCount = eventDao.getTotalCountByCondition(eventName, startTime, endTime);
+        Timestamp startTimeTamp = DateUtil.stringToTimestamp(startTime);
+        Timestamp endTimeTamp = DateUtil.stringToTimestamp(endTime);
+
+        Integer totalCount = eventDao.getTotalCountByCondition(eventName, startTimeTamp, endTimeTamp);
         Integer totalPage = (totalCount + pageSize - 1) / pageSize;
         return totalPage;
     }

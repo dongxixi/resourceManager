@@ -40,8 +40,8 @@ public class DispatchEntity {
 
     @Id
     @Column(name = "request_id", length = 32)
-    @GenericGenerator(name = "powerUUID", strategy = "uuid")
-    @GeneratedValue(generator = "powerUUID")
+    /*@GenericGenerator(name = "powerUUID", strategy = "uuid")
+    @GeneratedValue(generator = "powerUUID")*/
     public String getRequestId() {
         return requestId;
     }

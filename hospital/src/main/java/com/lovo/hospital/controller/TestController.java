@@ -30,15 +30,18 @@ public class TestController {
     @ResponseBody
     public String mqtest() {
 
-        Date date = new Date();
-        Timestamp timestamp = new Timestamp(date.getTime());
+        for (Integer i = 1; i <=21; i++) {
 
-        EventSinkDto eventSinkDto = new EventSinkDto("003", "MQ测试事件3", "火灾", "锦江区", timestamp, "MQ测试报警人", "10010", "测试地址", "P001", 3, 1);
 
-        String s = JSONObject.toJSONString(eventSinkDto);
+            Date date = new Date();
+            Timestamp timestamp = new Timestamp(date.getTime());
+            EventSinkDto eventSinkDto = new EventSinkDto(i.toString(), "MQ测试事件", "火灾", "锦江区", timestamp, "MQ测试报警人", "10010", "测试地址", "P001", 3, 1);
 
-        System.out.println(s);
-        mqUtil.sendMQ(eventSinkDto);
-        return s;
+            String s = JSONObject.toJSONString(eventSinkDto);
+
+            System.out.println(s);
+            mqUtil.sendMQ(eventSinkDto);
+        }
+        return "";
     }
 }

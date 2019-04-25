@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 public interface EventDao extends CrudRepository<EventEntity, String> {
@@ -31,15 +32,15 @@ public interface EventDao extends CrudRepository<EventEntity, String> {
             "INNER JOIN t_dispatch d ON e.id = d.e_id " +
             " where " +
             " if(:eventName is not null ,e.event_name like CONCAT('%',:eventName,'%'),1=1) " +
-            " and if(:startTime is not null and :endTime is not null,e.event_time between :startTime and :endTime,1=1) " +
+            " and if(:startTime is not null  and :endTime is not null,e.event_time between :startTime and :endTime,1=1) " +
             " and if(:startTime is not null and :endTime is  null,e.event_time > :startTime ,1=1) " +
             " and if(:startTime is  null and :endTime is not null,e.event_time < :endTime,1=1) " +
             " group by e.id order by e.event_proceed  limit :startIndex,:pageNum", nativeQuery = true)
     public List<Object[]> getEventDtoList(@Param("startIndex") Integer startIndex,
                                         @Param("pageNum") Integer pageNum,
                                         @Param("eventName") String eventName,
-                                        @Param("startTime") String startTime,
-                                        @Param("endTime") String endTime);
+                                        @Param("startTime") Timestamp startTime,
+                                        @Param("endTime") Timestamp endTime);
 
     /**
      * 查询事件的总条数
@@ -58,8 +59,8 @@ public interface EventDao extends CrudRepository<EventEntity, String> {
             "          and if(:startTime is  null and :endTime is not null,e.event_time < :endTime,1=1) " +
             "         ", nativeQuery = true)
     public Integer getTotalCountByCondition(@Param("eventName") String eventName,
-                                            @Param("startTime") String startTime,
-                                            @Param("endTime") String endTime);
+                                            @Param("startTime") Timestamp startTime,
+                                            @Param("endTime") Timestamp endTime);
 
     /**
      * 通过事件id查询说关联的所有人员信息
