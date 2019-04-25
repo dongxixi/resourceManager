@@ -39,26 +39,6 @@
                         <div class="brand-text brand-big hidden-lg-down">华西医院应急系统</div>
                     </a>
 
-                    <!-- 导航栏 -->
-                    <a href="404.html" class="navbar-brand">
-                        <div class="brand-text brand-big hidden-lg-down nav-link">人员管理</div>
-                    </a>
-
-
-                    <a href="/carAll" class="navbar-brand">
-                        <div class="brand-text brand-big hidden-lg-down nav-link">车辆管理</div>
-                    </a>
-                    <a href="404.html" class="navbar-brand">
-                        <div class="brand-text brand-big hidden-lg-down nav-link">日志</div>
-                    </a>
-                    <a href="404.html" class="navbar-brand">
-                        <div class="brand-text brand-big hidden-lg-down nav-link">系统用户管理</div>
-                    </a>
-                    <!--<a id="toggle-btn" href="#" class="menu-btn active">-->
-                    <!--<span></span>-->
-                    <!--<span></span>-->
-                    <!--<span></span>-->
-                    <!--</a>-->
                 </div>
             </div>
             <ul class="nav-menu list-unstyled d-flex flex-md-row align-items-md-center">
@@ -102,37 +82,33 @@
 
 <!-- 内容模块 -->
 <div class="container">
-    <div class="row">
-        <form action="/eventReturn.do" class="row" method="post">
-            <div class="col-sm-12">
-                <div class="card form" id="form1">
-                    <div class="card-header">
-                        <h3><i class="fa fa-archive"></i>事件人员车辆归队</h3>
-                    </div>
-                    <br/>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="form-group row">
-                                <div class="col-9">
-                                    <input class="form-control" type="text" value="009" id="thingsNo"
-                                           th:field="${event.id}" readonly/>
-                                </div>
-                                <label for="thingsNo" style="width: 85px;" class=" col-form-label">事件编号</label>
-                            </div>
-                            <div class="form-group row">
-                                <div class="col-9">
-                                    <input class="form-control" type="text" value="007" id="thingsName"
-                                           th:field="${event.eventName}" readonly/>
-                                </div>
-                                <label for="thingsName" style="width: 85px;" class=" col-form-label">事件名称</label>
-                            </div>
-                        </div>
-                    </div>
+    <div class="card form" id="form1">
+        <div class="card-header">
+            <h3><i class="fa fa-archive"></i>事件人员车辆归队</h3>
+        </div>
+        <hr/>
+        <form action="/eventReturn.do" method="post">
+            <div class="form-group row">
+                <div class="col-sm-3"></div>
+                <label for="thingsNo" style="width: 85px;" class=" col-form-label">事件编号</label>
+                <div class="col-sm-4">
+                    <label class="form-control" type="text" value="009" id="thingsNo"
+                           th:text="${event.id}"></label>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-sm-6">
+            <div class="form-group row">
+                <div class="col-sm-3"></div>
+                <label for="thingsName" style="width: 85px;" class=" col-form-label">事件名称</label>
+                <div class="col-sm-4">
+                    <label class="form-control" type="text" value="007" id="thingsName"
+                           th:text="${event.eventName}"></label>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-1"></div>
+                <div class="col-sm-5">
                     <h3>在外工作人员</h3>
+                    <hr/>
                     <table class="table table-hover outer" id="outerPerson">
                         <thead>
                         <tr class="bg-info text-white">
@@ -153,8 +129,9 @@
                     </table>
 
                 </div>
-                <div class="col-sm-6">
+                <div class="col-sm-5">
                     <h3>已返回人员</h3>
+                    <hr/>
                     <table class="table table-hover">
                         <thead>
                         <tr class="bg-info text-white">
@@ -172,17 +149,20 @@
                         </tbody>
                     </table>
                 </div>
-                <div class="col-sm-12">
-                    <div class="form-group row">
-                        <label for="personChoose" style="width: 85px;" class=" col-form-label">人员预览</label>
-                        <div class="col-9">
-                            <input class="form-control" type="text" value="" id="personChoose" readonly/>
-                            <input type="hidden" value="" name="persons" id="persons"/>
-                        </div>
-                    </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-3"></div>
+                <label for="personChoose" class=" col-form-label">人员预览</label>
+                <div class="col-sm-5">
+                    <input class="form-control" type="text" value="" id="personChoose" readonly/>
+                    <input type="hidden" value="" name="persons" id="persons"/>
                 </div>
-                <div class="col-sm-6">
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-1"></div>
+                <div class="col-sm-5">
                     <h3>在外车辆</h3>
+                    <hr/>
                     <table class="table table-hover outer" id="outerCar">
 
                         <thead>
@@ -202,8 +182,9 @@
                     </table>
 
                 </div>
-                <div class="col-sm-6">
+                <div class="col-sm-5">
                     <h3>入库车辆</h3>
+                    <hr/>
                     <table class="table table-hover">
 
                         <thead>
@@ -220,18 +201,17 @@
                         </tbody>
                     </table>
                 </div>
+            </div>
 
-                <div class="col-sm-12">
-                    <div class="form-group row">
-                        <label for="carChoose" style="width: 85px;" class=" col-form-label">车辆预览</label>
-                        <div class="col-9">
-                            <input class="form-control" type="text" value="" id="carChoose" readonly/>
-                            <input type="hidden" value="" name="cars" id="cars"/>
-                        </div>
-                        <div class="col-sm-2">
-                            <input class="form-control btn btn-general btn-blue" type="submit" value="提交选中数据"/>
-                        </div>
-                    </div>
+            <div class="form-group row">
+                <div class="col-sm-3"></div>
+                <label for="carChoose" class=" col-form-label">车辆预览</label>
+                <div class="col-sm-5">
+                    <input class="form-control" type="text" value="" id="carChoose" readonly/>
+                    <input type="hidden" value="" name="cars" id="cars"/>
+                </div>
+                <div class="col-sm-2">
+                    <input class="form-control btn btn-general btn-blue" type="submit" value="提交选中数据"/>
                 </div>
             </div>
         </form>
@@ -249,11 +229,8 @@
 <script th:src="@{staticResources/js/bootstrap.min.js}"></script>
 <script th:src="@{staticResources/js/jquery.cookie.js}"></script>
 <script th:src="@{staticResources/js/jquery.validate.min.js}"></script>
-<script th:src="@{staticResources/js/chart.min.js}"></script>
 <script th:src="@{staticResources/js/front.js}"></script>
 
-<!--Core Javascript -->
-<script th:src="@{staticResources/js/mychart.js}"></script>
 <script>
 
     $("#outerPerson tr:eq(0)").click(function () {
