@@ -7,6 +7,7 @@ import com.lovo.hospital.dto.EventRecordListDto;
 import com.lovo.hospital.entity.*;
 import com.lovo.hospital.service.DispatchService;
 import com.lovo.hospital.service.EventService;
+import com.lovo.hospital.service.ResourceStatisticsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -28,6 +29,8 @@ public class EventServiceImpl implements EventService {
     private PersonLogDao personLogDao;
     @Autowired
     private DispatchService dispatchService;
+    @Autowired
+    private ResourceStatisticsService resourceStatisticsService;
 
     /**
      * 条件得到事件列表
@@ -56,9 +59,9 @@ public class EventServiceImpl implements EventService {
 
             //判断有没有没有处理的资源请求
             List<DispatchEntity> dispatchEntities = dispatchService.getDispatchByEventId(eventId, 0);
-            if (dispatchEntities.size()>0) {
+            if (dispatchEntities.size() > 0) {
                 erDto.setState(0);
-            }else {
+            } else {
                 erDto.setState(1);
             }
             eventRecordListDtos.add(erDto);
@@ -165,17 +168,23 @@ public class EventServiceImpl implements EventService {
 //                c.getCarEntity().setState(0);
 //                carLogDao.save(c);
 //            }
+        int pn = 0, cn = 0;
         if (persons != null && !"".equals(persons)) {
-            Iterable<PersonnelLogEntity> ps = personLogDao.findAllById(Arrays.asList(persons.split(",")));
+            List<String> pss = Arrays.asList(persons.split(","));
+            pn = pss.size();
+            Iterable<PersonnelLogEntity> ps = personLogDao.findAllById(pss);
             for (PersonnelLogEntity pl : ps) {
                 pl.setReturnTime(new Timestamp(System.currentTimeMillis()));
                 pl.setState(0);
                 pl.getPersonnelEntity().setState(0);
             }
             personLogDao.saveAll(ps);
+
         }
         if (cars != null && !"".equals(cars)) {
-            Iterable<CarLogEntity> cs = carLogDao.findAllById(Arrays.asList(cars.split(",")));
+            List<String> css = Arrays.asList(cars.split(","));
+            cn = css.size();
+            Iterable<CarLogEntity> cs = carLogDao.findAllById(css);
             for (CarLogEntity c : cs) {
                 c.setReturnTime(new Timestamp(System.currentTimeMillis()));
                 c.setState(0);
@@ -183,9 +192,11 @@ public class EventServiceImpl implements EventService {
             }
             carLogDao.saveAll(cs);
         }
-
-
+        ResourceStatisticsEntity resourceNo = resourceStatisticsService.getResourceStatisticsEntity();
+        resourceNo.setpRescuingNum(resourceNo.getpRescuingNum() + pn);
+        resourceNo.setcVacantNum(resourceNo.getcVacantNum() + cn);
     }
+
 
     @Override
     public List<PersonnelLogEntity> getEventInfoPersonnel(String eid) {
