@@ -19,8 +19,8 @@ public class PowerInterceptor implements HandlerInterceptor {
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
-//		System.out.println("调用之前");
 		UserEntity user = (UserEntity)request.getSession().getAttribute("user");
+		String roleName = (String)request.getSession().getAttribute("roleName");
 		if(user!=null){
 			return true;
 		}
