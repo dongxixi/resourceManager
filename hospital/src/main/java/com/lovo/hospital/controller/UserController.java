@@ -7,11 +7,13 @@ import com.lovo.hospital.entity.UserEntity;
 import com.lovo.hospital.entity.UserRoleEntity;
 import com.lovo.hospital.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jms.listener.SessionAwareMessageListener;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
+import rx.internal.util.ActionSubscriber;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -36,7 +38,8 @@ public class UserController {
     }
 
     @RequestMapping("gotoLogin")
-    public String gotoLogin() {
+    public String gotoLogin(HttpServletRequest request,HttpServletResponse response) {
+        request.getSession().removeAttribute("roleName");
         return "login";
     }
 
