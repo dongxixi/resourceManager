@@ -100,4 +100,9 @@ public class PensonnelServiceImpl implements PersonnelService {
         return personnelDao.save(personnelEntity);
 
     }
+
+    @Override
+    public Integer findTelByTel(String tel) {
+        return personnelDao.findTelByTel(tel);
+    }
 }

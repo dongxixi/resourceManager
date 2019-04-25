@@ -56,5 +56,5 @@ public interface PersonnelService {
      */
     public PersonnelEntity updateOnePerson(PersonnelEntity personnelEntity);
 
-
+public Integer findTelByTel(String tel);
 }
