@@ -4,11 +4,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.lovo.hospital.entity.UserEntity;
+import com.lovo.hospital.entity.UserRoleEntity;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
+
+import java.util.Set;
 
 @Component
 public class PowerInterceptor implements HandlerInterceptor {
