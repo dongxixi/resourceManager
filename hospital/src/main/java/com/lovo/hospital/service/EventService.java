@@ -91,4 +91,17 @@ public interface EventService {
      */
     public void returnPersonAndCar(String persons, String cars);
 
+    /**
+     * 添加事件
+     * @param eventEntity
+     * @return
+     */
+    public EventEntity saveEvent(EventEntity eventEntity);
+
+    /**
+     * 通过ID判断事件实体是否存在
+     * @param eid
+     * @return
+     */
+    public boolean isHaveEventById(String eid);
 }

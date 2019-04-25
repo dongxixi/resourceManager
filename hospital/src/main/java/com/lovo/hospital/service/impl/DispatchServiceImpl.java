@@ -127,7 +127,12 @@ public class DispatchServiceImpl implements DispatchService {
      * @return
      */
     @Override
-    public List<DispatchEntity> getDispatchByEventId(String id,Integer state) {
+    public List<DispatchEntity> getDispatchByEventId(String id, Integer state) {
         return dispatchDao.getDispatchByEventId(id,state);
+    }
+
+    @Override
+    public DispatchEntity saveDispatchEntity(DispatchEntity dispatchEntity) {
+        return dispatchDao.save(dispatchEntity);
     }
 }

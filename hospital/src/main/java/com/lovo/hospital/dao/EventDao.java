@@ -34,7 +34,7 @@ public interface EventDao extends CrudRepository<EventEntity, String> {
             " and if(:startTime is not null and :endTime is not null,e.event_time between :startTime and :endTime,1=1) " +
             " and if(:startTime is not null and :endTime is  null,e.event_time > :startTime ,1=1) " +
             " and if(:startTime is  null and :endTime is not null,e.event_time < :endTime,1=1) " +
-            " group by e.id limit :startIndex,:pageNum", nativeQuery = true)
+            " group by e.id order by e.event_proceed  limit :startIndex,:pageNum", nativeQuery = true)
     public List<Object[]> getEventDtoList(@Param("startIndex") Integer startIndex,
                                         @Param("pageNum") Integer pageNum,
                                         @Param("eventName") String eventName,
@@ -51,13 +51,12 @@ public interface EventDao extends CrudRepository<EventEntity, String> {
     @Query(value = "select count(*)" +
             "          FROM " +
             "          t_event e  " +
-            "          INNER JOIN t_dispatch d ON e.id = d.e_id " +
             "          where " +
             "          if(:eventName is not null ,e.event_name like CONCAT('%',:eventName,'%'),1=1) " +
             "          and if(:startTime is not null and :endTime is not null,e.event_time between :startTime and :endTime,1=1) " +
             "          and if(:startTime is not null and :endTime is  null,e.event_time > :startTime ,1=1) " +
             "          and if(:startTime is  null and :endTime is not null,e.event_time < :endTime,1=1) " +
-            "          group by e.id ", nativeQuery = true)
+            "         ", nativeQuery = true)
     public Integer getTotalCountByCondition(@Param("eventName") String eventName,
                                             @Param("startTime") String startTime,
                                             @Param("endTime") String endTime);

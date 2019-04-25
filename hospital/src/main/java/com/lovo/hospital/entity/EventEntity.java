@@ -16,8 +16,8 @@ public class EventEntity {
 
     @Id
     @Column(name="id",length=32)
-    @GenericGenerator(name="powerUUID",strategy="uuid")
-    @GeneratedValue(generator="powerUUID")
+    /*@GenericGenerator(name="powerUUID",strategy="uuid")
+    @GeneratedValue(generator="powerUUID")*/
     private String id;
 
     @Column(name = "event_name")
@@ -44,7 +44,7 @@ public class EventEntity {
     @Column(name = "event_proceed")
     private Integer eventProceed;
 
-    @OneToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "p_id")
     private PersonnelEntity personnelEntity;
 
