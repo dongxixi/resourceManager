@@ -72,6 +72,10 @@ public class CarController {
      */
     @RequestMapping("addCar")
     public ModelAndView addCar(String carNum, String driver) {
+        if (driver.length()==0||carNum.length()==0) {
+            ModelAndView modelAndView = new ModelAndView("carAdd");
+            return modelAndView;
+        }
         CarEntity carEntity = carService.saveCar(carNum, driver);
 
         ModelAndView modelAndView = new ModelAndView("carAll");

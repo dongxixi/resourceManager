@@ -117,9 +117,9 @@
             <div class="input-group-addon">事件名称</div>
             <input type="text" class="form-control-sm" placeholder="事件名称" name="eventName">&emsp;
             <div class="input-group-addon">开始时间</div>
-            <input type="date" class="form-control-sm" placeholder="开始时间" name="startTime">&emsp;
+            <input type="datetime-local" class="form-control-sm" placeholder="开始时间" name="startTime">&emsp;
             <div class="input-group-addon">结束时间</div>
-            <input type="date" class="form-control-sm" placeholder="结束时间" name="endTime">&emsp;
+            <input type="datetime-local" class="form-control-sm" placeholder="结束时间" name="endTime">&emsp;
             <button type="button" class="btn btn-outline-primary">查询</button>
 
 
@@ -319,8 +319,7 @@
         $(":hidden[name=currPage]").val(data.currPage);
         $(":hidden[name=totalPage]").val(data.totalPage);
     }
-</script>
-<script>
+
     var websocket =  null ;
 
     // 判断当前浏览器是否支持WebSocket

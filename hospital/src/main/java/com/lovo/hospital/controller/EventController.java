@@ -15,9 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.websocket.OnMessage;
-import javax.websocket.OnOpen;
-import javax.websocket.Session;
+import javax.websocket.*;
 import javax.websocket.server.ServerEndpoint;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -40,7 +38,8 @@ public class EventController {
     private Session session;
 
     /**
-     * 连接建立成功调用的方法*/
+     * 连接建立成功调用的方法
+     */
     @OnOpen
     public void onOpen(Session session) {
         this.session = session;
@@ -55,7 +54,8 @@ public class EventController {
     }
 
     /**
-     *  MQ接手数据的方法
+     * MQ接手数据的方法
+     *
      * @param message
      */
     @JmsListener(destination = "queue")
@@ -69,7 +69,7 @@ public class EventController {
         boolean haveEvent = eventService.isHaveEventById(eventId);
         if (haveEvent) {
             //事件存在，只需要保存派遣
-            DispatchEntity dispatchEntity=new DispatchEntity();
+            DispatchEntity dispatchEntity = new DispatchEntity();
             dispatchEntity.setcNum(eventSinkDto.getCNum());
             dispatchEntity.setpNum(eventSinkDto.getPNum());
             dispatchEntity.setRequestId(eventSinkDto.getRequestId());
@@ -79,7 +79,7 @@ public class EventController {
 
             dispatchService.saveDispatchEntity(dispatchEntity);
 
-        }else{
+        } else {
             //事件不存在，保存事件和派遣
             EventEntity eventEntity = new EventEntity();
             eventEntity.setId(eventSinkDto.getId());
@@ -93,7 +93,7 @@ public class EventController {
             eventEntity.setEventTime(eventSinkDto.getEventTime());
             eventEntity.setEventType(eventSinkDto.getEventType());
 
-            DispatchEntity dispatchEntity=new DispatchEntity();
+            DispatchEntity dispatchEntity = new DispatchEntity();
             dispatchEntity.setcNum(eventSinkDto.getCNum());
             dispatchEntity.setpNum(eventSinkDto.getPNum());
             dispatchEntity.setRequestId(eventSinkDto.getRequestId());
@@ -112,10 +112,11 @@ public class EventController {
     /**
      * 收到客户端消息后调用的方法
      *
-     * @param message 客户端发送过来的消息*/
+     * @param message 客户端发送过来的消息
+     */
     @OnMessage
     public void onMessage(String message, Session session) {
-        System.out.println( "来自客户端的消息:" + message);
+        System.out.println("来自客户端的消息:" + message);
         //群发消息
         for (EventController item : webSocketSet) {
             try {
@@ -125,6 +126,7 @@ public class EventController {
             }
         }
     }
+
     /**
      * 实现服务器主动推送
      */
@@ -132,6 +134,26 @@ public class EventController {
         this.session.getBasicRemote().sendText(message);
     }
 
+    /**
+     * 连接关闭调用的方法
+     */
+    @OnClose
+    public void onClose() {
+        webSocketSet.remove(this);  //从set中删除
+
+
+        System.out.println("有一连接关闭！当前在线人数为");
+    }
+    /**
+     *
+     * @param session
+     * @param error
+     */
+    @OnError
+    public void onError(Session session, Throwable error) {
+        System.out.println( "发生错误" );
+        error.printStackTrace();
+    }
     @RequestMapping("eventAll")
     public String eventAll() {
         return "eventAll";
@@ -144,12 +166,12 @@ public class EventController {
 
     @RequestMapping("eventRecordList")
     @ResponseBody
-    public PaginationBean<EventRecordListDto> eventRecordList(Integer currPage, String eventName,String startTime,String endTime){
+    public PaginationBean<EventRecordListDto> eventRecordList(Integer currPage, String eventName, String startTime, String endTime) {
         Integer pageSize = 10;
 
-        List<EventRecordListDto> eventRecordListDtos = eventService.getEventDtoList(currPage,eventName,startTime,endTime);
+        List<EventRecordListDto> eventRecordListDtos = eventService.getEventDtoList(currPage, eventName, startTime, endTime);
 
-        Integer totalPage = eventService.getTotalPage(pageSize, eventName,startTime,endTime);
+        Integer totalPage = eventService.getTotalPage(pageSize, eventName, startTime, endTime);
 
         PaginationBean<EventRecordListDto> paginationBean = new PaginationBean<>();
 
@@ -164,23 +186,23 @@ public class EventController {
 
 
     @RequestMapping("eventInfo")
-    public ModelAndView eventInfo(String eid){
+    public ModelAndView eventInfo(String eid) {
         List<CarLogEntity> eventInfoCarLog = eventService.getEventInfoCar(eid);
         List<PersonnelLogEntity> eventInfoPersonnelLog = eventService.getEventInfoPersonnel(eid);
         EventEntity eventInfo = eventService.getEventInfo(eid);
-        ModelAndView modelAndView=new ModelAndView("eventDetails");
+        ModelAndView modelAndView = new ModelAndView("eventDetails");
         if (eventInfo.getPersonnelEntity() != null) {
-            modelAndView.addObject("eventInfoPerson",eventInfo.getPersonnelEntity());
-        }else{
+            modelAndView.addObject("eventInfoPerson", eventInfo.getPersonnelEntity());
+        } else {
             PersonnelEntity personnelEntity = new PersonnelEntity();
             personnelEntity.setName("未指派负责人");
             personnelEntity.setTel("未指派负责人");
-            modelAndView.addObject("eventInfoPerson",personnelEntity);
+            modelAndView.addObject("eventInfoPerson", personnelEntity);
         }
 
-        modelAndView.addObject("eventInfo",eventInfo);
-        modelAndView.addObject("eventCarLogList",eventInfoCarLog);
-        modelAndView.addObject("eventPersonnelLogList",eventInfoPersonnelLog);
+        modelAndView.addObject("eventInfo", eventInfo);
+        modelAndView.addObject("eventCarLogList", eventInfoCarLog);
+        modelAndView.addObject("eventPersonnelLogList", eventInfoPersonnelLog);
         return modelAndView;
     }
 
@@ -201,11 +223,11 @@ public class EventController {
 
     @RequestMapping("{id}/getDispatchByEventId")
     @ResponseBody
-    public List<DispatchEntity> getDispatchByEventId(@PathVariable("id") String id){
+    public List<DispatchEntity> getDispatchByEventId(@PathVariable("id") String id) {
 
         List<DispatchEntity> dispatchEntities = new ArrayList<>();
 
-        dispatchEntities =  dispatchService.getDispatchByEventId(id,0);
+        dispatchEntities = dispatchService.getDispatchByEventId(id, 0);
 
         return dispatchEntities;
     }

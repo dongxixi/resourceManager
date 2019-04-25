@@ -98,7 +98,7 @@ public class LogAspect {
         //获取添加的信息
         String log = getLog(joinPoint, object);
         //添加日志
-        if(log!=null){
+        if(log!=null||"".equals(log)){
             addlogin("添加"+log);
         }
     }

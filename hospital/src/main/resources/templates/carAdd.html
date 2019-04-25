@@ -164,12 +164,14 @@
 <script src="/staticResources/jquery-2.1.4.js"></script>
 <script>
     $("[name=carNum]").blur(function () {
+        $(this).next().html("");
         var carNum=$(this).val();
         if (carNum==""||carNum.length==0){
             $(this).next().html("请输入车牌号");
         }
     });
     $("[name=driver]").blur(function () {
+        $(this).next().html("");
         var driver=$(this).val();
         if (driver==""||driver.length==0){
             $(this).next().html("请输入司机姓名");
