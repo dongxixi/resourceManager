@@ -89,7 +89,7 @@ public interface EventService {
      * @param persons 人员ID字符串， 逗号分隔符
      * @param cars  车辆ID字符串， 逗号分隔符
      */
-    public void returnPersonAndCar(String persons, String cars);
+    public void returnPersonAndCar(String id, String persons, String cars);
 
     /**
      * 添加事件

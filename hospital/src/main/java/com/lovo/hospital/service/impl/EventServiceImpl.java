@@ -3,12 +3,16 @@ package com.lovo.hospital.service.impl;
 import com.lovo.hospital.dao.CarLogDao;
 import com.lovo.hospital.dao.EventDao;
 import com.lovo.hospital.dao.PersonLogDao;
+import com.lovo.hospital.dto.CarDto;
 import com.lovo.hospital.dto.EventRecordListDto;
+import com.lovo.hospital.dto.EventSendDto;
+import com.lovo.hospital.dto.PersonDto;
 import com.lovo.hospital.entity.*;
 import com.lovo.hospital.service.DispatchService;
 import com.lovo.hospital.service.EventService;
 import com.lovo.hospital.service.ResourceStatisticsService;
 import com.lovo.hospital.util.DateUtil;
+import com.lovo.hospital.util.MQUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,7 +25,8 @@ import java.util.List;
 
 @Service(value = "eventService")
 public class EventServiceImpl implements EventService {
-
+    @Autowired
+    private MQUtil mqUtil;
     @Autowired
     private EventDao eventDao;
     @Autowired
@@ -159,7 +164,7 @@ public class EventServiceImpl implements EventService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public void returnPersonAndCar(String persons, String cars) {
+    public void returnPersonAndCar(String id, String persons, String cars) {
 //        if (persons != null && !"".equals(persons))
 //            for (String s : persons.split("[,]")) {
 //                PersonnelLogEntity pl = personLogDao.findById(s).get();
@@ -176,6 +181,10 @@ public class EventServiceImpl implements EventService {
 //                c.getCarEntity().setState(0);
 //                carLogDao.save(c);
 //            }
+        EventSendDto dto = new EventSendDto();
+        dto.setPersonDtos(new ArrayList<>());
+        dto.setCarDtos(new ArrayList<>());
+        dto.setRequestId(id);
         int pn = 0, cn = 0;
         if (persons != null && !"".equals(persons)) {
             List<String> pss = Arrays.asList(persons.split(","));
@@ -185,6 +194,13 @@ public class EventServiceImpl implements EventService {
                 pl.setReturnTime(new Timestamp(System.currentTimeMillis()));
                 pl.setState(0);
                 pl.getPersonnelEntity().setState(0);
+
+                PersonDto pd = new PersonDto();
+                pd.setId(pl.getPersonnelEntity().getId());
+                pd.setpName(pl.getPersonnelEntity().getName());
+                pd.setReturnTime(pl.getReturnTime());
+                pd.setTel(pl.getPersonnelEntity().getTel());
+                dto.getPersonDtos().add(pd);
             }
             personLogDao.saveAll(ps);
 
@@ -197,9 +213,17 @@ public class EventServiceImpl implements EventService {
                 c.setReturnTime(new Timestamp(System.currentTimeMillis()));
                 c.setState(0);
                 c.getCarEntity().setState(0);
+
+                CarDto cd = new CarDto();
+                cd.setCarNum(c.getCarEntity().getCarNum());
+                cd.setDriver(c.getCarEntity().getDriver());
+                cd.setId(c.getCarEntity().getId());
+                cd.setReturnTime(c.getReturnTime());
+                dto.getCarDtos().add(cd);
             }
             carLogDao.saveAll(cs);
         }
+        mqUtil.sendMQ(dto);
         ResourceStatisticsEntity resourceNo = resourceStatisticsService.getResourceStatisticsEntity();
         resourceNo.setpRescuingNum(resourceNo.getpRescuingNum() + pn);
         resourceNo.setcVacantNum(resourceNo.getcVacantNum() + cn);

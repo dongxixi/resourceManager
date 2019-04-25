@@ -41,4 +41,8 @@ public interface PensonnelDao extends CrudRepository<PersonnelEntity,String> {
     public  int findTotalPageByCondition(@Param("name")String name, @Param("pnum")String pnum,
                                          @Param("position")String position);
 
+
+
+    @Query(value="select count(*) from t_personnel where :tel =?1", nativeQuery = true)
+    public Integer findTelByTel(@Param("tel")String tel);
 }

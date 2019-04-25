@@ -40,4 +40,11 @@ public interface CarDao extends CrudRepository<CarEntity,String> {
             "            and if(:state is not null ,state like CONCAT('%',:state,'%'),1=1)",nativeQuery = true)
     public int findTotalPageByCondition(@Param("carNum") String carNum, @Param("dirveName") String dirveName,
                                         @Param("state") Integer state);
+
+    /**
+     * 查询车牌是否存在
+     * @param carNum
+     * @return
+     */
+    public CarEntity findCarEntityByCarNum(String carNum);
 }

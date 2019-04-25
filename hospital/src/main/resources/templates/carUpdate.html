@@ -130,13 +130,14 @@
                                     <input name="driver" type="text" class="form-control" id="pro-tel" aria-describedby="emailHelp" placeholder="司机"
                                     th:field="${car.driver}">
                                     <span style="color: #db4437"></span>
+
                                 </div>
                                 <input name="state" type="hidden" th:field="${car.state}">
                                 <input name="id" type="hidden" th:field="${car.id}">
                             </div>
 
                         </div>
-                        <button type="submit" class="btn btn-general btn-blue mr-2">修改</button>
+                        <button type="submit" class="btn btn-general btn-blue mr-2" name="update">修改</button>
                         <button type="reset" class="btn btn-general btn-white">取消</button>
                     </form>
                 </div>
@@ -168,6 +169,12 @@
         var driver=$(this).val();
         if (driver==""||driver.length==0){
             $(this).next().html("请输入司机姓名");
+            $(this).next().css('color','#db4437');
+            $("[name=update]").attr('disabled',true);
+        }else{
+            $("[name=update]").removeAttr('disabled');
+            $(this).next().css('color','green');
+            $(this).next().html("可用");
         }
     });
 </script>

@@ -146,13 +146,16 @@
         </div>
         <div class="row form-group">
             <div class="col-sm-1"></div>
-            <div class="col-md-4">
+            <div class="col-md-6">
+                <button type="button" class="btn btn-outline-primary" value="首页">首页</button>
                 <button type="button" class="btn btn-outline-primary" value="上一页">上一页</button>
                 <input type="text" class="form-control-sm" placeholder="输入页数" id="input"
+                       onkeyup="value=value.replace(/^(0+)|[^\d]+/g,'')"
                        style="width: 100px"/>
                 <span id="pageShow"></span>
                 <button type="button" class="btn btn-outline-primary" value="GO">GO</button>
                 <button type="button" class="btn btn-outline-primary" value="下一页">下一页</button>
+                <button type="button" class="btn btn-outline-primary" value="尾页">尾页</button>
 
                 <!--记录当前是第几页-->
                 <input type="hidden" name="currPage">
@@ -250,6 +253,9 @@
                 }, fillData);
             } else if (btn == "GO") {
                 var inputPage = $("#input").val();
+                if(inputPage>totalPage){
+                    inputPage=totalPage;
+                }
                 currPage = inputPage;
                 $.getJSON("eventRecordList", {
                     currPage: currPage,
@@ -260,6 +266,26 @@
             } else if (btn == "查询") {
 
                 currPage = 1;
+                $.getJSON("eventRecordList", {
+                    currPage: currPage,
+                    eventName: eventName,
+                    startTime: startTime,
+                    endTime: endTime
+                }, fillData);
+            }
+            else if (btn == "首页") {
+
+                currPage = 1;
+                $.getJSON("eventRecordList", {
+                    currPage: currPage,
+                    eventName: eventName,
+                    startTime: startTime,
+                    endTime: endTime
+                }, fillData);
+            }
+            else if (btn == "尾页") {
+
+                currPage = totalPage;
                 $.getJSON("eventRecordList", {
                     currPage: currPage,
                     eventName: eventName,
@@ -330,11 +356,12 @@
 
     // 连接发生错误的回调方法
     websocket.onerror =  function (){
-        alert("连接建立失败");
+        // alert("连接建立失败");
     };
 
     // 连接成功建立的回调方法
     websocket.onopen =  function (event){
+        // alert("连接建立成功");
     }
 
     // 接收到消息的回调方法
@@ -362,7 +389,7 @@
     function getDispatch(obj) {
         var eventId = $(obj).parent().siblings().get(0).innerText;
         // alert(eventId);
-        $.post("/eventGetDispatchByEventId", {id:eventId}, unDisptchList,"json");
+        $.post("/" + eventId + "/getDispatchByEventId", {}, unDisptchList,"json");
     }
 
     // 根据事件ID找到资源派出列表

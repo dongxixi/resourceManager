@@ -193,10 +193,11 @@ public class EventController {
         List<PersonnelLogEntity> eventInfoPersonnelLog = eventService.getEventInfoPersonnel(eid);
         EventEntity eventInfo = eventService.getEventInfo(eid);
         ModelAndView modelAndView = new ModelAndView("eventDetails");
+        PersonnelEntity personnelEntity = new PersonnelEntity();
         if (eventInfo.getPersonnelEntity() != null) {
             modelAndView.addObject("eventInfoPerson", eventInfo.getPersonnelEntity());
         } else {
-            PersonnelEntity personnelEntity = new PersonnelEntity();
+
             personnelEntity.setName("未指派负责人");
             personnelEntity.setTel("未指派负责人");
             modelAndView.addObject("eventInfoPerson", personnelEntity);

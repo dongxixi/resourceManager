@@ -10,7 +10,7 @@ public class PersonDto {
     /**
      * 人员名字
      */
-    private String pnum;
+    private String pName;
     /**
      * 人员电话
      */
@@ -32,12 +32,12 @@ public class PersonDto {
         this.id = id;
     }
 
-    public String getPnum() {
-        return pnum;
+    public String getpName() {
+        return pName;
     }
 
-    public void setPnum(String pnum) {
-        this.pnum = pnum;
+    public void setpName(String pName) {
+        this.pName = pName;
     }
 
     public String getTel() {
