@@ -86,6 +86,7 @@ public class EventServiceImpl implements EventService {
     public EventEntity getEventInfo(String eid) {
         EventEntity eventEntity = eventDao.findById(eid).get();
         //通过事件编号查所有的派遣
+
         return eventEntity;
     }
 
@@ -135,6 +136,17 @@ public class EventServiceImpl implements EventService {
     }
 
     @Override
+    public boolean isHaveEventById(String eid) {
+        return eventDao.existsById(eid);
+    }
+
+    @Override
+    public EventEntity saveEvent(EventEntity eventEntity) {
+
+        return eventDao.save(eventEntity);
+    }
+
+    @Override
     @Transactional(rollbackFor = Exception.class)
     public void returnPersonAndCar(String persons, String cars) {
 //        if (persons != null && !"".equals(persons))
@@ -174,8 +186,6 @@ public class EventServiceImpl implements EventService {
 
 
     }
-
-
 
     @Override
     public List<PersonnelLogEntity> getEventInfoPersonnel(String eid) {

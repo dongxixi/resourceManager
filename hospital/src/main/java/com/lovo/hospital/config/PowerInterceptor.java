@@ -21,7 +21,7 @@ public class PowerInterceptor implements HandlerInterceptor {
 			throws Exception {
 //		System.out.println("调用之前");
 		UserEntity user = (UserEntity)request.getSession().getAttribute("user");
-		if("/loginyanzheng".equals(request.getRequestURI())||user!=null){
+		if(user!=null){
 			return true;
 		}
 		logger.info("------:跳转到login页面！");

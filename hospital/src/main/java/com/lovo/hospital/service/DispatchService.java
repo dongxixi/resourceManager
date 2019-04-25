@@ -21,6 +21,13 @@ public interface DispatchService {
     DispatchEntity getDispatchById(String id);
 
     /**
+     * 保存派遣表
+     * @param dispatchEntity
+     * @return
+     */
+    public DispatchEntity saveDispatchEntity(DispatchEntity dispatchEntity);
+
+    /**
      * 通过事件ID得到该事件的资源请求集合
      * @param id 事件ID
      * @return
