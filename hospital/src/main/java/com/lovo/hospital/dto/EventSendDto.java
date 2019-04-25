@@ -1,10 +1,5 @@
 package com.lovo.hospital.dto;
 
-import com.lovo.hospital.entity.CarEntity;
-import com.lovo.hospital.entity.PersonnelEntity;
-import org.bouncycastle.asn1.tsp.TimeStampResp;
-
-import java.sql.Timestamp;
 import java.util.List;
 
 public class EventSendDto {
