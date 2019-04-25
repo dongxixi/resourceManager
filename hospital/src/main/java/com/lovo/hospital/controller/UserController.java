@@ -4,6 +4,7 @@ import com.lovo.hospital.bean.PaginationBean;
 import com.lovo.hospital.dto.UserAllDto;
 import com.lovo.hospital.entity.RoleEntity;
 import com.lovo.hospital.entity.UserEntity;
+import com.lovo.hospital.entity.UserRoleEntity;
 import com.lovo.hospital.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,6 +15,7 @@ import org.springframework.web.servlet.view.RedirectView;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
+import java.util.Set;
 
 @Controller
 public class UserController {
@@ -51,6 +53,7 @@ public class UserController {
         UserEntity user=userService.logindBy(userName,password);
         if (user!=null&&!" ".equals(user)){
             //重定向到查询controller
+
             request.getSession().setAttribute("user",user);
             RedirectView rv=new RedirectView("gotoUserAll");
             mv.setView(rv);
