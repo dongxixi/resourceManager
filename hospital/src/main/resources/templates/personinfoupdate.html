@@ -240,6 +240,19 @@
             show.html("位数输入有误")
             return false;
         }
+
+
+        $(function (data) {
+            var tel = $("input[name='tel']").val();
+            var show =$("#teltest");
+            $.getJSON("selecttel2", {tel: tel}, fillData);
+        });
+        function fillData(data) {
+            if(data>=1){
+                show.html("号码已存在!请重新输入！")
+            }
+        }
+
     }
 
 

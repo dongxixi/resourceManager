@@ -1,11 +1,15 @@
 package com.lovo.hospital.service.impl;
 
 import com.lovo.hospital.dao.*;
+import com.lovo.hospital.dto.CarDto;
+import com.lovo.hospital.dto.EventSendDto;
+import com.lovo.hospital.dto.PersonDto;
 import com.lovo.hospital.entity.*;
 import com.lovo.hospital.service.CarService;
 import com.lovo.hospital.service.DispatchService;
 import com.lovo.hospital.service.PersonnelService;
 import com.lovo.hospital.service.ResourceStatisticsService;
+import com.lovo.hospital.util.MQUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -66,6 +70,9 @@ public class DispatchServiceImpl implements DispatchService {
         //获取库存实例
         ResourceStatisticsEntity resourceStatisticsEntity = resourceStatisticsService.getResourceStatisticsEntity();
 
+        //创建mq传送数据对象
+        EventSendDto eventSendDto = new EventSendDto();
+
         //通过返回的字符串，获取所有需要派出车辆的id，在添加到记录里
         ArrayList<CarLogEntity> carList = new ArrayList<>();
         for (String carId : carArray) {
@@ -81,13 +88,18 @@ public class DispatchServiceImpl implements DispatchService {
             carLog.setState(1);
 
             carList.add(carLog);
+
+            //为mq传输数据添加车辆信息
+            eventSendDto.getCarDtos().add(toCarDto(car));
         }
 
+        //修改库存
         resourceStatisticsEntity.setcVacantNum(resourceStatisticsEntity.getcVacantNum() - carList.size());
 
         carLogDao.saveAll(carList);
         dispatchEntity.setState(1);
         dispatchDao.save(dispatchEntity);
+
 
 
         //通过返回的字符串，获取所有需要派出人员的id，在添加到记录里
@@ -105,14 +117,46 @@ public class DispatchServiceImpl implements DispatchService {
             personnelLog.setState(1);
 
             personList.add(personnelLog);
+
+            //为mq传送数据添加人员数据
+            eventSendDto.getPersonDtos().add(toPersonDto(person));
         }
 
         resourceStatisticsEntity.setpRescuingNum(resourceStatisticsEntity.getpRescuingNum() - personList .size());
 
         personLogDao.saveAll(personList);
 
+        //发生mq数据，告知调度中心
+        MQUtil mqUtil = new MQUtil();
+
+        mqUtil.sendMQ(eventSendDto);
+
 
         return 0;//正常完成返回0
+    }
+
+    //封装数据到carDto
+    private CarDto toCarDto(CarEntity carEntity) {
+        CarDto carDto = new CarDto();
+
+        carDto.setId(carEntity.getId());
+        carDto.setCarNum(carEntity.getCarNum());
+        carDto.setDriver(carEntity.getDriver());
+        carDto.setStartTime(new Timestamp(System.currentTimeMillis()));
+
+        return carDto;
+    }
+
+    //封装数据到PersonDto
+    private PersonDto toPersonDto(PersonnelEntity personnelEntity) {
+        PersonDto personDto = new PersonDto();
+
+        personDto.setId(personnelEntity.getId());
+        personDto.setPnum(personnelEntity.getName());
+        personDto.setTel(personnelEntity.getTel());
+        personDto.setStartTime(new Timestamp(System.currentTimeMillis()));
+
+        return personDto;
     }
 
     @Override

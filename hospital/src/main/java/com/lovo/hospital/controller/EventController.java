@@ -19,7 +19,9 @@ import javax.websocket.*;
 import javax.websocket.server.ServerEndpoint;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.CopyOnWriteArraySet;
 
 @ServerEndpoint("/websocket")
@@ -231,6 +233,23 @@ public class EventController {
         dispatchEntities = dispatchService.getDispatchByEventId(id, 0);
 
         return dispatchEntities;
+    }
+
+    @RequestMapping("isFirst")
+    @ResponseBody
+    public Map<String ,Object> isFirst(String dispatchId) {
+        DispatchEntity dispatch = dispatchService.getDispatchById(dispatchId);
+        PersonnelEntity person = dispatch.getEventEntity().getPersonnelEntity();
+
+        Map<String, Object> map = new HashMap<>();
+        if (person == null) {
+            map.put("isFirst", true);
+        } else {
+            map.put("isFirst", false);
+            map.put("inCharge", person);
+        }
+
+        return map;
     }
 
 }

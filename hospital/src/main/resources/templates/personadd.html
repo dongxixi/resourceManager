@@ -160,7 +160,7 @@
                                         <option value="护士">护士</option>
                                     </select>
                                 </div>
-
+                               
                             </div>
 
                         </div>
@@ -235,16 +235,28 @@
 
             var tel = $("input[name='tel']").val();
             var teltest= new RegExp(/^[0-9]{11}$/);
-            var show =$("#teltest");
 
-            if (tel.match(teltest)){
-                show.html("输入正确")
-                return true;
-            }else{
-                show.html("位数输入有误")
-                return false;
-            }
+            var show =$("#teltest");
+                if (!tel.match(teltest)){
+                    show.html("位数输入有误")
+                }else {
+                    show.html("位数输入正确")
                 }
+
+            $(function (data) {
+                var tel = $("input[name='tel']").val();
+                var show =$("#teltest");
+                $.getJSON("selecttel", {tel: tel}, fillData);
+            });
+            function fillData(data) {
+                if(data>=1){
+                    show.html("号码已存在!请重新输入！")
+                }
+            }
+
+        }
+
+
     </script>
 </body>
 

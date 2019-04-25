@@ -19,7 +19,6 @@ public class PowerInterceptor implements HandlerInterceptor {
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
-		UserEntity user = (UserEntity)request.getSession().getAttribute("user");
 		String roleName = (String)request.getSession().getAttribute("roleName");
 		String requestURI = request.getRequestURI();
 		if("医院值班员".equals(roleName)&&requestURI.contains("even")){
@@ -28,7 +27,7 @@ public class PowerInterceptor implements HandlerInterceptor {
 			return true;
 		}
 		logger.info("------:跳转到login页面！");
-		response.sendRedirect(request.getContextPath()+"/loginyanzheng");
+		response.sendRedirect(request.getContextPath()+"/loginMessage");
 		return false;
 	}
 

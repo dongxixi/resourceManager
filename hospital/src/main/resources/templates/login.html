@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html  xmlns:th="http://www.thymeleaf.org">
-
 <head>
 
     <meta charset="utf-8"/>
@@ -66,7 +65,8 @@
         var $show1 =$("#nametest");
         if ($namet.val().length==0){  //这样就是取到文本框里面所有的文本的长度，等于的是一个int类型
             $show1.html("姓名不能为空");
-            return false;
+        }else {
+            $show1.html(" ");
         }
     }
     function funpassword() {
@@ -74,8 +74,11 @@
         var $show1 =$("#passwordtest");
         if ($namet.val().length==0){  //这样就是取到文本框里面所有的文本的长度，等于的是一个int类型
             $show1.html("密码不能为空");
-            return false;
+        }else {
+            $show1.html(" ");
         }
+
+
     }
 </script>
 </body>

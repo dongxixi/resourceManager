@@ -31,10 +31,10 @@ public class PersonController {
 
 	@RequestMapping("personpage")
 	@ResponseBody
-	public PaginationBean<PersonnelEntity> personpage(String pname, String pnum, String position,Integer currPage){
+	public PaginationBean<PersonnelEntity> personpage(String name, String pnum, String position,Integer currPage){
 		int showNum =10;
-		List<PersonnelEntity>personnelEntityList =  personnelService.getAllListBySearch(pname,pnum,position,currPage,showNum);
-		int totalPage=personnelService.findTotalPageByCondition(pname, pnum, position,showNum);
+		List<PersonnelEntity>personnelEntityList =  personnelService.getAllListBySearch(name,pnum,position,currPage,showNum);
+		int totalPage=personnelService.findTotalPageByCondition(name, pnum, position,showNum);
 
 		PaginationBean<PersonnelEntity>paginationBean =new PaginationBean<>();
 		paginationBean.setCurrPage(currPage);
@@ -134,8 +134,21 @@ public class PersonController {
 		}else{
 			return "-1";
 		}
-
-
-
 	}
+
+	@RequestMapping("selecttel")
+	@ResponseBody
+	public Integer  findTelByTel(String tel){
+		Integer findtel =  personnelService.findTelByTel(tel);
+		return findtel;
+	}
+
+	@RequestMapping("selecttel2")
+	@ResponseBody
+	public Integer  findTelByTel2(String tel){
+		Integer findtel =  personnelService.findTelByTel(tel);
+		return findtel;
+	}
+
+
 }
