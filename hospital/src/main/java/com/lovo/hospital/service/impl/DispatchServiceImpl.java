@@ -152,7 +152,7 @@ public class DispatchServiceImpl implements DispatchService {
         PersonDto personDto = new PersonDto();
 
         personDto.setId(personnelEntity.getId());
-        personDto.setPnum(personnelEntity.getName());
+        personDto.setpName(personnelEntity.getName());
         personDto.setTel(personnelEntity.getTel());
         personDto.setStartTime(new Timestamp(System.currentTimeMillis()));
 
