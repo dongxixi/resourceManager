@@ -72,7 +72,7 @@ public class PensonnelServiceImpl implements PersonnelService {
         //在资源表里面car加1
         ResourceStatisticsEntity rs = resourceStatisticsDao.findById("1").get();
         //在原有的基础上加1
-        rs.setcVacantNum(rs.getpRescuingNum() + 1);
+        rs.setpRescuingNum(rs.getpRescuingNum() + 1);
         resourceStatisticsDao.save(rs);
         return save;
     }
@@ -85,7 +85,7 @@ public class PensonnelServiceImpl implements PersonnelService {
         //在资源表里面car-1
         ResourceStatisticsEntity rs = resourceStatisticsDao.findById("1").get();
         //在原有的基础上-1
-        rs.setcVacantNum(rs.getpRescuingNum() - 1);
+        rs.setpRescuingNum(rs.getpRescuingNum() - 1);
         resourceStatisticsDao.save(rs);
 
     }
