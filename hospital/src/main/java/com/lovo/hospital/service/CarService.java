@@ -59,4 +59,11 @@ public interface CarService {
      */
     public Integer deleteCar(String carId);
 
+    /**
+     * 查询车牌是否存在
+     * @param carNum
+     * @return
+     */
+    public boolean findCarEntityByCarNumExists(String carNum);
+
 }

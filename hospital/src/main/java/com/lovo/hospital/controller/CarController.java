@@ -38,6 +38,12 @@ public class CarController {
         return "carUpdate";
     }
 
+    @RequestMapping("isHaveCarNum")
+    @ResponseBody
+    public boolean isHaveCarNum(String carNum){
+        return carService.findCarEntityByCarNumExists(carNum);
+    }
+
     /**
      * 查询所有car带条件
      *

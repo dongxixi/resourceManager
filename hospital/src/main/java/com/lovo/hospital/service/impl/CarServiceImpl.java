@@ -20,6 +20,11 @@ public class CarServiceImpl implements CarService {
     private ResourceStatisticsDao resourceStatisticsDao;
 
     @Override
+    public boolean findCarEntityByCarNumExists(String carNum) {
+        return carDao.findCarEntityByCarNum(carNum)==null?true:false;
+    }
+
+    @Override
     public List<CarEntity> findCarByCondition(Integer pageNum, Integer showNum, String carNum, String dirveName, Integer state) {
 
         int startIndex = (pageNum - 1) * showNum;

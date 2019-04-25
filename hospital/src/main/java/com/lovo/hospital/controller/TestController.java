@@ -35,7 +35,7 @@ public class TestController {
 
             Date date = new Date();
             Timestamp timestamp = new Timestamp(date.getTime());
-            EventSinkDto eventSinkDto = new EventSinkDto(i.toString(), "MQ测试事件", "火灾", "锦江区", timestamp, "MQ测试报警人", "10010", "测试地址", "P001", 3, 1);
+            EventSinkDto eventSinkDto = new EventSinkDto(i.toString(), "MQ测试事件", "火灾", "锦江区", timestamp, "MQ测试报警人", "10010", "测试地址", i.toString() ,3, 1);
 
             String s = JSONObject.toJSONString(eventSinkDto);
 
