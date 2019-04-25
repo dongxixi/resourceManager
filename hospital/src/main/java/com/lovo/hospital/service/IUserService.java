@@ -71,7 +71,7 @@ public interface IUserService {
     public String findRoleNameByUserId(String uid);
 
     /**
-     * 根据用户id查询用户
+     * 根据用户名查询用户
      * @param userName  用户名
      * @return  用户对象
      */

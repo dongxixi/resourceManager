@@ -59,11 +59,18 @@ public class UserController {
         ModelAndView mv=new ModelAndView();
         UserEntity user=userService.logindBy(userName,password);
         if (user!=null&&!" ".equals(user)){
-            //重定向到查询controller
-
             request.getSession().setAttribute("user",user);
-            RedirectView rv=new RedirectView("gotoeventAll");
-            mv.setView(rv);
+            String uid=user.getuId();
+            String roleName=userService.findRoleNameByUserId(uid);
+            if("医院值班员".equals(roleName)){
+                //重定向到查询controller
+                RedirectView rv=new RedirectView("gotoeventAll");
+                mv.setView(rv);
+            }else {
+                //重定向到查询controller
+                RedirectView rv=new RedirectView("gotoUserAll");
+                mv.setView(rv);
+            }
         }
         else {
             mv.setViewName("login");
@@ -119,10 +126,10 @@ public class UserController {
         UserEntity user=userService.findByUserName(userName);
         if (user==null){
             userService.saveUserAll(userName,password,roleName);
-            //重定向到查询controller
-            RedirectView rv=new RedirectView("gotoUserAll");
-            mv.setView(rv);
-        }else {
+                //重定向到查询controller
+                RedirectView rv=new RedirectView("gotoUserAll");
+                mv.setView(rv);
+            } else {
             //重定向到查询controller
             RedirectView rv=new RedirectView("gotoLogin");
             mv.setView(rv);
