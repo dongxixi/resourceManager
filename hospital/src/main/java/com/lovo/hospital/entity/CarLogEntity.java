@@ -1,10 +1,12 @@
 package com.lovo.hospital.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.Objects;
+
 
 @Entity
 @Table(name = "t_car_log")
@@ -17,7 +19,7 @@ public class CarLogEntity {
     private DispatchEntity dispatchEntity;
 
     @ManyToOne
-    @JoinColumn(name = "d_id")
+    @JoinColumn(name = "d_id")@JsonIgnore
     public DispatchEntity getDispatchEntity() {
         return dispatchEntity;
     }
