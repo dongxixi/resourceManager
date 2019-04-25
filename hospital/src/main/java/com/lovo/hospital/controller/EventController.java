@@ -223,9 +223,9 @@ public class EventController {
         return mv;
     }
 
-    @RequestMapping("{id}/getDispatchByEventId")
+    @RequestMapping("eventGetDispatchByEventId")
     @ResponseBody
-    public List<DispatchEntity> getDispatchByEventId(@PathVariable("id") String id) {
+    public List<DispatchEntity> getDispatchByEventId(String id) {
 
         List<DispatchEntity> dispatchEntities = new ArrayList<>();
 
@@ -234,7 +234,7 @@ public class EventController {
         return dispatchEntities;
     }
 
-    @RequestMapping("isFirst")
+    @RequestMapping("eventIsFirst")
     @ResponseBody
     public Map<String ,Object> isFirst(String dispatchId) {
         DispatchEntity dispatch = dispatchService.getDispatchById(dispatchId);

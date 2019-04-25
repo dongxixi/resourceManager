@@ -24,7 +24,7 @@ public class dispatchController {
     @Autowired
     private PersonnelService personService;
 
-    @RequestMapping("getCarList")
+    @RequestMapping("eventGetCarList")
     @ResponseBody
     public Map<String, Object> getCarList(Integer pageNo) {
 
@@ -38,7 +38,7 @@ public class dispatchController {
         return map;
     }
 
-    @RequestMapping("getPersonList")
+    @RequestMapping("eventGetPersonList")
     @ResponseBody
     public Map<String, Object> getPersonList(Integer pageNo) {
 
@@ -55,7 +55,7 @@ public class dispatchController {
     @Autowired
     private DispatchService dispatchService;
 
-    @RequestMapping("dispatch")
+    @RequestMapping("eventDispatch")
     public ModelAndView dispatch(String dispatchId, String personInCharge, String personUpdateList, String carUpdateList) {
         ModelAndView mv = new ModelAndView();
 
@@ -81,7 +81,7 @@ public class dispatchController {
         if (flag == 0) {
             mv.setViewName("eventAll");
         } else {
-            mv.setViewName("error");
+            mv.setViewName("eventError");
         }
         return mv;
     }

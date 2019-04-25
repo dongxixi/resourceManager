@@ -95,7 +95,7 @@
     }
 
     function showCarList() {
-        $.post("/getCarList",
+        $.post("/eventGetCarList",
             {
                 pageNo: $("#pageCarNo").val()
             },
@@ -127,7 +127,7 @@
     }
 
     function showPersonList() {
-        $.post("/getPersonList",
+        $.post("/eventGetPersonList",
             {
                 pageNo: $("#pagePersonNo").val()
             },
@@ -169,7 +169,7 @@
     }
 
     function isFirst() {
-        $.post("/isFirst",
+        $.post("/eventIsFirst",
             {
                 dispatchId:$("#dispatchId").val()
             },
@@ -278,7 +278,7 @@
             <h3><i class="fa fa-user-circle"></i>事件操作</h3>
         </div>
         <br/>
-        <form action="/dispatch" method="post">
+        <form action="/eventDispatch" method="post">
             <input type="hidden" name="dispatchId" id="dispatchId" th:value="${dispatchId}"/>
             <input type="hidden" id="personNum" th:value="${personNum}"/>
             <input type="hidden" id="carNum" th:value="${carNum}"/>

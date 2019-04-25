@@ -40,6 +40,9 @@ public class DispatchServiceImpl implements DispatchService {
     @Autowired
     private PensonnelDao pensonnelDao;
 
+    @Autowired
+    private MQUtil mqUtil;
+
     @Transactional
     @Override
     public int dispatch(String dispatchId, String personInCharge, String personUpdateList, String carUpdateList) {
@@ -72,6 +75,10 @@ public class DispatchServiceImpl implements DispatchService {
 
         //创建mq传送数据对象
         EventSendDto eventSendDto = new EventSendDto();
+        List<CarDto> carDtos = new ArrayList<>();
+        eventSendDto.setCarDtos(carDtos);
+        List<PersonDto> personDtos = new ArrayList<>();
+        eventSendDto.setPersonDtos(personDtos);
 
         //通过返回的字符串，获取所有需要派出车辆的id，在添加到记录里
         ArrayList<CarLogEntity> carList = new ArrayList<>();
@@ -90,7 +97,7 @@ public class DispatchServiceImpl implements DispatchService {
             carList.add(carLog);
 
             //为mq传输数据添加车辆信息
-            eventSendDto.getCarDtos().add(toCarDto(car));
+            carDtos.add(toCarDto(car));
         }
 
         //修改库存
@@ -119,7 +126,7 @@ public class DispatchServiceImpl implements DispatchService {
             personList.add(personnelLog);
 
             //为mq传送数据添加人员数据
-            eventSendDto.getPersonDtos().add(toPersonDto(person));
+            personDtos.add(toPersonDto(person));
         }
 
         resourceStatisticsEntity.setpRescuingNum(resourceStatisticsEntity.getpRescuingNum() - personList .size());
@@ -127,7 +134,6 @@ public class DispatchServiceImpl implements DispatchService {
         personLogDao.saveAll(personList);
 
         //发生mq数据，告知调度中心
-        MQUtil mqUtil = new MQUtil();
 
         mqUtil.sendMQ(eventSendDto);
 

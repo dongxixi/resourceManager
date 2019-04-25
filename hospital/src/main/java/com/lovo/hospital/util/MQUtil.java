@@ -16,7 +16,7 @@ public class MQUtil {
     private JmsTemplate jmsTemplate;
 
     public void sendMQ(Object data){
-        jmsTemplate.send("queue", new MessageCreator() {
+        jmsTemplate.send("send", new MessageCreator() {
             @Override
             public TextMessage createMessage(Session session) throws JMSException {
                 TextMessage textMessage = session.createTextMessage();
