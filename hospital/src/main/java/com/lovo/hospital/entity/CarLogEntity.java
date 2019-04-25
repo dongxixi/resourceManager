@@ -7,6 +7,7 @@ import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.Objects;
 
+
 @Entity
 @Table(name = "t_car_log")
 public class CarLogEntity {
