@@ -149,6 +149,7 @@
             <div class="col-md-4">
                 <button type="button" class="btn btn-outline-primary" value="上一页">上一页</button>
                 <input type="text" class="form-control-sm" placeholder="输入页数" id="input"
+                       onkeyup="value=value.replace(/^(0+)|[^\d]+/g,'')"
                        style="width: 100px"/>
                 <span id="pageShow"></span>
                 <button type="button" class="btn btn-outline-primary" value="GO">GO</button>
@@ -250,6 +251,9 @@
                 }, fillData);
             } else if (btn == "GO") {
                 var inputPage = $("#input").val();
+                if(inputPage>totalPage){
+                    inputPage=totalPage;
+                }
                 currPage = inputPage;
                 $.getJSON("eventRecordList", {
                     currPage: currPage,
