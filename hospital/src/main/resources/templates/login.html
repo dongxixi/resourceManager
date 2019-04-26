@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html  xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
 
     <meta charset="utf-8"/>
@@ -10,7 +10,7 @@
 
     <title>医院调度管理系统</title>
     <link rel="shortcut icon" th:href="@{staticResources/img/favicon.ico}"/>
-    
+
     <!-- global stylesheets -->
     <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed" rel="stylesheet"/>
     <link rel="stylesheet" th:href="@{staticResources/css/bootstrap.min.css}"/>
@@ -22,64 +22,86 @@
     <link rel="stylesheet" th:href="@{staticResources/css/pages/login.css}"/>
 </head>
 
-<body> 
+<body>
 
 <!--====================================================
                         PAGE CONTENT
-======================================================--> 
-      <section class="hero-area">
-        <div class="overlay"></div>
-        <div class="container">
-          <div class="row">
+======================================================-->
+<section class="hero-area">
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="row">
             <div class="col-md-12 ">
                 <div class="contact-h-cont"></br>
-                  <h3 class="text-center" style="color: #0b96e5"><b>医院调度管理系统</b></h3></br>
-                  <form class="form-horizontal col-md-offset-4" role="form" th:action="@{loginyanzheng}" method="post">
-                    <div class="form-group">
-                      <label for="userName">用户名</label>
-                        <input type="text" class="form-control" id="userName"  name="userName"
-                               placeholder="请输入用户名" onblur="funname()" />
-                        <span id="nametest" style="color: #db4437"></span>
-                    </div>
-                    <div class="form-group">
-                      <label for="password">密码</label>
-                      <input class="form-control" type="password"  id="password" name="password"
-                             placeholder="请输入密码" onblur="funpassword()" />
-                        <span id="passwordtest" style="color: #db4437"></span>
-                    </div>   
-                    <button class="btn btn-general btn-blue" role="button" type="submit">登录</button>
-                  </form>
+                    <h3 class="text-center" style="color: #0b96e5"><b>医院调度管理系统</b></h3></br>
+                    <form class="form-horizontal col-md-offset-4" role="form"
+                          method="post">
+                        <div class="form-group">
+                            <label for="userName">用户名</label>
+                            <input type="text" class="form-control" id="userName" name="userName"
+                                   placeholder="请输入用户名" onblur="funname()"/>
+                            <span id="nametest" style="color: #db4437"></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="password">密码</label>
+                            <input class="form-control" type="password" id="password" name="password"
+                                   placeholder="请输入密码" onblur="funpassword()"/>
+                            <span id="passwordtest" style="color: #db4437"></span>
+                        </div>
+                        <button class="btn btn-general btn-blue" role="button" type="button" name="login">登录</button>
+                    </form>
                 </div>
             </div>
-          </div>  
         </div>
-      </section>
-      
-    <!--Global Javascript -->
-    <script th:src="@{staticResources/js/jquery.min.js}"></script>
-    <script th:src="@{staticResources/js/tether.min.js}"></script>
-    <script th:src="@{staticResources/js/bootstrap.min.js}"></script>
+    </div>
+</section>
+
+<!--Global Javascript -->
+<!--<script th:src="@{staticResources/js/jquery.min.js}"></script>-->
+<script th:src="@{staticResources/js/tether.min.js}"></script>
+<!--<script th:src="@{staticResources/js/bootstrap.min.js}"></script>-->
+
+<link rel="stylesheet" type="text/css" href="https://www.huangwx.cn/css/sweetalert.css">
+<script type="text/javascript" src="https://www.huangwx.cn/js/sweetalert-dev.js"></script>
+<script src="/staticResources/jquery-2.1.4.js"></script>
 <script>
+    $(function () {
+        $("[name=login]").click(function () {
+            var username = $("[name=userName]").val();
+            var password = $("[name=password]").val();
+            $.getJSON("loginyanzheng", {userName: username, password: password}, function (data) {
+                if (data=="-1") {
+                    swal("登陆失败", "用户名或者密码错误", "error");
+                }else if(data=="1"){
+                    window.location.href="gotoeventAll";
+                }else if(data=="2"){
+                    window.location.href="gotoUserAll";
+                }
+            });
+        });
+
+    });
+
     function funname() {
         var $namet = $("input[name='userName']");//这种取值是取到整个文本框
-        var $show1 =$("#nametest");
-        if ($namet.val().length==0){  //这样就是取到文本框里面所有的文本的长度，等于的是一个int类型
+        var $show1 = $("#nametest");
+        if ($namet.val().length == 0) {  //这样就是取到文本框里面所有的文本的长度，等于的是一个int类型
             $show1.html("姓名不能为空");
-        }else {
+        } else {
             $show1.html(" ");
         }
     }
+
     function funpassword() {
         var $namet = $("input[name='password']");//这种取值是取到整个文本框
-        var $show1 =$("#passwordtest");
-        if ($namet.val().length==0){  //这样就是取到文本框里面所有的文本的长度，等于的是一个int类型
+        var $show1 = $("#passwordtest");
+        if ($namet.val().length == 0) {  //这样就是取到文本框里面所有的文本的长度，等于的是一个int类型
             $show1.html("密码不能为空");
-        }else {
+        } else {
             $show1.html(" ");
         }
-
-
     }
+
 </script>
 </body>
 

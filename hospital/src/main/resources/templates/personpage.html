@@ -172,6 +172,12 @@
 <script th:src="@{staticResources/js/jquery.cookie.js}"></script>
 <script th:src="@{staticResources/js/jquery.validate.min.js}"></script>
 
+<!--修改原生alert-->
+<!--<link rel="stylesheet" type="text/css" th:href="staticResources/sweetalert/sweetalert.css">
+<script type="text/javascript" th:src="staticResources/sweetalert/sweetalert-dev.js"></script>-->
+<link rel="stylesheet" type="text/css" href="https://www.huangwx.cn/css/sweetalert.css">
+<script type="text/javascript" src="https://www.huangwx.cn/js/sweetalert-dev.js"></script>
+
 <!--<script src="staticResources/js/chart.min.js"></script>-->
 <!--<script src="staticResources/js/front.js"></script>-->
 
@@ -217,10 +223,10 @@
 
                 currPage = 1;
                 $.getJSON("personpage", {currPage: currPage, name: name, pnum: pnum, position: position}, fillData);
-            }else if(button == "首页"){
+            } else if (button == "首页") {
                 currPage = 1;
                 $.getJSON("personpage", {currPage: currPage}, fillData);
-            }else if(button == "尾页"){
+            } else if (button == "尾页") {
                 currPage = totalPage;
                 $.getJSON("personpage", {currPage: currPage}, fillData);
             }
@@ -264,15 +270,13 @@
                 state = "未派出";
             }
             var workTime = e.workTime;
-            if(workTime==1){
-                workTime="0:00-8:00";
-            }else if(workTime==2){
-                workTime="8:00-16:00";
-            }else if(workTime==3){
-                workTime="16:00-24:00";
+            if (workTime == 1) {
+                workTime = "0:00-8:00";
+            } else if (workTime == 2) {
+                workTime = "8:00-16:00";
+            } else if (workTime == 3) {
+                workTime = "16:00-24:00";
             }
-
-
 
 
             //以表格的形式展现出来
@@ -289,7 +293,7 @@
 
                 "            <td><a class='btn btn-outline-primary' href='selectperson?id=" + id + "'>查看</a>&emsp;" +
                 "               <a class='btn btn-outline-primary' href='selectpersonupdate?id=" + id + "'>修改</a>&emsp;" +
-                "               <button class='btn btn-outline-warning' value='删除' id='del' onclick='delPerson(this)'>删除</button> <input type='hidden' value='"+id+"'></td>\n" +
+                "               <button class='btn btn-outline-warning' value='删除' id='del' onclick='delPerson(this)'>删除</button> <input type='hidden' value='" + id + "'></td>\n" +
                 "        </tr>";
 
             $table.append(dataTr);
@@ -310,28 +314,46 @@
 
     function delPerson(del) {
 
-        var pid=$(del).next().val();
+        var pid = $(del).next().val();
         /*ajax提交后台*/
-        $.getJSON("persondelete", {
-            id: pid
-        }, function (data) {
-            /*回调函数*/
-            if (data=='1') {
-                alert("删除成功");
-                var currPage=1;
-                $.getJSON("personpage", {currPage: currPage}, fillData);
-            }else if (data=='0') {
-                alert("删除失败！");
-            }
-            else if (data=='-1') {
-                alert("人员派出，不能删除");
-            }
-        });
+        swal({
+                title: "确定删除吗？",
+                text: "你将无法恢复该文件！",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "确定",
+                cancelButtonText: "取消",
+                closeOnConfirm: false,
+                closeOnCancel: true
+            },
+            function (isConfirm) {
+                if (isConfirm) {
+
+                    $.getJSON("persondelete", {id: pid}, function (data) {
+                        /*回调函数*/
+                        if (data == '1') {
+                            swal("成功！", "已删除",
+                                "success");
+                            var currPage = 1;
+                            $.getJSON("personpage", {currPage: currPage}, fillData);
+                        } else if (data == '0') {
+                            swal("错误！", "删除失败",
+                                "error");
+                        } else if (data == '-1') {
+                            swal("错误！", "人员已派出，无法删除",
+                                "error");
+                        }
+                    });
+
+                }
+
+            });
+
     }
 
 
-
-    </script>
+</script>
 </body>
 
 </html>

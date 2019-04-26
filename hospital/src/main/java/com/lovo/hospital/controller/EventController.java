@@ -27,6 +27,7 @@ import java.util.concurrent.CopyOnWriteArraySet;
 @ServerEndpoint("/websocket")
 @Controller
 public class EventController {
+
     @Autowired
     private EventService eventService;
 
@@ -60,7 +61,7 @@ public class EventController {
      *
      * @param message
      */
-    @JmsListener(destination = "queue")
+    @JmsListener(destination = "testSend")
     public void receiveQueue(String message) {
 //        System.out.println("监听queue=============监听queue");
         //收到数据，保存数据库
@@ -156,6 +157,8 @@ public class EventController {
         System.out.println( "发生错误" );
         error.printStackTrace();
     }
+
+
     @RequestMapping("eventAll")
     public String eventAll() {
         return "eventAll";

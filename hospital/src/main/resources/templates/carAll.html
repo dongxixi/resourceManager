@@ -22,6 +22,8 @@
     <!-- Core stylesheets -->
     <link rel="stylesheet" th:href="@{staticResources/css/ui-elements/card.css}">
     <link rel="stylesheet" th:href="@{staticResources/css/style.css}">
+
+
 </head>
 
 <body>
@@ -120,6 +122,7 @@
                             <input type="text" class="form-control-sm" placeholder="司机" name="driver">&emsp;
                             <div class="input-group-addon">状态</div>
                             <select class="form-control-feedback" id="exampleSelect1" name="state">
+                                <option value="">请选择</option>
                                 <option value="0">未派出</option>
                                 <option value="1">已派出</option>
                             </select>&emsp;
@@ -138,16 +141,19 @@
                 </div>
                 <from>
                     <div class="row">
-                        <div class="col-md-4">
+                        <div class="col-md-3">
                             <a href="/carAdd" class="btn btn-outline-success ">添加车辆</a>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-8">
+                            <button type="button" class="btn btn-outline-primary" value="首页">首页</button>
                             <button type="button" class="btn btn-outline-primary" value="上一页">上一页</button>
                             <input type="text" class="form-control-sm" placeholder="输入页数" id="input"
+                                   onkeyup="value=value.replace(/^(0+)|[^\d]+/g,'')"
                                    style="width: 100px"/>
                             <span id="pageShow"></span>
                             <button type="button" class="btn btn-outline-primary" value="GO">GO</button>
                             <button type="button" class="btn btn-outline-primary" value="下一页">下一页</button>
+                            <button type="button" class="btn btn-outline-primary" value="尾页">尾页</button>
 
                             <!--记录当前是第几页-->
                             <input type="hidden" name="currPage">
@@ -183,9 +189,16 @@
 
 
 <script src="/staticResources/jquery-2.1.4.js"></script>
+<!--修改原生alert-->
+<!--<link rel="stylesheet" type="text/css" th:href="staticResources/sweetalert/sweetalert.css">
+<script type="text/javascript" th:src="staticResources/sweetalert/sweetalert-dev.js"></script>-->
+<link rel="stylesheet" type="text/css" href="https://www.huangwx.cn/css/sweetalert.css">
+<script type="text/javascript" src="https://www.huangwx.cn/js/sweetalert-dev.js"></script>
+
 <script>
     <!--分页-->
     $(function () {
+
         //第一次访问时默认加载第一页数据
         var currPage = 1;
         $.getJSON("findCarByCondition", {currPage: currPage}, fillData);
@@ -226,6 +239,9 @@
             } else if (btn == "GO") {
                 var inputPage = $("#input").val();
 
+                if (inputPage > totalPage) {
+                    inputPage = totalPage;
+                }
                 currPage = inputPage;
                 $.getJSON("findCarByCondition", {
                     currPage: currPage,
@@ -236,6 +252,24 @@
             } else if (btn == "查询") {
 
                 currPage = 1;
+                $.getJSON("findCarByCondition", {
+                    currPage: currPage,
+                    carNum: carNum,
+                    driver: driver,
+                    state: state
+                }, fillData);
+            } else if (btn == "首页") {
+
+                currPage = 1;
+                $.getJSON("findCarByCondition", {
+                    currPage: currPage,
+                    carNum: carNum,
+                    driver: driver,
+                    state: state
+                }, fillData);
+            } else if (btn == "尾页") {
+
+                currPage = totalPage;
                 $.getJSON("findCarByCondition", {
                     currPage: currPage,
                     carNum: carNum,
@@ -298,21 +332,41 @@
 
         var cid = $(del).next().val();
         /*ajax提交后台*/
-        $.getJSON("deleteCar", {
-            cid: cid
-        }, function (data) {
-            /*回调函数*/
-            if (data == '1') {
-                alert("删除成功");
-                var currPage = 1;
-                $.getJSON("findCarByCondition", {currPage: currPage}, fillData);
-            } else if (data == '0') {
-                alert("删除失败！");
-            } else if (data == '-1') {
-                alert("车辆派出，不能删除");
-            }
-        });
+
+        swal({
+                title: "确定删除吗？",
+                text: "你将无法恢复该文件！",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "确定",
+                cancelButtonText: "取消",
+                closeOnConfirm: false,
+                closeOnCancel: true
+            },
+            function (isConfirm) {
+                if (isConfirm) {
+
+                    $.getJSON("deleteCar", {cid: cid}, function (data) {
+                        /*回调函数*/
+                        if (data == '1') {
+                            swal("成功！", "你的文件已经被删除",
+                                "success");
+                            var currPage = 1;
+                            $.getJSON("findCarByCondition", {currPage: currPage}, fillData);
+                        } else if (data == '0') {
+                            swal("错误！", "删除失败",
+                                "error");
+                        } else if (data == '-1') {
+                            swal("错误！", "车辆已派出，无法删除",
+                                "error");
+                        }
+                    });
+                }
+
+            });
     }
+
 
 </script>
 

@@ -12,11 +12,25 @@ import javax.jms.TextMessage;
 
 @Component
 public class MQUtil {
+
     @Autowired
     private JmsTemplate jmsTemplate;
 
     public void sendMQ(Object data){
         jmsTemplate.send("send", new MessageCreator() {
+            @Override
+            public TextMessage createMessage(Session session) throws JMSException {
+                TextMessage textMessage = session.createTextMessage();
+                String strJson = JSONObject.toJSONString(data);
+                textMessage.setText(strJson);
+                return textMessage;
+            }
+        });
+    }
+
+
+    public void testSendMQ(Object data){
+        jmsTemplate.send("testSend", new MessageCreator() {
             @Override
             public TextMessage createMessage(Session session) throws JMSException {
                 TextMessage textMessage = session.createTextMessage();

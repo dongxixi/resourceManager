@@ -61,26 +61,35 @@ public class UserController {
      * @return 查栈出来的user对象返回给页面操作
      */
     @RequestMapping("loginyanzheng")
-    public ModelAndView findBy(String userName, String password, HttpServletRequest request) {
-        ModelAndView mv = new ModelAndView();
+    @ResponseBody
+    public String findBy(String userName, String password, HttpServletRequest request,HttpServletResponse response) {
+
         UserEntity user = userService.logindBy(userName, password);
-        if (user != null && !" ".equals(user)) {
+        String state="";
+        if (user != null && !"".equals(user)) {
             String uid = user.getuId();
             String roleName = userService.findRoleNameByUserId(uid);
             request.getSession().setAttribute("roleName", roleName);
             if ("医院值班员".equals(roleName)) {
                 //重定向到查询controller
-                RedirectView rv = new RedirectView("gotoeventAll");
-                mv.setView(rv);
+               /* RedirectView rv = new RedirectView("gotoeventAll");
+                mv.setView(rv);*/
+                //返回1为权限为值班员
+                state="1";
+
             } else {
                 //重定向到查询controller
-                RedirectView rv = new RedirectView("gotoUserAll");
-                mv.setView(rv);
+               /* RedirectView rv = new RedirectView("gotoUserAll");
+                mv.setView(rv);*/
+               //返回2为管理员
+               state="2";
             }
         } else {
-            mv.setViewName("login");
+            //返回-1为登录失败
+            state="-1";
         }
-        return mv;
+        return state;
+
     }
 
     /**

@@ -37,10 +37,8 @@ public class TestController {
             Timestamp timestamp = new Timestamp(date.getTime());
             EventSinkDto eventSinkDto = new EventSinkDto(i.toString(), "MQ测试事件", "火灾", "锦江区", timestamp, "MQ测试报警人", "10010", "测试地址", i.toString() ,3, 1);
 
-            String s = JSONObject.toJSONString(eventSinkDto);
 
-            System.out.println(s);
-            mqUtil.sendMQ(eventSinkDto);
+            mqUtil.testSendMQ(eventSinkDto);
         }
         return "";
     }
