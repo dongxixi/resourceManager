@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 
@@ -60,8 +62,10 @@ public class PersonController {
 	public ModelAndView addperson(String name,String tel,String sex,Integer workTime,String position){
 		String telhead =tel.substring(0,3);
 		String telend =tel.substring(7,11);
-
-		String pnum=telhead+telend;
+		Date d =new Date();
+		SimpleDateFormat sdf = new SimpleDateFormat("YYYYMMddHH");
+		String dd =sdf.format(d);
+		String pnum=dd+telhead+telend;
 		PersonnelEntity personnelEntity = personnelService.saveOnePersonnel(name,pnum, tel, sex,workTime, position);
 		ModelAndView modelAndView = new ModelAndView("personpage");
 

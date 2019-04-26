@@ -116,8 +116,8 @@
                                 <div class="form-group">
                                     <label for="name">姓名</label>
                                     <input type="text" class="form-control" id="name" aria-describedby="emailHelp"
-                                           placeholder="Enter Name" th:field="${personnelEntity.name}" name="name"
-                                          >
+                                           placeholder="Enter Name" th:field="${personnelEntity.name}" name="name">
+                                    <span id="nametest" ></span>
                                 </div>
                                 <div class="form-group">
                                     <label>编号</label><br/>
@@ -127,7 +127,8 @@
                                     <label for="pro-tel">电话</label>
                                     <input type="text" class="form-control" id="pro-tel" aria-describedby="emailHelp"
                                            placeholder="Enter tel"  th:field="${personnelEntity.tel}" name="tel"
-                                           onblur="fun()"><span id="teltest" style="color: #db4437"></span>
+                                           >
+                                    <span id="teltest" style="color: #db4437"></span>
                                 </div>
                                 <div class="form-group">
                                     <label for="pro-sex">性别</label><br/>
@@ -161,7 +162,7 @@
                             </div>
 
                         </div>
-                        <button type="submit" class="btn btn-general btn-blue mr-2">提交</button>
+                        <button type="submit" class="btn btn-general btn-blue mr-2" name="add">提交</button>
                         <button  type="button" class="btn btn-general btn-blue mr-2" onclick="window.location.href='personAll'">返回</button>
 
                     </form>
@@ -188,64 +189,67 @@
 <script src="staticResources/js/front.js"></script>
 
 <!--Core Javascript -->
-<script>
-    new Chart(document.getElementById("myChart-nav").getContext('2d'), {
-        type: 'doughnut',
-        data: {
-            labels: ["M", "T", "W", "T", "F", "S", "S"],
-            datasets: [{
-                backgroundColor: [
-                    "#2ecc71",
-                    "#3498db",
-                    "#95a5a6",
-                    "#9b59b6",
-                    "#f1c40f",
-                    "#e74c3c",
-                    "#34495e"
-                ],
-                data: [12, 19, 3, 17, 28, 24, 7]
-            }]
-        },
-        options: {
-            legend: {display: false},
-            title: {
-                display: true,
-                text: ''
+
+
+
+
+
+    <script>
+    $(function () {
+        var a;
+        var b;
+        $("[name=add]").attr('disabled', true);
+        $("[name=name]").mouseout(function () {
+            a= false;
+            var namet = $(this).val();//这种取值是取到整个文本框
+            var $show1 =$(this).next();
+            if (namet.length == 0) {  //这样就是取到文本框里面所有的文本的长度，等于的是一个int类型
+                $show1.html("姓名不能为空");
+                $show1.css("color","red")
+            } else {
+                $show1.html("可用");
+                $show1.css("color","green")
+                a= true;
             }
-        }
+            if (a==true & b==true) {
+                $("[name=add]").removeAttr('disabled');
+            }
+        });
+
+        $("[name=tel]").blur(function () {
+            var tel=$(this).val();
+            b= false;
+
+            var teltest = new RegExp(/^[0-9]{11}$/);
+
+            var show = $(this).next();
+            if (!tel.match(teltest)) {
+                show.html("位数输入有误");
+                show.css("color","red");
+            } else {
+                $.getJSON("selecttel", {tel: tel}, function (data) {
+                    if(data){
+                        show.html("号码已存在!请重新输入！")
+                        show.css("color","red");
+                    }else{
+                        show.html("可用");
+                        show.css("color","green");
+                        b=true;
+                        if (a==true & b==true) {
+                            $("[name=add]").removeAttr('disabled');
+                        }
+                    }
+                });
+
+            }
+        });
     });
 
 
 
 
-    // 电话的正则表达式验证
-    function fun() {
-
-        var tel = $("input[name='tel']").val();
-        var teltest= new RegExp(/^[0-9]{11}$/);
-        var show =$("#teltest");
-
-        if (tel.match(teltest)){
-            show.html("输入正确")
-            return true;
-        }else{
-            show.html("位数输入有误")
-            return false;
-        }
 
 
-        $(function (data) {
-            var tel = $("input[name='tel']").val();
-            var show =$("#teltest");
-            $.getJSON("selecttel2", {tel: tel}, fillData);
-        });
-        function fillData(data) {
-            if(data>=1){
-                show.html("号码已存在!请重新输入！")
-            }
-        }
-
-    }
 
 
 </script>
