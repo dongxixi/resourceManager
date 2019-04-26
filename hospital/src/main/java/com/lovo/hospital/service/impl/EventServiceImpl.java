@@ -1,8 +1,6 @@
 package com.lovo.hospital.service.impl;
 
-import com.lovo.hospital.dao.CarLogDao;
-import com.lovo.hospital.dao.EventDao;
-import com.lovo.hospital.dao.PersonLogDao;
+import com.lovo.hospital.dao.*;
 import com.lovo.hospital.dto.CarDto;
 import com.lovo.hospital.dto.EventRecordListDto;
 import com.lovo.hospital.dto.EventSendDto;
@@ -33,6 +31,10 @@ public class EventServiceImpl implements EventService {
     private CarLogDao carLogDao;
     @Autowired
     private PersonLogDao personLogDao;
+    @Autowired
+    private CarDao carDao;
+    @Autowired
+    private PensonnelDao pensonnelDao;
     @Autowired
     private DispatchService dispatchService;
     @Autowired
@@ -195,6 +197,8 @@ public class EventServiceImpl implements EventService {
                 pl.setState(0);
                 pl.getPersonnelEntity().setState(0);
 
+                pensonnelDao.save(pl.getPersonnelEntity());
+
                 PersonDto pd = new PersonDto();
                 pd.setId(pl.getPersonnelEntity().getId());
                 pd.setpName(pl.getPersonnelEntity().getName());
@@ -213,6 +217,8 @@ public class EventServiceImpl implements EventService {
                 c.setReturnTime(new Timestamp(System.currentTimeMillis()));
                 c.setState(0);
                 c.getCarEntity().setState(0);
+
+                carDao.save(c.getCarEntity());
 
                 CarDto cd = new CarDto();
                 cd.setCarNum(c.getCarEntity().getCarNum());
