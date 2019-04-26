@@ -23,7 +23,7 @@ public interface LogDao extends CrudRepository<LogEntity, String> {
             " and if(:strTime is not null and :endTime is not null,l.time between :strTime and :endTime,1=1) " +
             " and if(:strTime is not null and :endTime is  null,l.time > :strTime ,1=1) " +
             " and if(:strTime is  null and :endTime is not null,l.time < :endTime,1=1) " +
-            " limit :startIndex,:pageNum", nativeQuery = true)
+            " Order by  l.time  desc limit :startIndex,:pageNum  ", nativeQuery = true)
     public List<LogEntity> findPageby(@Param("username") String username,
                                       @Param("description") String description,
                                       @Param("strTime") Timestamp strTime,
