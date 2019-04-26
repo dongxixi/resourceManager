@@ -238,25 +238,27 @@
             "                        </tr>\n" +
             "                        </thead>");
         $table.append($head);
+        if (data.dataList!=null){
+            $.each(data.dataList, function (i, e) {
+                var userName = e.userName;
+                var powerName = e.powerName;
+                var uid = e.userId;
+                if (powerName == 1) {
+                    powerName = "事件管理";
+                } else if (powerName == 0) {
+                    powerName = "数据操作";
+                }
+                var dataTr = "<tr>\n" +
+                    "            <td>" + userName + "</td>\n" +
+                    "            <td>" + powerName + "</td>\n" +
+                    "            <td><a class='btn btn-outline-primary' href='goToUserUpdate?uid=" + uid + "'>修改</a>&emsp;" +
+                    "                   <a class='btn btn-outline-warning' href='deleteUser?uid=" + uid + "'>删除</a></td>\n" +
+                    "        </tr>";
 
-        $.each(data.dataList, function (i, e) {
-            var userName = e.userName;
-            var powerName = e.powerName;
-            var uid = e.userId;
-            if (powerName == 1) {
-                powerName = "事件管理";
-            } else if (powerName == 0) {
-                powerName = "数据操作";
-            }
-            var dataTr = "<tr>\n" +
-                "            <td>" + userName + "</td>\n" +
-                "            <td>" + powerName + "</td>\n" +
-                "            <td><a class='btn btn-outline-primary' href='goToUserUpdate?uid=" + uid + "'>修改</a>&emsp;" +
-                "                   <a class='btn btn-outline-warning' href='deleteUser?uid=" + uid + "'>删除</a></td>\n" +
-                "        </tr>";
+                $table.append(dataTr);
+            });
+        }
 
-            $table.append(dataTr);
-        });
         //加载当前页数
         $("#input").val(data.currPage);
         //渲染第几页信息
