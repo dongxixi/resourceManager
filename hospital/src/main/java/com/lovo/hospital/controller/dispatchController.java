@@ -28,7 +28,7 @@ public class dispatchController {
     @ResponseBody
     public Map<String, Object> getCarList(Integer pageNo) {
 
-        List<CarEntity> carList = carService.findCarByCondition(pageNo, 5, null, null, null);
+        List<CarEntity> carList = carService.findCarByCondition(pageNo, 5, null, null, 0);
         int pageTotal = carService.findTotalPageByCondition(null, null, null, 5);
 
         Map<String, Object> map = new HashMap<>();
@@ -64,24 +64,24 @@ public class dispatchController {
         String msg = "";
         switch (flag) {
             case 0:
-                msg = "派出成功";
+//                msg = "派出成功";
                 break;
             case 1:
                 msg = "派出单错误";
-                break;
+//                break;
             case 2:
                 msg = "车辆数量错误";
-                break;
+//                break;
             case 3:
                 msg = "人员数量错误";
-                break;
-        }
+//                break;
         mv.addObject("msg", msg);
+        }
 
         if (flag == 0) {
-            mv.setViewName("eventAll");
+            mv.setViewName("redirect:/eventAll");
         } else {
-            mv.setViewName("eventError");
+            mv.setViewName("redirect:/eventError");
         }
         return mv;
     }
