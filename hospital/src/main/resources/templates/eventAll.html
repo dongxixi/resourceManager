@@ -389,7 +389,7 @@
     function getDispatch(obj) {
         var eventId = $(obj).parent().siblings().get(0).innerText;
         // alert(eventId);
-        $.post("/" + eventId + "/getDispatchByEventId", {}, unDisptchList,"json");
+        $.post("/eventGetDispatchByEventId", {id:eventId}, unDisptchList,"json");
     }
 
     // 根据事件ID找到资源派出列表
