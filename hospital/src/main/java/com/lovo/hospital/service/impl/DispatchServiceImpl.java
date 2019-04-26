@@ -39,6 +39,8 @@ public class DispatchServiceImpl implements DispatchService {
     private EventDao eventDao;
     @Autowired
     private PensonnelDao pensonnelDao;
+    @Autowired
+    private CarDao carDao;
 
     @Autowired
     private MQUtil mqUtil;
@@ -94,6 +96,10 @@ public class DispatchServiceImpl implements DispatchService {
 
             carLog.setState(1);
 
+            //修改相应车辆状态
+            CarEntity carEntity = carDao.findById(carId).get();
+            carEntity.setState(1);
+
             carList.add(carLog);
 
             //为mq传输数据添加车辆信息
@@ -122,6 +128,10 @@ public class DispatchServiceImpl implements DispatchService {
             personnelLog.setStartTime(startTime);
 
             personnelLog.setState(1);
+
+            //修改相应人员状态
+            PersonnelEntity personnelEntity = pensonnelDao.findById(personId).get();
+            personnelEntity.setState(1);
 
             personList.add(personnelLog);
 
