@@ -186,23 +186,16 @@ public class UserController {
      * @return
      */
     @RequestMapping("findByUserName")
+    @ResponseBody
     public String findByUserName(String userName, HttpServletResponse response) {
+        String a="1";
         UserEntity user = userService.findByUserName(userName);
         response.setContentType("text/html");
         response.setCharacterEncoding("utf-8");
-        PrintWriter out = null;
-        System.out.println(user);
-        try {
-            out = response.getWriter();
-            if (user == null) {
-                out.println("0");
-            } else {
-                out.println("1");
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return null;
+       if (user==null){
+           a="0";
+       }
+        return a;
     }
 
     @RequestMapping("loginMessage")

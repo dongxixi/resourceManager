@@ -161,15 +161,28 @@
 
 <!--Core Javascript -->
 <script>
-    function funpassword() {
-        var $namet = $("input[name='password']");//这种取值是取到整个文本框
-        var $show1 =$("#passwordtest");
-        if ($namet.val().length==0){  //这样就是取到文本框里面所有的文本的长度，等于的是一个int类型
-            $show1.html("密码不能为空");
-        }else {
-            $show1.html(" ");
-        }
-    }
+    $(function () {
+        $("[name=add]").attr('disabled', true);
+        var b;
+        $("[name=password]").blur(function () {
+            b=false;
+            $(this).next().html("");
+            $(this).next().removeAttr("color");
+            var password = $(this).val();
+            if (password == "" || password.length == 0) {
+                $(this).next().html("请输入密码");
+                $(this).next().css('color','red');
+                $("[name=add]").attr('disabled', true);
+            } else {
+                b=true;
+                $(this).next().css('color','green');
+                $(this).next().html("密码可用");
+            }
+            if (b==true) {
+                $("[name=add]").removeAttr('disabled');
+            }
+        });
+    });
 </script>
 
 </body>

@@ -114,13 +114,13 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="userName">用户名</label>
-                                    <input name="userName" type="text" class="form-control" id="userName" onblur="funname()" />
+                                    <label for="UserName">用户名</label>
+                                    <input name="userName" type="text" class="form-control" id="UserName"  />
                                     <span id="nametest" style="color: #db4437"></span>
                                 </div>
                                 <div class="form-group">
-                                    <label for="password">密码</label>
-                                    <input name="password" type="text" class="form-control" id="password" onblur="funpassword()" />
+                                    <label for="Password">密码</label>
+                                    <input name="password" type="text" class="form-control" id="Password"  />
                                     <span id="passwordtest" style="color: #db4437"></span>
                                 </div>
                                 <div class="form-group">
@@ -132,7 +132,7 @@
                                 </div>
                             </div>
                         </div>
-                        <button type="submit" class="btn btn-general btn-blue mr-2">添加</button>
+                        <button type="submit" class="btn btn-general btn-blue mr-2" name="add">添加</button>
                         <button type="reset" class="btn btn-general btn-white" >取消</button>
                     </form>
                 </div>
@@ -158,34 +158,85 @@
 
 <!--Core Javascript -->
 <script>
-    function funpassword() {
-        var $namet = $("input[name='password']");//这种取值是取到整个文本框
-        var $show1 =$("#passwordtest");
-        if ($namet.val().length==0){  //这样就是取到文本框里面所有的文本的长度，等于的是一个int类型
-            $show1.html("密码不能为空");
-        }else {
-            $show1.html(" ");
-        }
-    }
+    // function funpassword() {
+    //     var $namet = $("input[name='password']");//这种取值是取到整个文本框
+    //     var $show1 =$("#passwordtest");
+    //     if ($namet.val().length==0){  //这样就是取到文本框里面所有的文本的长度，等于的是一个int类型
+    //         $show1.html("密码不能为空");
+    //     }else {
+    //         $show1.html(" ");
+    //     }
+    // }
+    //
+    // function funname(){
+    //         $("#userName").mouseleave(function(){
+    //             var userName=$("#userName").val();
+    //             $.post("findByUserName", {
+    //                 userName: userName
+    //             }, function(data){
+    //                 if (data==1){
+    //                     $("#nametest").html("用户名重复")
+    //                 } else if(userName==""){
+    //                     $("#nametest").html("用户名不为空");
+    //                 }else {
+    //                     $("#nametest").html("用户名可以使用")
+    //                 }
+    //
+    //
+    //             });
+    //         });
+    //     }
 
-    function funname(){
-            $("#userName").mouseleave(function(){
-                var userName=$("#userName").val();
-                $.post("findByUserName", {
-                    userName: userName
-                }, function(data){
-                    if (data==1){
-                        $("#nametest").html("用户名重复")
-                    } else if(userName==""){
-                        $("#nametest").html("用户名不为空");
-                    }else {
-                        $("#nametest").html("用户名可以使用")
+    $(function () {
+        $("[name=add]").attr('disabled', true);
+        var a;
+        var b;
+        $("[name=userName]").blur(function () {
+            a=false;
+            $(this).next().html("");
+
+            var userName = $(this).val();
+
+            if (userName == "" || userName.length == 0) {
+                $(this).next().html("请输入用户名");
+                $(this).next().css('color','red');
+                $("[name=add]").attr('disabled', true);
+            }  else {
+                $.getJSON("findByUserName",{userName:userName},function (data) {
+                    if (data=="0"){
+                        a=true;
+                        $("[name=userName]").next().css('color','green');
+                        $("[name=userName]").next().html("可用");
+                    } else{
+                        $("[name=userName]").next().css('color','red');
+                        $("[name=userName]").next().html("系统中已存在此用户");
                     }
-
-
                 });
-            });
-        }
+
+            }
+            if (a==true && b==true) {
+                $("[name=add]").removeAttr('disabled');
+            }
+        });
+        $("[name=password]").blur(function () {
+            b=false;
+            $(this).next().html("");
+            $(this).next().removeAttr("color");
+            var password = $(this).val();
+            if (password == "" || password.length == 0) {
+                $(this).next().html("请输入密码");
+                $(this).next().css('color','red');
+                $("[name=add]").attr('disabled', true);
+            } else {
+                b=true;
+                $(this).next().css('color','green');
+                $(this).next().html("密码可用");
+            }
+            if (a==true && b==true) {
+                $("[name=add]").removeAttr('disabled');
+            }
+        });
+    });
 </script>
 
 </body>
