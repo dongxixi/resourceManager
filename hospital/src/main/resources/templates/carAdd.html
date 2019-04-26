@@ -91,68 +91,46 @@
 <!--====================================================
                         PAGE CONTENT
 ======================================================-->
-<div class="page-content d-flex align-items-stretch">
+<div class="container">
 
-    <!--***** SIDE NAVBAR *****-->
-
-
-    <div class="content-inner chart-cont">
-
-        <!--***** FORM LAYOUTS *****-->
-        <div class="row">
-            <div class="col-md-12">
-
-                <!--***** USER INFO *****-->
-
-                <!--***** PRODUCT INFO *****-->
-                <div class="card form" id="form1">
-                    <div class="card-header">
-                        <h3><i class="fa fa-archive"></i>添加车辆</h3>
-                    </div>
-                    <br>
-                    <form th:action="@{addCar}" method="post">
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="name">车牌</label>
-                                    <input name="carNum" type="text" class="form-control" id="name"
-                                           aria-describedby="emailHelp" placeholder="车牌">
-                                    <span style="color: #db4437"></span>
-                                </div>
-                                <div class="form-group">
-                                    <label for="pro-tel">司机</label>
-                                    <input name="driver" type="text" class="form-control" id="pro-tel"
-                                           aria-describedby="emailHelp" placeholder="司机">
-                                    <span style="color: #db4437"></span>
-                                </div>
-                            </div>
-
-                        </div>
-                        <button type="submit" class="btn btn-general btn-blue mr-2" name="add">添加</button>
-                        <button type="reset" class="btn btn-general btn-white">取消</button>
-                    </form>
-                </div>
-            </div>
-
+    <div class="card form" id="form1">
+        <div class="card-header">
+            <h3><i class="fa fa-archive"></i>添加车辆</h3>
         </div>
+        <br>
+        <form th:action="@{addCar}" method="post">
+            <div class="row">
+                <div class="col-md-3"></div>
+                <div class="col-md-5">
+                    <div class="form-group">
+                        <label for="name">车牌</label>
+                        <input name="carNum" type="text" class="form-control" id="name"
+                               aria-describedby="emailHelp" placeholder="车牌">
+                        <span style="color: #db4437"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="pro-tel">司机</label>
+                        <input name="driver" type="text" class="form-control" id="pro-tel"
+                               aria-describedby="emailHelp" placeholder="司机">
+                        <span style="color: #db4437"></span>
+                    </div>
+                </div>
+
+            </div>
+            <div class="row form-group">
+                <div class="col-md-10"></div>
+                <button type="submit" class="btn btn-general btn-blue mr-2" name="add">添加</button>
+                <button type="reset" class="btn btn-general btn-white">取消</button>
+            </div>
+        </form>
     </div>
 </div>
+
 <!-- FOOTER -->
 <footer class="footer navbar-fixed-bottom text-md-center" style="background-color: #5e67d6">
     <div class="" style="padding-top: 30px;color: white;">应急系统 &copy; 2018.Company name LOVO J165 3组.</div>
 </footer>
 
-<!--Global Javascript -->
-
-<!--<script th:src="@{staticResources/js/popper/popper.min.js}"></script>
-<script th:src="@{staticResources/js/tether.min.js}"></script>
-<script th:src="@{staticResources/js/bootstrap.min.js}"></script>
-<script th:src="@{staticResources/js/jquery.cookie.js}"></script>
-<script th:src="@{staticResources/js/jquery.validate.min.js}"></script>
-<script th:src="@{staticResources/js/chart.min.js}"></script>
-<script th:src="@{staticResources/js/front.js}"></script>-->
-
-<!--Core Javascript -->
 <script src="/staticResources/jquery-2.1.4.js"></script>
 <script>
     $(function () {
@@ -160,7 +138,7 @@
         var a;
         var b;
         $("[name=carNum]").blur(function () {
-            a=false;
+            a = false;
             $(this).next().html("");
 
             var carNum = $(this).val();
@@ -171,46 +149,46 @@
 
             if (carNum == "" || carNum.length == 0) {
                 $(this).next().html("请输入车牌号");
-                $(this).next().css('color','red');
+                $(this).next().css('color', 'red');
                 $("[name=add]").attr('disabled', true);
             } else if (!result) {
                 $(this).next().html("请输入正确的车牌号");
-                $(this).next().css('color','red');
+                $(this).next().css('color', 'red');
                 $("[name=add]").attr('disabled', true);
             } else {
                 $.getJSON("isHaveCarNum", {carNum: carNum}, function (data) {
-                    if (data){
-                        a=true;
-                        $("[name=carNum]").next().css('color','green');
+                    if (data) {
+                        a = true;
+                        $("[name=carNum]").next().css('color', 'green');
                         $("[name=carNum]").next().html("可用");
-                    } else{
+                    } else {
                         //车牌号重复
-                        $("[name=carNum]").next().css('color','red');
+                        $("[name=carNum]").next().css('color', 'red');
                         $("[name=carNum]").next().html("系统中已存在此车牌");
                     }
                 });
 
 
             }
-            if (a==true && b==true) {
+            if (a == true && b == true) {
                 $("[name=add]").removeAttr('disabled');
             }
         });
         $("[name=driver]").blur(function () {
-            b=false;
+            b = false;
             $(this).next().html("");
             $(this).next().removeAttr("color");
             var driver = $(this).val();
             if (driver == "" || driver.length == 0) {
                 $(this).next().html("请输入司机姓名");
-                $(this).next().css('color','red');
+                $(this).next().css('color', 'red');
                 $("[name=add]").attr('disabled', true);
             } else {
-                b=true;
-                $(this).next().css('color','green');
+                b = true;
+                $(this).next().css('color', 'green');
                 $(this).next().html("可用");
             }
-            if (a==true && b==true) {
+            if (a == true && b == true) {
                 $("[name=add]").removeAttr('disabled');
             }
         });
