@@ -143,18 +143,15 @@ public class LogAspect {
         }else if(methodName.contains("User")){
             String id=args[0].toString();
             UserEntity user = userService.findUserById(id);
-            UserEntity oldUserEntity1 = new UserEntity();
-            oldUserEntity1.setuId(user.getuId());
-            oldUserEntity1.setPassword(user.getPassword());
-            oldUserEntity1.setSystemName(user.getSystemName());
-            oldUserEntity1.setSetUserRole(user.getSetUserRole());
+            UserUtil oldUserEntity = new UserUtil(user.getuId(),user.getUserName(),user.getPassword());
             proceed  = joinPoint.proceed();
-            UserEntity newUserEntity =userService.findUserById(id);
+            UserEntity UserEntity =userService.findUserById(id);
+            UserUtil newUserEntity = new UserUtil(UserEntity.getuId(),UserEntity.getUserName(),UserEntity.getPassword());
             //拼接日志信息
             Compare<UserEntity> userEntityCompare = new Compare<>();
-            description = userEntityCompare.contrastObj(oldUserEntity1,newUserEntity);
+            description = userEntityCompare.contrastObj(oldUserEntity,newUserEntity);
             if(description!=null&&!"".equals(description)){
-                description="修改用户id："+id+"内容："+description;
+                description="修改用户id："+newUserEntity.getName()+"内容："+description;
                 addlogin(description);
             }
         }else if(methodName.contains("Person")){
