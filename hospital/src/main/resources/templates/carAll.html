@@ -139,16 +139,19 @@
                 </div>
                 <from>
                     <div class="row">
-                        <div class="col-md-4">
+                        <div class="col-md-3">
                             <a href="/carAdd" class="btn btn-outline-success ">添加车辆</a>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-6">
+                            <button type="button" class="btn btn-outline-primary" value="首页">首页</button>
                             <button type="button" class="btn btn-outline-primary" value="上一页">上一页</button>
                             <input type="text" class="form-control-sm" placeholder="输入页数" id="input"
+                                   onkeyup="value=value.replace(/^(0+)|[^\d]+/g,'')"
                                    style="width: 100px"/>
                             <span id="pageShow"></span>
                             <button type="button" class="btn btn-outline-primary" value="GO">GO</button>
                             <button type="button" class="btn btn-outline-primary" value="下一页">下一页</button>
+                            <button type="button" class="btn btn-outline-primary" value="尾页">尾页</button>
 
                             <!--记录当前是第几页-->
                             <input type="hidden" name="currPage">
@@ -212,8 +215,6 @@
                     state: state
                 }, fillData);
             } else if (btn == "下一页") {
-
-
                 currPage = currPage + 1;
                 if (currPage > totalPage) {
                     currPage = totalPage;
@@ -224,9 +225,33 @@
                     driver: driver,
                     state: state
                 }, fillData);
-            } else if (btn == "GO") {
+            } else if (btn == "首页") {
+                currPage = 1;
+                if (currPage > totalPage) {
+                    currPage = totalPage;
+                }
+                $.getJSON("findCarByCondition", {
+                    currPage: currPage,
+                    carNum: carNum,
+                    driver: driver,
+                    state: state
+                }, fillData);
+            }else if (btn == "尾页") {
+                currPage = totalPage;
+                if (currPage > totalPage) {
+                    currPage = totalPage;
+                }
+                $.getJSON("findCarByCondition", {
+                    currPage: currPage,
+                    carNum: carNum,
+                    driver: driver,
+                    state: state
+                }, fillData);
+            }else if (btn == "GO") {
                 var inputPage = $("#input").val();
-
+                if(inputPage>totalPage){
+                    inputPage=totalPage;
+                }
                 currPage = inputPage;
                 $.getJSON("findCarByCondition", {
                     currPage: currPage,
