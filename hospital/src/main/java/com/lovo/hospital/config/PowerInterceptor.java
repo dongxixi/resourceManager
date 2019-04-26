@@ -13,6 +13,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import java.util.Set;
 
+
+//在拦截器里进行验证，如果在session里面能找到，登录信息就放行
 @Component
 public class PowerInterceptor implements HandlerInterceptor {
 	Logger logger = LoggerFactory.getLogger(PowerInterceptor.class);

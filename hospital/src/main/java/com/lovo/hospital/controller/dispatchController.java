@@ -40,10 +40,10 @@ public class dispatchController {
 
     @RequestMapping("eventGetPersonList")
     @ResponseBody
-    public Map<String, Object> getPersonList(Integer pageNo) {
+    public Map<String, Object> getPersonList(Integer pageNo ,Integer state) {
 
-        List<PersonnelEntity> personList = personService.getAllListBySearch(null, null, null, pageNo, 5);
-        int pageTotal = personService.findTotalPageByCondition(null, null, null, 5);
+        List<PersonnelEntity> personList = personService.getAllListBySearch(null, null, null, state,pageNo, 5);
+        int pageTotal = personService.findTotalPageByCondition(null, null, null, 5,state);
 
         Map<String, Object> map = new HashMap<>();
         map.put("pageTotal", pageTotal);

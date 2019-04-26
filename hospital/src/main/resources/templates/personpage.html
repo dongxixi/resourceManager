@@ -136,14 +136,16 @@
                         <a href="/personadd" class="btn btn-outline-success ">添加人员</a>
                     </div>
                     <div class="col-md-4">
+                        <button type="button" class="btn btn-outline-primary" value="首页">首页</button>
                         <button type="button" class="btn btn-outline-primary" value="上一页">上一页</button>
 
-                        <input type="text" class="form-control-sm" placeholder="输入页数" name="inputPageNum"
+                        <input type="text" id="gopage" class="form-control-sm" placeholder="输入页数" name="inputPageNum"
+                               onkeyup="value=value.replace(/^(0+)|[^\d]+/g,'')"
                                style="width: 100px"/>
                         <span id="pageShow"></span>
                         <button type="button" class="btn btn-outline-primary" value="GO">GO</button>
                         <button type="button" class="btn btn-outline-primary" value="下一页">下一页</button>
-
+                        <button type="button" class="btn btn-outline-primary" value="尾页">尾页</button>
                         <!--记录当前是第几页-->
                         <input type="hidden" name="currPage">
                         <input type="hidden" name="totalPage">
@@ -163,12 +165,12 @@
 </footer>
 
 <!--Global Javascript -->
-<script src="staticResources/js/jquery.min.js"></script>
-<script src="staticResources/js/popper/popper.min.js"></script>
-<script src="staticResources/js/tether.min.js"></script>
-<script src="staticResources/js/bootstrap.min.js"></script>
-<script src="staticResources/js/jquery.cookie.js"></script>
-<script src="staticResources/js/jquery.validate.min.js"></script>
+<script th:src="@{staticResources/js/jquery.min.js}"></script>
+<script th:src="@{staticResources/js/popper/popper.min.js}"></script>
+<script th:src="@{staticResources/js/tether.min.js}"></script>
+<script th:src="@{staticResources/js/bootstrap.min.js}"></script>
+<script th:src="@{staticResources/js/jquery.cookie.js}"></script>
+<script th:src="@{staticResources/js/jquery.validate.min.js}"></script>
 
 <!--<script src="staticResources/js/chart.min.js"></script>-->
 <!--<script src="staticResources/js/front.js"></script>-->
@@ -215,7 +217,14 @@
 
                 currPage = 1;
                 $.getJSON("personpage", {currPage: currPage, name: name, pnum: pnum, position: position}, fillData);
+            }else if(button == "首页"){
+                currPage = 1;
+                $.getJSON("personpage", {currPage: currPage}, fillData);
+            }else if(button == "尾页"){
+                currPage = totalPage;
+                $.getJSON("personpage", {currPage: currPage}, fillData);
             }
+
 
         });
     });
@@ -320,7 +329,9 @@
         });
     }
 
-</script>
+
+
+    </script>
 </body>
 
 </html>

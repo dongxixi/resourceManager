@@ -28,9 +28,9 @@ public class PensonnelServiceImpl implements PersonnelService {
      * @return
      */
     @Override
-    public List<PersonnelEntity> getAllListBySearch(String name, String pnum, String position, Integer pageNum, Integer showNum) {
+    public List<PersonnelEntity> getAllListBySearch(String name, String pnum, String position,Integer state, Integer pageNum, Integer showNum) {
         int startIndex=(pageNum-1)*showNum;
-        return personnelDao.getAllListBySerch(name,pnum,position,startIndex,showNum);
+        return personnelDao.getAllListBySerch(name,pnum,position,state,startIndex,showNum);
     }
 
     /**
@@ -42,8 +42,8 @@ public class PensonnelServiceImpl implements PersonnelService {
      * @return
      */
     @Override
-    public int findTotalPageByCondition(String name, String pnum, String position,Integer showNum) {
-        int totalCount =personnelDao.findTotalPageByCondition(name, pnum, position);
+    public int findTotalPageByCondition(String name, String pnum, String position,Integer showNum,Integer state) {
+        int totalCount =personnelDao.findTotalPageByCondition(name, pnum, position,state);
         Integer totalPage = (totalCount + showNum - 1) / showNum;
         return totalPage;
     }
@@ -102,7 +102,7 @@ public class PensonnelServiceImpl implements PersonnelService {
     }
 
     @Override
-    public Integer findTelByTel(String tel) {
-        return personnelDao.findTelByTel(tel);
+    public boolean findPersonnelEntitiesByTel(String tel) {
+        return personnelDao.findPersonnelEntitiesByTel(tel)==null?false:true;
     }
 }

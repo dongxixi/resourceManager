@@ -33,8 +33,9 @@ public class PersonController {
 	@ResponseBody
 	public PaginationBean<PersonnelEntity> personpage(String name, String pnum, String position,Integer currPage){
 		int showNum =10;
-		List<PersonnelEntity>personnelEntityList =  personnelService.getAllListBySearch(name,pnum,position,currPage,showNum);
-		int totalPage=personnelService.findTotalPageByCondition(name, pnum, position,showNum);
+		Integer state =null;
+		List<PersonnelEntity>personnelEntityList =  personnelService.getAllListBySearch(name,pnum,position,state,currPage,showNum);
+		int totalPage=personnelService.findTotalPageByCondition(name, pnum, position,showNum,state);
 
 		PaginationBean<PersonnelEntity>paginationBean =new PaginationBean<>();
 		paginationBean.setCurrPage(currPage);
@@ -138,17 +139,17 @@ public class PersonController {
 
 	@RequestMapping("selecttel")
 	@ResponseBody
-	public Integer  findTelByTel(String tel){
-		Integer findtel =  personnelService.findTelByTel(tel);
+	public boolean  findTelByTel(String tel){
+		boolean findtel =  personnelService.findPersonnelEntitiesByTel(tel);
 		return findtel;
 	}
 
-	@RequestMapping("selecttel2")
+	/*@RequestMapping("selecttel2")
 	@ResponseBody
 	public Integer  findTelByTel2(String tel){
 		Integer findtel =  personnelService.findTelByTel(tel);
 		return findtel;
-	}
+	}*/
 
 
 }

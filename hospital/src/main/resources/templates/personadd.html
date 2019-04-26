@@ -13,7 +13,7 @@
     <link rel="shortcut icon" th:href="@{staticResources/img/favicon.ico}"/>
 
     <!-- global stylesheets -->
-    <link href="https://fonts.googleapis.com/css?family=Roboto+Condens" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed" rel="stylesheet">
     <link rel="stylesheet" th:href="@{staticResources/css/bootstrap.min.css}"/>
     <link rel="stylesheet" th:href="@{staticResources/font-awesome-4.7.0/css/font-awesome.min.css}"/>
     <link rel="stylesheet" th:href="@{staticResources/css/font-icon-style.css}"/>
@@ -114,29 +114,28 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="name">姓名</label>
-                                    <input  name="name" type="text" class="form-control" id="name" aria-describedby="emailHelp"
-                                           onblur="funname()">
-                                    <span id="nametest" style="color: #db4437"></span>
+                                    <input name="name" type="text" class="form-control" id="name"
+                                           aria-describedby="emailHelp">
+                                    <span id="nametest" ></span>
                                 </div>
-                                <!--<div class="form-group">-->
-                                    <!--<label for="pro-tel">编号</label>-->
-                                    <!--<input  name="pnum" type="text" class="form-control" id="pro-pnum" aria-describedby="emailHelp"-->
-                                            <!--placeholder="请输入编号">-->
-                                <!--</div>-->
+
                                 <div class="form-group">
                                     <label for="pro-tel">电话</label>
-                                    <input  name="tel" type="text" class="form-control" id="pro-tel" aria-describedby="emailHelp"
-                                           placeholder="请输入电话" onblur="fun()">
-                                </div><span id="teltest" style="color: #db4437"></span>
+                                    <input name="tel" type="text" class="form-control" id="pro-tel"
+                                           aria-describedby="emailHelp"
+                                           placeholder="请输入电话">
+                                    <span id="teltest" ></span>
+                                </div>
                                 <div class="form-group">
                                     <label>性别</label><br/>
-                                    <label for="male">男：</label><input type ="radio" id="male" name = "sex" value="男" checked="checked">
-                                    <label for="female">女：</label><input type ="radio" name = "sex" id="female" value="女" >
+                                    <label for="male">男</label>&emsp;<input type="radio" id="male" name="sex" value="男"
+                                                                       checked="checked">&emsp;
+                                    <label for="female">女</label>&emsp;<input type="radio" name="sex" id="female" value="女">
                                 </div>
                                 <div class="form-group">
                                     <label>排班</label><br/>
-                                    <!--<input type="text" name="workTime" th:field="${personnelEntity.workTime}">-->
-                                    <select name="workTime" id="pro-worktime"  class="form-control" style="width:150px">
+
+                                    <select name="workTime" id="pro-worktime" class="form-control" style="width:150px">
                                         <option th:value="1">00:00-8:00</option>
                                         <option th:value="2">8:00-16:00</option>
                                         <option th:value="3">16:00-24:00</option>
@@ -146,18 +145,20 @@
                                 <div class="form-group">
                                     <label for="pro-position">职务</label>
                                     <!--<input name="position" type="text" class="form-control" id="position"-->
-                                           <!--aria-describedby="emailHelp" placeholder="请输入职位">-->
+                                    <!--aria-describedby="emailHelp" placeholder="请输入职位">-->
                                     <select name="position" id="pro-position" class="form-control" style="width:150px">
                                         <option value="医生">医生</option>
                                         <option value="护士">护士</option>
                                     </select>
                                 </div>
-                               
+
                             </div>
 
                         </div>
-                        <button type="submit" class="btn btn-general btn-blue mr-2">提交</button>
-                        <button type="button" class="btn btn-general btn-blue mr-2" onclick="window.location.href='personAll'">返回</button>
+                        <button type="submit" class="btn btn-general btn-blue mr-2" name="add">提交</button>
+                        <button type="button" class="btn btn-general btn-blue mr-2"
+                                onclick="window.location.href='personAll'">返回
+                        </button>
                     </form>
                 </div>
             </div>
@@ -165,91 +166,82 @@
         </div>
     </div>
 </div>
-    <!-- FOOTER -->
-    <footer class="footer navbar-fixed-bottom text-md-center" style="background-color: #5e67d6">
-        <div class="" style="padding-top: 30px;color: white;">应急系统 &copy; 2018.Company name LOVO J165 3组.</div>
-    </footer>
+<!-- FOOTER -->
+<footer class="footer navbar-fixed-bottom text-md-center" style="background-color: #5e67d6">
+    <div class="" style="padding-top: 30px;color: white;">应急系统 &copy; 2018.Company name LOVO J165 3组.</div>
+</footer>
 
 
-    <!--Global Javascript -->
-    <script src="staticResources/js/jquery.min.js"></script>
-    <script src="staticResources/js/popper/popper.min.js"></script>
-    <script src="staticResources/js/tether.min.js"></script>
-    <script src="staticResources/js/bootstrap.min.js"></script>
-    <script src="staticResources/js/jquery.cookie.js"></script>
-    <script src="staticResources/js/jquery.validate.min.js"></script>
-    <script src="staticResources/js/chart.min.js"></script>
-    <script src="staticResources/js/front.js"></script>
+<!--Global Javascript -->
 
-    <!--Core Javascript -->
-    <script>
-        new Chart(document.getElementById("myChart-nav").getContext('2d'), {
-            type: 'doughnut',
-            data: {
-                labels: ["M", "T", "W", "T", "F", "S", "S"],
-                datasets: [{
-                    backgroundColor: [
-                        "#2ecc71",
-                        "#3498db",
-                        "#95a5a6",
-                        "#9b59b6",
-                        "#f1c40f",
-                        "#e74c3c",
-                        "#34495e"
-                    ],
-                    data: [12, 19, 3, 17, 28, 24, 7]
-                }]
-            },
-            options: {
-                legend: {display: false},
-                title: {
-                    display: true,
-                    text: ''
-                }
+<script th:src="@{staticResources/js/jquery.min.js}"></script>
+<script th:src="@{staticResources/js/popper/popper.min.js}"></script>
+<script th:src="@{staticResources/js/tether.min.js}"></script>
+<script th:src="@{staticResources/js/bootstrap.min.js}"></script>
+<script th:src="@{staticResources/js/jquery.cookie.js}"></script>
+<script th:src="@{staticResources/js/jquery.validate.min.js}"></script>
+<script th:src="@{staticResources/js/chart.min.js}"></script>
+<script th:src="@{staticResources/js/front.js}"></script>
+
+<!--Core Javascript -->
+<script>
+    $(function () {
+        var a;
+        var b;
+        $("[name=add]").attr('disabled', true);
+        $("[name=name]").blur(function () {
+            a= false;
+            var namet = $(this).val();//这种取值是取到整个文本框
+            var $show1 =$(this).next();
+            if (namet.length == 0) {  //这样就是取到文本框里面所有的文本的长度，等于的是一个int类型
+                $show1.html("姓名不能为空");
+                $show1.css("color","red")
+            } else {
+                $show1.html("可用");
+                $show1.css("color","green")
+                a= true;
+            }
+            if (a==true && b==true) {
+                $("[name=add]").removeAttr('disabled');
             }
         });
 
-        function funname() {
-            var $namet = $("input[name='name']");//这种取值是取到整个文本框
-            var $show1 =$("#nametest");
-            if ($namet.val().length==0){  //这样就是取到文本框里面所有的文本的长度，等于的是一个int类型
-                $show1.html("姓名不能为空");
-                return false;
-            }else{
-                $show1.html("姓名输入正确");
-                return true;
+        $("[name=tel]").blur(function () {
+            var tel=$(this).val();
+            b= false;
+
+            var teltest = new RegExp(/^[0-9]{11}$/);
+
+            var show = $(this).next();
+            if (!tel.match(teltest)) {
+                show.html("位数输入有误");
+                show.css("color","red");
+            } else {
+                $.getJSON("selecttel", {tel: tel}, function (data) {
+                    if(data){
+                        show.html("号码已存在!请重新输入！")
+                        show.css("color","red");
+                    }else{
+                        show.html("可用");
+                        show.css("color","green");
+                        b=true;
+                        if (a==true && b==true) {
+                            $("[name=add]").removeAttr('disabled');
+                        }
+                    }
+                });
+
             }
-        }
+        });
+    });
 
 
-        // 电话的正则表达式验证
-        function fun() {
-
-            var tel = $("input[name='tel']").val();
-            var teltest= new RegExp(/^[0-9]{11}$/);
-
-            var show =$("#teltest");
-                if (!tel.match(teltest)){
-                    show.html("位数输入有误")
-                }else {
-                    show.html("位数输入正确")
-                }
-
-            $(function (data) {
-                var tel = $("input[name='tel']").val();
-                var show =$("#teltest");
-                $.getJSON("selecttel", {tel: tel}, fillData);
-            });
-            function fillData(data) {
-                if(data>=1){
-                    show.html("号码已存在!请重新输入！")
-                }
-            }
-
-        }
 
 
-    </script>
+
+
+
+</script>
 </body>
 
 </html>

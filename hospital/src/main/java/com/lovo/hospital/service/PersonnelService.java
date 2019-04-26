@@ -14,7 +14,7 @@ public interface PersonnelService {
      * @param showNum 每页显示页数
      * @return
      */
-    public List<PersonnelEntity> getAllListBySearch(String name, String pnum, String position,Integer pageNum,Integer showNum);
+    public List<PersonnelEntity> getAllListBySearch(String name, String pnum, String position,Integer state,Integer pageNum,Integer showNum);
 
     /**
      * 通过搜索条件查询出来的总页数
@@ -24,7 +24,7 @@ public interface PersonnelService {
      * @param  showNum 每页显示条数
      * @return 总条数
      */
-    public  int findTotalPageByCondition(String name, String pnum, String position,Integer showNum);
+    public  int findTotalPageByCondition(String name, String pnum, String position,Integer showNum,Integer state);
 
 
     /**
@@ -56,5 +56,10 @@ public interface PersonnelService {
      */
     public PersonnelEntity updateOnePerson(PersonnelEntity personnelEntity);
 
-public Integer findTelByTel(String tel);
+    /**
+     * 根据电话查询用户是否存在
+     * @param tel
+     * @return
+     */
+    public boolean findPersonnelEntitiesByTel(String tel);
 }
