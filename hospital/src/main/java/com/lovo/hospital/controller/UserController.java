@@ -122,11 +122,11 @@ public class UserController {
      * @return
      */
     @RequestMapping("deleteUser")
-    public ModelAndView deleteUser(String uid) {
-        System.out.println(uid);
-        userService.deleteUser(uid);
-        ModelAndView modelAndView = new ModelAndView("userAll");
-        return modelAndView;
+    @ResponseBody
+    public boolean deleteUser(String uid) {
+        boolean b = userService.deleteUser(uid);
+
+        return b;
     }
 
     /**

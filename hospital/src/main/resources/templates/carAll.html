@@ -329,7 +329,7 @@
                     $.getJSON("deleteCar", {cid: cid}, function (data) {
                         /*回调函数*/
                         if (data == '1') {
-                            swal("成功！", "你的文件已经被删除",
+                            swal("成功！", "已删除",
                                 "success");
                             var currPage = 1;
                             $.getJSON("findCarByCondition", {currPage: currPage}, fillData);

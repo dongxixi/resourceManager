@@ -38,7 +38,7 @@ public interface IUserService {
      * 根据用户id删除用户
       * @param uId  用户id
      */
-    public void deleteUser(String uId);
+    public boolean deleteUser(String uId);
 
     /**
      * 新增用户

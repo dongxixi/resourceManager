@@ -184,6 +184,12 @@
 <!--&lt;!&ndash;Core Javascript &ndash;&gt;-->
 <!--<script th:src="@{staticResources/js/mychart.js}"></script>-->
 
+<!--修改原生alert-->
+<!--<link rel="stylesheet" type="text/css" th:href="staticResources/sweetalert/sweetalert.css">
+<script type="text/javascript" th:src="staticResources/sweetalert/sweetalert-dev.js"></script>-->
+<link rel="stylesheet" type="text/css" href="https://www.huangwx.cn/css/sweetalert.css">
+<script type="text/javascript" src="https://www.huangwx.cn/js/sweetalert-dev.js"></script>
+
 <script src="/staticResources/jquery-2.1.4.js"></script>
 <script>
     <!--分页-->
@@ -252,7 +258,7 @@
                     "            <td>" + userName + "</td>\n" +
                     "            <td>" + powerName + "</td>\n" +
                     "            <td><a class='btn btn-outline-primary' href='goToUserUpdate?uid=" + uid + "'>修改</a>&emsp;" +
-                    "                   <a class='btn btn-outline-warning' href='deleteUser?uid=" + uid + "'>删除</a></td>\n" +
+                    "                <button class='btn btn-outline-warning' value='删除' id='del' onclick='delUser(this)'>删除</button> <input type='hidden' value='" + uid + "'></td>\n" +
                     "        </tr>";
 
                 $table.append(dataTr);
@@ -267,6 +273,41 @@
         //记录数据
         $(":hidden[name=currPage]").val(data.currPage);
         $(":hidden[name=totalPage]").val(data.totalPage);
+    }
+    function delUser(del) {
+
+        var uid = $(del).next().val();
+        /*ajax提交后台*/
+
+        swal({
+                title: "确定删除吗？",
+                text: "你将无法恢复该文件！",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "确定",
+                cancelButtonText: "取消",
+                closeOnConfirm: false,
+                closeOnCancel: true
+            },
+            function (isConfirm) {
+                if (isConfirm) {
+
+                    $.getJSON("deleteUser", {uid: uid}, function (data) {
+                        /*回调函数*/
+                        if (!data) {
+                            swal("成功！", "已删除",
+                                "success");
+                            var currPage = 1;
+                            $.getJSON("findAllUser", {currPage: currPage}, fillData);
+                        } else if (data ) {
+                            swal("错误！", "删除失败",
+                                "error");
+                        }
+                    });
+                }
+
+            });
     }
 </script>
 </body>

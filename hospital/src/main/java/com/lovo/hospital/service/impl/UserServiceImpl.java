@@ -82,8 +82,10 @@ public class UserServiceImpl implements IUserService {
      * @param uId  用户id
      */
     @Override
-    public void deleteUser(String uId) {
+    public boolean deleteUser(String uId) {
         userDao.deleteById(uId);
+        boolean b = userDao.existsById(uId);
+        return b;
     }
 
     /**
