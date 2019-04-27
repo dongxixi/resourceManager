@@ -1,13 +1,70 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html>
+
 <head>
-    <meta charset="UTF-8" />
-    <title>非法登陆</title>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="all,follow">
+
+    <title></title>
+    <link rel="shortcut icon" href="/staticResources/img/favicon.ico">
+
+    <!-- global stylesheets -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed" rel="stylesheet">
+    <link rel="stylesheet" href="/staticResources/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/staticResources/font-awesome-4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/staticResources/css/font-icon-style.css">
+    <link rel="stylesheet" href="/staticResources/css/style.default.css" id="theme-stylesheet">
+
+    <!-- Core stylesheets -->
+    <link rel="stylesheet" href="/staticResources/css/pages/404.css">
 </head>
+
 <body>
-<div>
-    <span style="color: #bd2130;font-size: 30px"><b>无权限访问</b></span>
-</div>
-<a th:href="gotoLogin"> <b>返回登录</b></a>
+
+<!--====================================================
+                        PAGE CONTENT
+======================================================-->
+<section class="hero-area">
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 ">
+                <div class="block text-center">
+                    <h2 class="animated wow fadeInLeft" data-wow-delay="0.3s" data-wow-duration=".2s">无权限，非法登陆！</h2>
+                    <p class="animated wow fadeInRight" data-wow-delay="0.5s" data-wow-duration=".5s"></p>
+                    <div class="animated wow fadeInUp text-center" data-wow-delay="0.7s" data-wow-duration=".7s">
+                      <span class="animated wow fadeInRight" id="jumpTo">5</span>秒后自动跳转到<a href="/gotoLogin" style="color: #EEF5F9">登陆页面</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!--Global Javascript -->
+<script src="/staticResources/js/jquery.min.js"></script>
+<script src="/staticResources/js/tether.min.js"></script>
+<script src="/staticResources/js/bootstrap.min.js"></script>
 </body>
+
+
+<script src="/staticResources/jquery-2.1.4.js"></script>
+<script>
+    function countDown(secs,surl){
+        //alert(surl);
+        var jumpTo = document.getElementById('jumpTo');
+        jumpTo.innerHTML=secs;
+        if(--secs>0){
+            setTimeout("countDown("+secs+",'"+surl+"')",1000);
+        }
+        else{
+            location.href=surl;
+        }
+    }
+    countDown(5,'/gotoLogin');
+</script>
 </html>

@@ -73,9 +73,28 @@
                 if (data=="-1") {
                     swal("登陆失败", "用户名或者密码错误", "error");
                 }else if(data=="1"){
-                    window.location.href="gotoeventAll";
+                    swal({
+                            title: "登录成功",
+                            text: "1秒后自动跳转",
+                            timer: 1200,
+                            showConfirmButton: false
+                        },
+                        function(){
+                            /*window.setTimeout("location.href='gotoeventAll'", 2000);*/
+                            window.location.href="gotoeventAll";
+                        });
+
                 }else if(data=="2"){
-                    window.location.href="gotoUserAll";
+                    swal({
+                            title: "登录成功",
+                            text: "1秒后自动跳转",
+                            timer: 1200,
+                            showConfirmButton: false
+                        },
+                        function(){
+                            window.location.href="gotoUserAll";
+                        });
+
                 }
             });
         });
