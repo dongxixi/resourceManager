@@ -166,13 +166,14 @@
                         $("[name=carNum]").next().css('color', 'red');
                         $("[name=carNum]").next().html("系统中已存在此车牌");
                     }
+                    if (a == true && b == true) {
+                        $("[name=add]").removeAttr('disabled');
+                    }
                 });
 
 
             }
-            if (a == true && b == true) {
-                $("[name=add]").removeAttr('disabled');
-            }
+
         });
         $("[name=driver]").blur(function () {
             b = false;
