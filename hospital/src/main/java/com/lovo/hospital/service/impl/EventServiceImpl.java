@@ -201,7 +201,7 @@ public class EventServiceImpl implements EventService {
 
                 PersonDto pd = new PersonDto();
                 pd.setId(pl.getPersonnelEntity().getId());
-                pd.setpName(pl.getPersonnelEntity().getName());
+                pd.setPName(pl.getPersonnelEntity().getName());
                 pd.setReturnTime(pl.getReturnTime());
                 pd.setTel(pl.getPersonnelEntity().getTel());
                 dto.getPersonDtos().add(pd);
