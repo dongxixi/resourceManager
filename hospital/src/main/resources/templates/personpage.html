@@ -24,6 +24,7 @@
     <link rel="stylesheet" th:href="@{staticResources/css/style.css}">
 </head>
 
+<body>
 <!--====================================================
                          MAIN NAVBAR
 ======================================================-->
@@ -97,19 +98,18 @@
                         PAGE CONTENT
 ======================================================-->
 <div class="page-content d-flex align-items-stretch">
-
-
     <div class="content-inner">
-
-        <div class="content-inner chart-cont">
-
-            <!--***** CONTENT *****-->
-            <!--查询div-->
-            <div>
-                <from>
-
-                    <div class="input-group ">
-
+        <div class="row">
+            <div class="container">
+                <div class="card form" id="form1">
+                    <div class="card-header">
+                        <h3><i class="fa fa-automobile"></i>人员管理</h3>
+                    </div>
+                    <br/>
+                    <!--***** CONTENT *****-->
+                    <!--查询div-->
+                    <div class="row form-group">
+                        <div class="col-sm-1"></div>
                         <div class="input-group-addon">姓名</div>
                         <input type="text" class="form-control-sm" placeholder="姓名" name="name">&emsp;
                         <div class="input-group-addon">人员编号</div>
@@ -117,46 +117,44 @@
                         <div class="input-group-addon">职位</div>
                         <input type="text" class="form-control-sm" placeholder="职位" name="position">&emsp;
                         <button type="button" class="btn btn-outline-primary" value="查询">查询</button>
+                        <div class="col-sm-1"></div>
+                        <div class="col-sm-1">
+                            <a href="/personadd" class="btn btn-outline-success ">添加人员</a>
+                        </div>
+                        <br>
+                    </div>
+                    <br/>
+                    <div class="row form-group">
+                        <div class="col-sm-1"></div>
+                        <div class="col-sm-10">
+                            <table class="table table-hover" id="infotable"></table>
+                        </div>
                     </div>
 
+                    <div class="row form-group">
+                        <div class="col-sm-3"></div>
+                        <div class="col-sm-6">
+                            <button type="button" class="btn btn-outline-primary" value="首页">首页</button>
+                            <button type="button" class="btn btn-outline-primary" value="上一页">上一页</button>
+
+                            <input type="text" id="gopage" class="form-control-sm" placeholder="输入页数"
+                                   name="inputPageNum"
+                                   onkeyup="value=value.replace(/^(0+)|[^\d]+/g,'')"
+                                   style="width: 100px"/>
+                            <span id="pageShow"></span>
+                            <button type="button" class="btn btn-outline-primary" value="GO">GO</button>
+                            <button type="button" class="btn btn-outline-primary" value="下一页">下一页</button>
+                            <button type="button" class="btn btn-outline-primary" value="尾页">尾页</button>
+                            <!--记录当前是第几页-->
+                            <input type="hidden" name="currPage">
+                            <input type="hidden" name="totalPage">
+                        </div>
+                    </div>
                     <br>
 
-                </from>
-            </div>
-            <div class="row">
-                <table class="table table-hover" id="infotable">
-
-                </table>
-            </div>
-
-
-            <from>
-                <div class="row">
-                    <div class="col-md-4">
-                        <a href="/personadd" class="btn btn-outline-success ">添加人员</a>
-                    </div>
-                    <div class="col-md-4">
-                        <button type="button" class="btn btn-outline-primary" value="首页">首页</button>
-                        <button type="button" class="btn btn-outline-primary" value="上一页">上一页</button>
-
-                        <input type="text" id="gopage" class="form-control-sm" placeholder="输入页数" name="inputPageNum"
-                               onkeyup="value=value.replace(/^(0+)|[^\d]+/g,'')"
-                               style="width: 100px"/>
-                        <span id="pageShow"></span>
-                        <button type="button" class="btn btn-outline-primary" value="GO">GO</button>
-                        <button type="button" class="btn btn-outline-primary" value="下一页">下一页</button>
-                        <button type="button" class="btn btn-outline-primary" value="尾页">尾页</button>
-                        <!--记录当前是第几页-->
-                        <input type="hidden" name="currPage">
-                        <input type="hidden" name="totalPage">
-                    </div>
                 </div>
-            </from>
-            <br>
-
+            </div>
         </div>
-
-
     </div>
 </div>
 <!-- FOOTER -->

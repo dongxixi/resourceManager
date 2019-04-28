@@ -96,58 +96,62 @@
 <!--====================================================
                         PAGE CONTENT
 ======================================================-->
+<div class="page-content d-flex align-items-stretch">
+    <div class="content-inner chart-cont">
+        <div class="row">
+            <div class="container">
+                <div class="card form" id="form1">
+                    <div class="card-header">
+                        <h3><i class="fa fa-automobile"></i>车辆管理</h3>
+                    </div>
+                    <br/>
+                    <!--***** CONTENT *****-->
+                    <!--查询div-->
+                    <div class="row form-group">
+                        <div class="col-sm-1"></div>
+                        <div class="input-group-addon">车牌号</div>
+                        <input type="text" class="form-control-sm" placeholder="车牌号" name="carNum">&emsp;
+                        <div class="input-group-addon">司机</div>
+                        <input type="text" class="form-control-sm" placeholder="司机" name="driver">&emsp;
+                        <div class="input-group-addon">状态</div>
+                        <select class="form-control-feedback" id="exampleSelect1" name="state">
+                            <option value="0">未派出</option>
+                            <option value="1">已派出</option>
+                        </select>&emsp;
+                        <button type="button" class="btn btn-outline-primary" value="查询">查询</button>
+                        <div class="col-sm-2"></div>
+                        <div class="col-sm-1">
+                            <a href="/carAdd" class="btn btn-outline-success ">添加车辆</a>
+                        </div>
+                    </div>
+                    <br/>
+                    <div class="row form-group">
+                        <div class="col-sm-1"></div>
+                        <div class="col-sm-8">
+                            <table class="table table-hover" id="infotable"></table>
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col-sm-4"></div>
+                        <div class="col-sm-6">
+                            <button type="button" class="btn btn-outline-primary" value="上一页">上一页</button>
+                            <input type="text" class="form-control-sm" placeholder="输入页数" id="input"
+                                   style="width: 100px"/>
+                            <span id="pageShow"></span>
+                            <button type="button" class="btn btn-outline-primary" value="GO">GO</button>
+                            <button type="button" class="btn btn-outline-primary" value="下一页">下一页</button>
 
-<div class="container">
-    <div class="card form" id="form1">
-        <div class="card-header">
-            <h3><i class="fa fa-automobile"></i>车辆管理</h3>
-        </div>
-        <br/>
-
-
-        <!--***** CONTENT *****-->
-        <!--查询div-->
-        <div class="row form-group">
-            <div class="col-sm-1"></div>
-            <div class="input-group-addon">车牌号</div>
-            <input type="text" class="form-control-sm" placeholder="车牌号" name="carNum">&emsp;
-            <div class="input-group-addon">司机</div>
-            <input type="text" class="form-control-sm" placeholder="司机" name="driver">&emsp;
-            <div class="input-group-addon">状态</div>
-            <select class="form-control-feedback" id="exampleSelect1" name="state">
-                <option value="0">未派出</option>
-                <option value="1">已派出</option>
-            </select>&emsp;
-            <button type="button" class="btn btn-outline-primary" value="查询">查询</button>
-            <div class="col-sm-2"></div>
-            <div class="col-sm-1">
-                <a href="/carAdd" class="btn btn-outline-success ">添加车辆</a>
-            </div>
-        </div>
-        <br/>
-        <div class="row form-group">
-            <div class="col-sm-1"></div>
-            <div class="col-sm-8">
-                <table class="table table-hover" id="infotable"></table>
-            </div>
-        </div>
-        <div class="row form-group">
-            <div class="col-sm-4"></div>
-            <div class="col-sm-6">
-                <button type="button" class="btn btn-outline-primary" value="上一页">上一页</button>
-                <input type="text" class="form-control-sm" placeholder="输入页数" id="input"
-                       style="width: 100px"/>
-                <span id="pageShow"></span>
-                <button type="button" class="btn btn-outline-primary" value="GO">GO</button>
-                <button type="button" class="btn btn-outline-primary" value="下一页">下一页</button>
-
-                <!--记录当前是第几页-->
-                <input type="hidden" name="currPage">
-                <input type="hidden" name="totalPage">
+                            <!--记录当前是第几页-->
+                            <input type="hidden" name="currPage">
+                            <input type="hidden" name="totalPage">
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 </div>
+
 <!-- FOOTER -->
 <footer class="footer navbar-fixed-bottom text-md-center" style="background-color: #5e67d6">
     <div class="" style="padding-top: 30px;color: white;">应急系统 &copy; 2018.Company name LOVO J165 3组.</div>

@@ -91,78 +91,71 @@
                         PAGE CONTENT
 ======================================================-->
 <div class="page-content d-flex align-items-stretch">
-
-    <!--***** SIDE NAVBAR *****-->
-
-
     <div class="content-inner chart-cont">
-
-        <!--***** FORM LAYOUTS *****-->
         <div class="row">
-            <div class="col-md-12">
-
-                <!--***** USER INFO *****-->
-
-                <!--***** PRODUCT INFO *****-->
-                <div class="card form" id="form1">
-                    <div class="card-header">
-                        <h3><i class="fa fa-archive"></i>添加人员</h3>
+<div class="container">
+    <div class="card form" id="form1">
+        <div class="card-header">
+            <h3><i class="fa fa-archive"></i>添加人员</h3>
+        </div>
+        <br>
+        <form th:action="@{addperson}" method="post">
+            <div class="form-group row">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label for="name">姓名</label>
+                        <input name="name" type="text" class="form-control" id="name"
+                               aria-describedby="emailHelp">
+                        <span id="nametest"></span>
                     </div>
-                    <br>
-                    <form th:action="@{addperson}" method="post">
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="name">姓名</label>
-                                    <input name="name" type="text" class="form-control" id="name"
-                                           aria-describedby="emailHelp">
-                                    <span id="nametest" ></span>
-                                </div>
 
-                                <div class="form-group">
-                                    <label for="pro-tel">电话</label>
-                                    <input name="tel" type="text" class="form-control" id="pro-tel"
-                                           aria-describedby="emailHelp"
-                                           placeholder="请输入电话">
-                                    <span id="teltest" ></span>
-                                </div>
-                                <div class="form-group">
-                                    <label>性别</label><br/>
-                                    <label for="male">男</label>&emsp;<input type="radio" id="male" name="sex" value="男"
-                                                                       checked="checked">&emsp;
-                                    <label for="female">女</label>&emsp;<input type="radio" name="sex" id="female" value="女">
-                                </div>
-                                <div class="form-group">
-                                    <label>排班</label><br/>
+                    <div class="form-group">
+                        <label for="pro-tel">电话</label>
+                        <input name="tel" type="text" class="form-control" id="pro-tel"
+                               aria-describedby="emailHelp"
+                               placeholder="请输入电话">
+                        <span id="teltest"></span>
+                    </div>
+                    <div class="form-group">
+                        <label>性别</label><br/>
+                        <label for="male">男</label>&emsp;<input type="radio" id="male" name="sex" value="男"
+                                                                checked="checked">&emsp;
+                        <label for="female">女</label>&emsp;<input type="radio" name="sex" id="female" value="女">
+                    </div>
+                    <div class="form-group">
+                        <label>排班</label><br/>
 
-                                    <select name="workTime" id="pro-worktime" class="form-control" style="width:150px">
-                                        <option th:value="1">00:00-8:00</option>
-                                        <option th:value="2">8:00-16:00</option>
-                                        <option th:value="3">16:00-24:00</option>
+                        <select name="workTime" id="pro-worktime" class="form-control" style="width:150px">
+                            <option th:value="1">00:00-8:00</option>
+                            <option th:value="2">8:00-16:00</option>
+                            <option th:value="3">16:00-24:00</option>
 
-                                    </select>
-                                </div>
-                                <div class="form-group">
-                                    <label for="pro-position">职务</label>
-                                    <!--<input name="position" type="text" class="form-control" id="position"-->
-                                    <!--aria-describedby="emailHelp" placeholder="请输入职位">-->
-                                    <select name="position" id="pro-position" class="form-control" style="width:150px">
-                                        <option value="医生">医生</option>
-                                        <option value="护士">护士</option>
-                                    </select>
-                                </div>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="pro-position">职务</label>
+                        <!--<input name="position" type="text" class="form-control" id="position"-->
+                        <!--aria-describedby="emailHelp" placeholder="请输入职位">-->
+                        <select name="position" id="pro-position" class="form-control" style="width:150px">
+                            <option value="医生">医生</option>
+                            <option value="护士">护士</option>
+                        </select>
+                    </div>
 
-                            </div>
-
-                        </div>
-                        <button type="submit" class="btn btn-general btn-blue mr-2" name="add">提交</button>
-                        <button type="button" class="btn btn-general btn-blue mr-2"
-                                onclick="window.location.href='personAll'">返回
-                        </button>
-                    </form>
                 </div>
-            </div>
 
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-10"></div>
+                <button type="submit" class="btn btn-general btn-white mr-2" name="add">提交</button>
+                <button type="button" class="btn btn-general btn-blue mr-2"
+                        onclick="window.location.href='personAll'">返回
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
         </div>
     </div>
 </div>
@@ -190,42 +183,42 @@
         var b;
         $("[name=add]").attr('disabled', true);
         $("[name=name]").blur(function () {
-            a= false;
+            a = false;
             var namet = $(this).val();//这种取值是取到整个文本框
-            var $show1 =$(this).next();
+            var $show1 = $(this).next();
             if (namet.length == 0) {  //这样就是取到文本框里面所有的文本的长度，等于的是一个int类型
                 $show1.html("姓名不能为空");
-                $show1.css("color","red")
+                $show1.css("color", "red")
             } else {
                 $show1.html("可用");
-                $show1.css("color","green")
-                a= true;
+                $show1.css("color", "green")
+                a = true;
             }
-            if (a==true && b==true) {
+            if (a == true && b == true) {
                 $("[name=add]").removeAttr('disabled');
             }
         });
 
         $("[name=tel]").blur(function () {
-            var tel=$(this).val();
-            b= false;
+            var tel = $(this).val();
+            b = false;
 
             var teltest = new RegExp(/^[0-9]{11}$/);
 
             var show = $(this).next();
             if (!tel.match(teltest)) {
                 show.html("位数输入有误");
-                show.css("color","red");
+                show.css("color", "red");
             } else {
                 $.getJSON("selecttel", {tel: tel}, function (data) {
-                    if(data){
+                    if (data) {
                         show.html("号码已存在!请重新输入！")
-                        show.css("color","red");
-                    }else{
+                        show.css("color", "red");
+                    } else {
                         show.html("可用");
-                        show.css("color","green");
-                        b=true;
-                        if (a==true && b==true) {
+                        show.css("color", "green");
+                        b = true;
+                        if (a == true && b == true) {
                             $("[name=add]").removeAttr('disabled');
                         }
                     }
@@ -234,11 +227,6 @@
             }
         });
     });
-
-
-
-
-
 
 
 </script>

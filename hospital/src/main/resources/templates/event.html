@@ -88,6 +88,7 @@
         close(obj, carCheckedList);
         showCarList();
     }
+
     function closePerson(obj) {
         close(obj, personCheckedList);
         showPersonList();
@@ -171,18 +172,18 @@
     function isFirst() {
         $.post("/eventIsFirst",
             {
-                dispatchId:$("#dispatchId").val()
+                dispatchId: $("#dispatchId").val()
             },
-        function (json) {
-            inChargeable = json;
-            if (!json.isFirst) {
-                Charge = json.inCharge;
-                $("#personInCharge").empty();
-                $("#personInCharge").append($("<option value='" + Charge.id + "'>" + Charge.name + "</option>"));
-                $("#personInCharge").parent().attr("disabled", true);
-            }
-        },
-        "json"
+            function (json) {
+                inChargeable = json;
+                if (!json.isFirst) {
+                    Charge = json.inCharge;
+                    $("#personInCharge").empty();
+                    $("#personInCharge").append($("<option value='" + Charge.id + "'>" + Charge.name + "</option>"));
+                    $("#personInCharge").parent().attr("disabled", true);
+                }
+            },
+            "json"
         );
     }
 
@@ -270,138 +271,144 @@
 </header>
 
 <!-- 内容模块 -->
-<div class="container">
+<div class="page-content d-flex align-items-stretch">
+    <div class="content-inner chart-cont">
+        <div class="row">
+            <div class="container">
 
-    <div class="card form" id="form1">
-        <div class="card-header">
-            <h3><i class="fa fa-user-circle"></i>事件操作</h3>
+                <div class="card form" id="form1">
+                    <div class="card-header">
+                        <h3><i class="fa fa-user-circle"></i>事件操作</h3>
+                    </div>
+                    <br/>
+                    <form action="/eventDispatch" method="post">
+                        <input type="hidden" name="dispatchId" id="dispatchId" th:value="${dispatchId}"/>
+                        <input type="hidden" id="personNum" th:value="${personNum}"/>
+                        <input type="hidden" id="carNum" th:value="${carNum}"/>
+                        <div class="row form-group">
+                            <div class="col-sm-3"></div>
+                            <div class="col-sm-2">
+                                <label for="thingName">事件名称：</label>
+                            </div>
+                            <div class="col-sm-4">
+                                <label class="form-control" id="thingName" th:text="${thingName}"></label>
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col-sm-3"></div>
+                            <div class="col-sm-2">
+                                <label for="thingAddress">事件地点：</label>
+                            </div>
+                            <div class="col-sm-4">
+                                <label class="form-control" id="thingAddress" th:text="${thingAddress}"></label>
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col-sm-3"></div>
+                            <div class="col-sm-2">
+                                <label for="sendPersonnel">派出人员：</label>
+                            </div>
+                            <div class="col-sm-4">
+                                <div id="sendPersonnel" style="border: 1px solid #dfcdfc">&nbsp;</div>
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col-sm-3"></div>
+                            <div class="col-sm-6">
+                                <table class="table table-hover">
+                                    <thead>
+                                    <tr class="bg-info table-info">
+                                        <th>选择</th>
+                                        <th>姓名</th>
+                                        <th>职务</th>
+                                        <th>性别</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody id="personList">
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="row form-group" id="pagePerson">
+                            <div class="col-sm-3"></div>
+                            <div class="btn-group btn-sm col-sm-3" role="group" aria-label="Basic example">
+                                <button type="button" class="btn btn-outline-primary" id="firstPersonPage">首页</button>
+                                <button type="button" class="btn btn-outline-primary" id="prevPersonPage">上一页</button>
+                                <button type="button" class="btn btn-outline-primary" id="nextPersonPage">下一页</button>
+                                <button type="button" class="btn btn-outline-primary" id="lastPersonPage">末页</button>
+                            </div>
+                            <div class="col-sm-2">
+                                第<input style="width: 30px;" type="text" id="pagePersonNo" value="1"/>页，共<span
+                                    id="pagePersonTotal">5</span>页
+                            </div>
+                        </div>
+
+                        <div class="row form-group">
+                            <div class="col-sm-3"></div>
+                            <div class="col-sm-2">
+                                <label for="personInCharge">负责人：</label>
+                            </div>
+                            <div class="col-sm-4">
+                                <select class="form-control" id="personInCharge" name="personInCharge">
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="row form-group">
+                            <div class="col-sm-3"></div>
+                            <div class="col-sm-2">
+                                <label for="sendCar">派出车辆：</label>
+                            </div>
+                            <div class="col-sm-4">
+                                <div id="sendCar" style="border: 1px solid #dfcdfc">&nbsp;</div>
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col-sm-3"></div>
+                            <div class="col-sm-6">
+                                <table class="table table-hover">
+                                    <thead>
+                                    <tr class="bg-info table-info">
+                                        <th>选择</th>
+                                        <th>车牌</th>
+                                        <th>司机姓名</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody id="carList">
+                                    </tbody>
+                                </table>
+                            </div>
+
+                        </div>
+                        <div class="row form-group" id="pageCar">
+                            <div class="col-sm-3"></div>
+                            <div class="btn-group btn-sm col-sm-3" role="group" aria-label="Basic example">
+                                <button type="button" class="btn btn-outline-primary" id="firstCarPage">首页</button>
+                                <button type="button" class="btn btn-outline-primary" id="prevCarPage">上一页</button>
+                                <button type="button" class="btn btn-outline-primary" id="nextCarPage">下一页</button>
+                                <button type="button" class="btn btn-outline-primary" id="lastCarPage">末页</button>
+                            </div>
+                            <div class="col-sm-2">
+                                第<input style="width: 30px;" type="text" id="pageCarNo" value="1"/>页，共<span
+                                    id="pageCarTotal">5</span>页
+                            </div>
+                        </div>
+
+                        <div class="row" style="padding-bottom: 30px">
+                            <div class="col-sm-9"></div>
+                            <div class="col-sm-1">
+                                <a href="/eventAll" class="btn btn-general btn-white">返回</a>
+                            </div>
+                            <input type="hidden" name="personUpdateList" id="personUpdateList"/>
+                            <input type="hidden" name="carUpdateList" id="carUpdateList"/>
+                            <button type="submit" class="btn btn-general btn-blue" id="dispatch">派出</button>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
         </div>
-        <br/>
-        <form action="/eventDispatch" method="post">
-            <input type="hidden" name="dispatchId" id="dispatchId" th:value="${dispatchId}"/>
-            <input type="hidden" id="personNum" th:value="${personNum}"/>
-            <input type="hidden" id="carNum" th:value="${carNum}"/>
-            <div class="row form-group">
-                <div class="col-sm-3"></div>
-                <div class="col-sm-2">
-                    <label for="thingName">事件名称：</label>
-                </div>
-                <div class="col-sm-4">
-                    <label class="form-control" id="thingName"  th:text="${thingName}"></label>
-                </div>
-            </div>
-            <div class="row form-group">
-                <div class="col-sm-3"></div>
-                <div class="col-sm-2">
-                    <label for="thingAddress">事件地点：</label>
-                </div>
-                <div class="col-sm-4">
-                    <label class="form-control" id="thingAddress"  th:text="${thingAddress}"></label>
-                </div>
-            </div>
-            <div class="row form-group">
-                <div class="col-sm-3"></div>
-                <div class="col-sm-2">
-                    <label for="sendPersonnel">派出人员：</label>
-                </div>
-                <div class="col-sm-4">
-                    <div id="sendPersonnel" style="border: 1px solid #dfcdfc">&nbsp;</div>
-                </div>
-            </div>
-            <div class="row form-group">
-                <div class="col-sm-3"></div>
-                <div class="col-sm-6">
-                    <table class="table table-hover">
-                        <thead>
-                        <tr class="bg-info table-info">
-                            <th>选择</th>
-                            <th>姓名</th>
-                            <th>职务</th>
-                            <th>性别</th>
-                        </tr>
-                        </thead>
-                        <tbody id="personList">
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-            <div class="row form-group" id="pagePerson">
-                <div class="col-sm-3"></div>
-                <div class="btn-group btn-sm col-sm-3" role="group" aria-label="Basic example">
-                    <button type="button" class="btn btn-outline-primary" id="firstPersonPage">首页</button>
-                    <button type="button" class="btn btn-outline-primary" id="prevPersonPage">上一页</button>
-                    <button type="button" class="btn btn-outline-primary" id="nextPersonPage">下一页</button>
-                    <button type="button" class="btn btn-outline-primary" id="lastPersonPage">末页</button>
-                </div>
-                <div class="col-sm-2">
-                    第<input style="width: 30px;" type="text" id="pagePersonNo" value="1"/>页，共<span
-                        id="pagePersonTotal">5</span>页
-                </div>
-            </div>
-
-            <div class="row form-group">
-                <div class="col-sm-3"></div>
-                <div class="col-sm-2">
-                    <label for="personInCharge">负责人：</label>
-                </div>
-                <div class="col-sm-4">
-                    <select class="form-control" id="personInCharge" name="personInCharge">
-                    </select>
-                </div>
-            </div>
-
-            <div class="row form-group">
-                <div class="col-sm-3"></div>
-                <div class="col-sm-2">
-                    <label for="sendCar">派出车辆：</label>
-                </div>
-                <div class="col-sm-4">
-                    <div id="sendCar" style="border: 1px solid #dfcdfc">&nbsp;</div>
-                </div>
-            </div>
-            <div class="row form-group">
-                <div class="col-sm-3"></div>
-                <div class="col-sm-6">
-                    <table class="table table-hover">
-                        <thead>
-                        <tr class="bg-info table-info">
-                            <th>选择</th>
-                            <th>车牌</th>
-                            <th>司机姓名</th>
-                        </tr>
-                        </thead>
-                        <tbody id="carList">
-                        </tbody>
-                    </table>
-                </div>
-
-            </div>
-            <div class="row form-group" id="pageCar">
-                <div class="col-sm-3"></div>
-                <div class="btn-group btn-sm col-sm-3" role="group" aria-label="Basic example">
-                    <button type="button" class="btn btn-outline-primary" id="firstCarPage">首页</button>
-                    <button type="button" class="btn btn-outline-primary" id="prevCarPage">上一页</button>
-                    <button type="button" class="btn btn-outline-primary" id="nextCarPage">下一页</button>
-                    <button type="button" class="btn btn-outline-primary" id="lastCarPage">末页</button>
-                </div>
-                <div class="col-sm-2">
-                    第<input style="width: 30px;" type="text" id="pageCarNo" value="1"/>页，共<span
-                        id="pageCarTotal">5</span>页
-                </div>
-            </div>
-
-            <div class="row" style="padding-bottom: 30px">
-                <div class="col-sm-9"></div>
-                <div class="col-sm-1">
-                    <a href="/eventAll" class="btn btn-general btn-white">返回</a>
-                </div>
-                <input type="hidden" name="personUpdateList" id="personUpdateList"/>
-                <input type="hidden" name="carUpdateList" id="carUpdateList"/>
-                <button type="submit" class="btn btn-general btn-blue" id="dispatch">派出</button>
-            </div>
-        </form>
     </div>
-
 </div>
 <!-- FOOTER -->
 <footer class="footer navbar-fixed-bottom text-md-center" style="background-color: #5e67d6">

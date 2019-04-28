@@ -84,68 +84,72 @@
                         PAGE CONTENT
 ======================================================-->
 
+<div class="page-content d-flex align-items-stretch">
+    <div class="content-inner chart-cont">
+        <div class="row">
+            <div class="container">
+                <!--查询div-->
+                <div class="card form" style="min-height: 490px;">
+                    <div class="card-header">
+                        <h3><i class="fa fa-user-circle"></i>事件管理</h3>
+                    </div>
+                    <br/>
+                    <div class="row form-group">
+                        <div class="col-sm-1"></div>
+                        <div class="input-group-addon">事件名称</div>
+                        <input type="text" class="form-control-sm" placeholder="事件名称" name="eventName">&emsp;
+                        <div class="input-group-addon">开始时间</div>
+                        <input type="datetime-local" class="form-control-sm" placeholder="开始时间" name="startTime">&emsp;
+                        <div class="input-group-addon">结束时间</div>
+                        <input type="datetime-local" class="form-control-sm" placeholder="结束时间" name="endTime">&emsp;
+                        <button type="button" class="btn btn-outline-primary" value="查询">查询</button>
 
-<div class="container">
-    <!--查询div-->
-    <div class="card form" style="min-height: 490px;">
-        <div class="card-header">
-            <h3><i class="fa fa-user-circle"></i>事件管理</h3>
-        </div>
-        <br/>
-        <div class="row form-group">
-            <div class="col-sm-1"></div>
-            <div class="input-group-addon">事件名称</div>
-            <input type="text" class="form-control-sm" placeholder="事件名称" name="eventName">&emsp;
-            <div class="input-group-addon">开始时间</div>
-            <input type="datetime-local" class="form-control-sm" placeholder="开始时间" name="startTime">&emsp;
-            <div class="input-group-addon">结束时间</div>
-            <input type="datetime-local" class="form-control-sm" placeholder="结束时间" name="endTime">&emsp;
-            <button type="button" class="btn btn-outline-primary" value="查询">查询</button>
 
+                        <br>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col-sm-1"></div>
+                        <table class="table table-hover col-sm-10">
+                            <thead>
+                            <tr class="bg-info text-white">
+                                <th>事件编号</th>
+                                <th>事件名称</th>
+                                <th>事件时间</th>
+                                <th>需要人员</th>
+                                <th>需要车辆</th>
+                                <th>处理阶段</th>
+                                <th>操作</th>
+                            </tr>
+                            </thead>
+                            <tbody id="infotable">
 
-            <br>
-        </div>
-        <div class="row form-group">
-            <div class="col-sm-1"></div>
-            <table class="table table-hover col-sm-10">
-                <thead>
-                <tr class="bg-info text-white">
-                    <th>事件编号</th>
-                    <th>事件名称</th>
-                    <th>事件时间</th>
-                    <th>需要人员</th>
-                    <th>需要车辆</th>
-                    <th>处理阶段</th>
-                    <th>操作</th>
-                </tr>
-                </thead>
-                <tbody id="infotable">
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col-sm-1"></div>
+                        <div class="col-md-6">
+                            <button type="button" class="btn btn-outline-primary" value="首页">首页</button>
+                            <button type="button" class="btn btn-outline-primary" value="上一页">上一页</button>
+                            <input type="text" class="form-control-sm" placeholder="输入页数" id="input"
+                                   onkeyup="value=value.replace(/^(0+)|[^\d]+/g,'')"
+                                   style="width: 100px"/>
+                            <span id="pageShow"></span>
+                            <button type="button" class="btn btn-outline-primary" value="GO">GO</button>
+                            <button type="button" class="btn btn-outline-primary" value="下一页">下一页</button>
+                            <button type="button" class="btn btn-outline-primary" value="尾页">尾页</button>
 
-                </tbody>
-            </table>
-        </div>
-        <div class="row form-group">
-            <div class="col-sm-1"></div>
-            <div class="col-md-6">
-                <button type="button" class="btn btn-outline-primary" value="首页">首页</button>
-                <button type="button" class="btn btn-outline-primary" value="上一页">上一页</button>
-                <input type="text" class="form-control-sm" placeholder="输入页数" id="input"
-                       onkeyup="value=value.replace(/^(0+)|[^\d]+/g,'')"
-                       style="width: 100px"/>
-                <span id="pageShow"></span>
-                <button type="button" class="btn btn-outline-primary" value="GO">GO</button>
-                <button type="button" class="btn btn-outline-primary" value="下一页">下一页</button>
-                <button type="button" class="btn btn-outline-primary" value="尾页">尾页</button>
-
-                <!--记录当前是第几页-->
-                <input type="hidden" name="currPage">
-                <input type="hidden" name="totalPage">
+                            <!--记录当前是第几页-->
+                            <input type="hidden" name="currPage">
+                            <input type="hidden" name="totalPage">
+                        </div>
+                    </div>
+                    <br>
+                </div>
             </div>
         </div>
-        <br>
     </div>
 </div>
-
 <!-- 模态框页面-->
 <div class="modal fade bs-example-modal-lg" id="despatchModal" tabindex="-1" role="dialog"
      aria-labelledby="myLargeModalLabel" aria-hidden="true">
@@ -153,7 +157,9 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title" id="myModalLabel">资源派出记录</h4>
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                    &times;
+                </button>
             </div>
             <div class="modal-body">
                 <table class="table table-hover">
@@ -179,7 +185,9 @@
 </div>
 <!-- FOOTER -->
 <footer class="footer navbar-fixed-bottom text-md-center" style="background-color: #5e67d6">
-    <div class="" style="padding-top: 30px;color: white;">应急系统 &copy; 2018.Company name LOVO J165 3组.</div>
+    <div class="" style="padding-top: 30px;color: white;">应急系统 &copy; 2018.Company name LOVO
+        J165 3组.
+    </div>
 </footer>
 
 <!--Global Javascript -->
@@ -233,8 +241,8 @@
                 }, fillData);
             } else if (btn == "GO") {
                 var inputPage = $("#input").val();
-                if(inputPage>totalPage){
-                    inputPage=totalPage;
+                if (inputPage > totalPage) {
+                    inputPage = totalPage;
                 }
                 currPage = inputPage;
                 $.getJSON("eventRecordList", {
@@ -252,8 +260,7 @@
                     startTime: startTime,
                     endTime: endTime
                 }, fillData);
-            }
-            else if (btn == "首页") {
+            } else if (btn == "首页") {
 
                 currPage = 1;
                 $.getJSON("eventRecordList", {
@@ -262,8 +269,7 @@
                     startTime: startTime,
                     endTime: endTime
                 }, fillData);
-            }
-            else if (btn == "尾页") {
+            } else if (btn == "尾页") {
 
                 currPage = totalPage;
                 $.getJSON("eventRecordList", {
@@ -324,52 +330,51 @@
         $(":hidden[name=totalPage]").val(data.totalPage);
     }
 
-    var websocket =  null ;
+    var websocket = null;
 
     // 判断当前浏览器是否支持WebSocket
-    if ('WebSocket' in window){
-        websocket =  new WebSocket("ws://localhost:8881/websocket");
-    }
-    else {
+    if ('WebSocket' in window) {
+        websocket = new WebSocket("ws://localhost:8881/websocket");
+    } else {
         alert('Not support websocket')
     }
 
     // 连接发生错误的回调方法
-    websocket.onerror =  function (){
+    websocket.onerror = function () {
         // alert("连接建立失败");
     };
 
     // 连接成功建立的回调方法
-    websocket.onopen =  function (event){
+    websocket.onopen = function (event) {
         // alert("连接建立成功");
     }
 
     // 接收到消息的回调方法
-    websocket.onmessage =  function (event){
+    websocket.onmessage = function (event) {
         /*setMessageInnerHTML(event.data);*/
         var currPage = 1;
         $.getJSON("eventRecordList", {currPage: currPage}, fillData);
     }
 
     // 连接关闭的回调方法
-    websocket.onclose =  function (){
+    websocket.onclose = function () {
         /*setMessageInnerHTML("close");*/
     }
 
     // 监听窗口关闭事件，当窗口关闭时，主动去关闭websocket连接，防止连接还没断开就关闭窗口，server端会抛异常。
-    window.onbeforeunload =  function (){
+    window.onbeforeunload = function () {
         websocket.close();
     }
 
     // 关闭连接
-    function closeWebSocket(){
+    function closeWebSocket() {
         websocket.close();
     }
 
     function getDispatch(obj) {
         var eventId = $(obj).parent().siblings().get(0).innerText;
         // alert(eventId);
-        $.post("/eventGetDispatchByEventId", {id:eventId}, unDisptchList,"json");
+        $.post("/eventGetDispatchByEventId", {id: eventId}, unDisptchList, "json");
     }
 
     // 根据事件ID找到资源派出列表

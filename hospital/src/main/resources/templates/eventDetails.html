@@ -3,7 +3,7 @@
 
 <head>
 
-        <meta charset="utf-8"/>
+    <meta charset="utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta name="description" content=""/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
@@ -76,173 +76,176 @@
 </header>
 
 
-
-<div class="container">
-
-    <div class="card form" id="form2">
-        <div class="card-header">
-            <h3><i class="fa fa-indent">》</i>事件详情</h3>
-        </div>
-        <br>
+<div class="page-content d-flex align-items-stretch">
+    <div class="content-inner chart-cont">
         <div class="row">
-            <div class="col-md-1"></div>
-            <div class="col-md-5">
-                <div class="form-group row">
-                    <label for="thingsNo" style="width: 85px;" class=" col-form-label">事件编号</label>
-                    <div class="col-9">
-                        <label class="form-control" type="text" value="事件编号" id="thingsNo"
-                               disabled="disabled" th:text="${eventInfo.id}"></label>
+            <div class="container">
+                <div class="card form" id="form2">
+                    <div class="card-header">
+                        <h3><i class="fa fa-indent">》</i>事件详情</h3>
                     </div>
-                </div>
-                <div class="form-group row">
-                    <label for="thingsName" style="width: 85px;" class=" col-form-label">事件名称</label>
-                    <div class="col-9">
-                        <label class="form-control" type="text" value="事件名称" id="thingsName"
-                               disabled="disabled" th:text="${eventInfo.eventName}"></label>
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label for="thingsTime" style="width: 85px;" class=" col-form-label">发生时间</label>
-                    <div class="col-9">
-                        <label class="form-control" type="text" id="thingsTime" disabled="disabled"
-                               th:text="${eventInfo.eventTime}"></label>
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label for="caller" style="width: 85px;" class=" col-form-label">报警人</label>
-                    <div class="col-9">
-                        <label class="form-control" type="text" value="报警人" id="caller" disabled="disabled"
-                               th:text="${eventInfo.alarmPerson}"></label>
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label for="principal" style="width: 85px;" class=" col-form-label">负责人</label>
-                    <div class="col-9">
-                        <label class="form-control" type="text" value="负责人" id="principal"
-                               disabled="disabled" th:text="${eventInfoPerson.name}"></label>
-                    </div>
-                </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-md-1"></div>
+                        <div class="col-md-5">
+                            <div class="form-group row">
+                                <label for="thingsNo" style="width: 85px;" class=" col-form-label">事件编号</label>
+                                <div class="col-9">
+                                    <label class="form-control" type="text" value="事件编号" id="thingsNo"
+                                           disabled="disabled" th:text="${eventInfo.id}"></label>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="thingsName" style="width: 85px;" class=" col-form-label">事件名称</label>
+                                <div class="col-9">
+                                    <label class="form-control" type="text" value="事件名称" id="thingsName"
+                                           disabled="disabled" th:text="${eventInfo.eventName}"></label>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="thingsTime" style="width: 85px;" class=" col-form-label">发生时间</label>
+                                <div class="col-9">
+                                    <label class="form-control" type="text" id="thingsTime" disabled="disabled"
+                                           th:text="${eventInfo.eventTime}"></label>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="caller" style="width: 85px;" class=" col-form-label">报警人</label>
+                                <div class="col-9">
+                                    <label class="form-control" type="text" value="报警人" id="caller" disabled="disabled"
+                                           th:text="${eventInfo.alarmPerson}"></label>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="principal" style="width: 85px;" class=" col-form-label">负责人</label>
+                                <div class="col-9">
+                                    <label class="form-control" type="text" value="负责人" id="principal"
+                                           disabled="disabled" th:text="${eventInfoPerson.name}"></label>
+                                </div>
+                            </div>
 
-            </div>
-            <div class="col-md-5">
-                <div class="form-group row">
-                    <label for="state" style="width: 85px;" class=" col-form-label">处理进度</label>
-                    <div class="col-9">
-                        <label class="form-control" type="text" value="处理进度" id="state" disabled="disabled"
-                               th:text="${eventInfo.eventProceed==0?'未派遣':'已派遣'}"></label>
+                        </div>
+                        <div class="col-md-5">
+                            <div class="form-group row">
+                                <label for="state" style="width: 85px;" class=" col-form-label">处理进度</label>
+                                <div class="col-9">
+                                    <label class="form-control" type="text" value="处理进度" id="state" disabled="disabled"
+                                           th:text="${eventInfo.eventProceed==0?'未派遣':'已派遣'}"></label>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="type" style="width: 85px;" class=" col-form-label">事件类型</label>
+                                <div class="col-9">
+                                    <label class="form-control" type="text" value="事件类型" id="type" disabled="disabled"
+                                           th:text="${eventInfo.eventType}"></label>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="detailedAddress" style="width: 85px;" class=" col-form-label">详细地址</label>
+                                <div class="col-9">
+                                    <label class="form-control" type="text" value="详细地址" id="detailedAddress"
+                                           disabled="disabled" th:text="${eventInfo.alarmAddress}"></label>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="area" style="width: 85px;" class=" col-form-label">发生区域</label>
+                                <div class="col-9">
+                                    <label class="form-control" type="text" value="发生区域" id="area" disabled="disabled"
+                                           th:text="${eventInfo.eventArea}"></label>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="callerPhoneNumber" style="width: 85px;"
+                                       class=" col-form-label">报警人电话</label>
+                                <div class="col-9">
+                                    <label class="form-control" type="text" value="报警人电话" id="callerPhoneNumber"
+                                           disabled="disabled" th:text="${eventInfo.alarmTel}"></label>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="principalPhoneNumber" style="width: 85px;"
+                                       class=" col-form-label">负责人电话</label>
+                                <div class="col-9">
+                                    <label class="form-control" type="text" value="负责人电话" id="principalPhoneNumber"
+                                           disabled="disabled" th:text="${eventInfoPerson.tel}"></label>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <br><br>
+
+                    <div class="row">
+                        <div class="col-md-5">
+                            <h5><i class="fa fa-users">》</i>派出人员</h5>
+                        </div>
+
+                        <div class="col-md-1"></div>
+                        <div class="col-md-5">
+                            <h5><i class="fa fa-truck">》</i>派出车辆</h5>
+                        </div>
+                        <div class="col-md-1"></div>
+                    </div>
+
+                    <div class="row" id="peopleAndCar">
+                        <div class="col-md-5">
+                            <!--style="overflow:scroll"-->
+                            <div style="overflow-x: auto; overflow-y: auto;width:550px;">
+                                <table class="table table-hover" align="center" style=" width:300px">
+                                    <thead>
+                                    <tr>
+                                        <th>名字</th>
+                                        <th>职位</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr th:each="person,pState:${eventPersonnelLogList}">
+                                        <td th:text="${person.personnelEntity.name}"></td>
+                                        <td th:text="${person.personnelEntity.position}"></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                        </div>
+                        <div class="col-md-1"></div>
+                        <div class="col-md-5">
+                            <div style="overflow-x: auto; overflow-y: auto; width:550px;">
+                                <table class="table table-hover" align="center" style=" width:300px">
+                                    <thead>
+                                    <tr>
+                                        <th>车牌</th>
+                                        <th>司机</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr th:each="car,cState:${eventCarLogList}">
+                                        <td th:text="${car.carEntity.carNum}"></td>
+                                        <td th:text="${car.carEntity.driver}"></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="form-group row">
+                        <div class="col-sm-10"></div>
+                        <div class="col-sm-2">
+                            <a href="/eventAll" class="btn btn-general btn-white">返回</a>
+                        </div>
                     </div>
                 </div>
-                <div class="form-group row">
-                    <label for="type" style="width: 85px;" class=" col-form-label">事件类型</label>
-                    <div class="col-9">
-                        <label class="form-control" type="text" value="事件类型" id="type" disabled="disabled"
-                               th:text="${eventInfo.eventType}"></label>
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label for="detailedAddress" style="width: 85px;" class=" col-form-label">详细地址</label>
-                    <div class="col-9">
-                        <label class="form-control" type="text" value="详细地址" id="detailedAddress"
-                               disabled="disabled" th:text="${eventInfo.alarmAddress}"></label>
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label for="area" style="width: 85px;" class=" col-form-label">发生区域</label>
-                    <div class="col-9">
-                        <label class="form-control" type="text" value="发生区域" id="area" disabled="disabled"
-                               th:text="${eventInfo.eventArea}"></label>
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label for="callerPhoneNumber" style="width: 85px;"
-                           class=" col-form-label">报警人电话</label>
-                    <div class="col-9">
-                        <label class="form-control" type="text" value="报警人电话" id="callerPhoneNumber"
-                               disabled="disabled" th:text="${eventInfo.alarmTel}"></label>
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label for="principalPhoneNumber" style="width: 85px;"
-                           class=" col-form-label">负责人电话</label>
-                    <div class="col-9">
-                        <label class="form-control" type="text" value="负责人电话" id="principalPhoneNumber"
-                               disabled="disabled" th:text="${eventInfoPerson.tel}"></label>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-        <br><br>
-
-        <div class="row">
-            <div class="col-md-5">
-                <h5><i class="fa fa-users">》</i>派出人员</h5>
-            </div>
-
-            <div class="col-md-1"></div>
-            <div class="col-md-5">
-                <h5><i class="fa fa-truck">》</i>派出车辆</h5>
-            </div>
-            <div class="col-md-1"></div>
-        </div>
-
-        <div class="row" id="peopleAndCar">
-            <div class="col-md-5">
-                <!--style="overflow:scroll"-->
-                <div style="overflow-x: auto; overflow-y: auto;width:550px;">
-                    <table class="table table-hover" align="center" style=" width:300px">
-                        <thead>
-                        <tr>
-                            <th>名字</th>
-                            <th>职位</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr th:each="person,pState:${eventPersonnelLogList}">
-                            <td th:text="${person.personnelEntity.name}"></td>
-                            <td th:text="${person.personnelEntity.position}"></td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
-
-            </div>
-            <div class="col-md-1"></div>
-            <div class="col-md-5">
-                <div style="overflow-x: auto; overflow-y: auto; width:550px;">
-                    <table class="table table-hover" align="center" style=" width:300px">
-                        <thead>
-                        <tr>
-                            <th>车牌</th>
-                            <th>司机</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr th:each="car,cState:${eventCarLogList}">
-                            <td th:text="${car.carEntity.carNum}"></td>
-                            <td th:text="${car.carEntity.driver}"></td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-
-        </div>
-
-        <div class="form-group row">
-            <div class="col-sm-10"></div>
-            <div class="col-sm-2">
-                <a href="/eventAll" class="btn btn-general btn-white">返回</a>
             </div>
         </div>
     </div>
-
 </div>
-</div>
-
 <!-- FOOTER -->
 <footer class="footer navbar-fixed-bottom text-md-center" style="background-color: #5e67d6">
-    <div class="" style="padding-top: 30px;color: white;">应急系统 &copy; 2018.Company name LOVO J165 3组.</div>
+    <div class="" style="padding-top: 30px;color: white;">应急系统 &copy; 2018.Company name LOVO J165
+        3组.
+    </div>
 </footer>
 
 <!--Global Javascript -->
