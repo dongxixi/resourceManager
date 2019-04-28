@@ -73,8 +73,8 @@ public class EventController {
         if (haveEvent) {
             //事件存在，只需要保存派遣
             DispatchEntity dispatchEntity = new DispatchEntity();
-            dispatchEntity.setcNum(eventSinkDto.getCNum());
-            dispatchEntity.setpNum(eventSinkDto.getPNum());
+            dispatchEntity.setcNum(eventSinkDto.getCarNum());
+            dispatchEntity.setpNum(eventSinkDto.getPersonNum());
             dispatchEntity.setRequestId(eventSinkDto.getRequestId());
             EventEntity eventEntity = new EventEntity();
             eventEntity.setId(eventSinkDto.getId());
@@ -97,8 +97,8 @@ public class EventController {
             eventEntity.setEventType(eventSinkDto.getEventType());
 
             DispatchEntity dispatchEntity = new DispatchEntity();
-            dispatchEntity.setcNum(eventSinkDto.getCNum());
-            dispatchEntity.setpNum(eventSinkDto.getPNum());
+            dispatchEntity.setcNum(eventSinkDto.getCarNum());
+            dispatchEntity.setpNum(eventSinkDto.getPersonNum());
             dispatchEntity.setRequestId(eventSinkDto.getRequestId());
             dispatchEntity.setEventEntity(eventEntity);
 

@@ -44,11 +44,12 @@ public class EventSinkDto {
     /**
      * 需要派出人员数量
      */
-    private int pNum;
+    private int personNum;
     /**
      * 需要派出车辆数量
      */
-    private int cNum;
+    private int carNum;
+
 
     public String getId() {
         return id;
@@ -122,27 +123,27 @@ public class EventSinkDto {
         this.requestId = requestId;
     }
 
-    public int getPNum() {
-        return pNum;
+    public int getPersonNum() {
+        return personNum;
     }
 
-    public void setPNum(int pNum) {
-        this.pNum = pNum;
+    public void setPersonNum(int personNum) {
+        this.personNum = personNum;
     }
 
-    public int getCNum() {
-        return cNum;
+    public int getCarNum() {
+        return carNum;
     }
 
-    public void setCNum(int cNum) {
-        this.cNum = cNum;
+    public void setCarNum(int carNum) {
+        this.carNum = carNum;
     }
 
     public EventSinkDto() {
         super();
     }
 
-    public EventSinkDto(String id, String eventName, String eventType, String eventArea, Timestamp eventTime, String alarmPerson, String alarmTel, String alarmAddress, String requestId, int pNum, int cNum) {
+    public EventSinkDto(String id, String eventName, String eventType, String eventArea, Timestamp eventTime, String alarmPerson, String alarmTel, String alarmAddress, String requestId, int personNum, int carNum) {
         this.id = id;
         this.eventName = eventName;
         this.eventType = eventType;
@@ -152,8 +153,8 @@ public class EventSinkDto {
         this.alarmTel = alarmTel;
         this.alarmAddress = alarmAddress;
         this.requestId = requestId;
-        this.pNum = pNum;
-        this.cNum = cNum;
+        this.personNum = personNum;
+        this.carNum = carNum;
     }
     //负责人名字和电话，
     /*private PersonnelEntity personnelEntity;*/

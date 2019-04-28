@@ -17,7 +17,7 @@ public class EventSendDto {
     /**
      * 负责人
      */
-    private PersonDto p;
+    private PersonDto person;
 
 
     /**
@@ -46,12 +46,12 @@ public class EventSendDto {
         this.carDtos = carDtos;
     }
 
-    public PersonDto getP() {
-        return p;
+    public PersonDto getPerson() {
+        return person;
     }
 
-    public void setP(PersonDto p) {
-        this.p = p;
+    public void setPerson(PersonDto person) {
+        this.person = person;
     }
 
     public String getId() {
