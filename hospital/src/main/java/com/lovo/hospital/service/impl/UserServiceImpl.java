@@ -10,10 +10,11 @@ import com.lovo.hospital.entity.UserEntity;
 import com.lovo.hospital.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 @Service(value="userService")
 public class UserServiceImpl implements IUserService {
@@ -82,9 +83,11 @@ public class UserServiceImpl implements IUserService {
      * @param uId  用户id
      */
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public boolean deleteUser(String uId) {
         userDao.deleteById(uId);
         boolean b = userDao.existsById(uId);
+            userRoleDao.deleteByUserId(uId);
         return b;
     }
 

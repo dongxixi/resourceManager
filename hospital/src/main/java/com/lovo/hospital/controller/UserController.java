@@ -22,6 +22,11 @@ import java.io.PrintWriter;
 import java.util.List;
 import java.util.Set;
 
+/**
+ * UserController
+ *
+ * @author 向伟
+ */
 @Controller
 public class UserController {
     @Autowired
