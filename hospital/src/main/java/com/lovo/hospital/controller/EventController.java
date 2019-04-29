@@ -66,7 +66,10 @@ public class EventController {
 //        System.out.println("监听queue=============监听queue");
         //收到数据，保存数据库
         //将接收到的json转换为对象
-        EventSinkDto eventSinkDto = JSONObject.parseObject(message, EventSinkDto.class);
+
+        System.out.println(message);
+
+        /*EventSinkDto eventSinkDto = JSONObject.parseObject(message, EventSinkDto.class);
         //判断是否是续派
         String eventId = eventSinkDto.getId();
         boolean haveEvent = eventService.isHaveEventById(eventId);
@@ -106,10 +109,14 @@ public class EventController {
             dispatchService.saveDispatchEntity(dispatchEntity);
         }
         //把数据通过ws传到页面上
-        /*URI requestURI = session.getRequestURI();
-        System.out.println(requestURI);*/
+        *//*URI requestURI = session.getRequestURI();
+        System.out.println(requestURI);*//*
 
-        this.onMessage(message, session);
+        this.onMessage(message, session);*/
+
+
+
+
     }
 
     /**
