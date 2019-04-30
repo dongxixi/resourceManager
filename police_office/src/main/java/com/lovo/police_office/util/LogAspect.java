@@ -38,28 +38,28 @@ public class LogAspect {
     /**
      * 管理员登录方法的切入点
      */
-    @Pointcut("execution(* com.lovo.hospital.service.*.login*(..))")
+    @Pointcut("execution(* com.lovo.police_office.service.*.login*(..))")
     public void loginCell(){
     }
 
     /**
      * 添加业务逻辑方法切入点
      */
-    @Pointcut("execution(* com.lovo.hospital.service.*.save*(..))")
+    @Pointcut("execution(* com.lovo.police_office.service.*.save*(..))")
     public void insertCell() {
     }
 
     /**
      * 修改业务逻辑方法切入点
      */
-    @Pointcut("execution(* com.lovo.hospital.service.*.update*(..))")
+    @Pointcut("execution(* com.lovo.police_office.service.*.update*(..))")
     public void updateCell() {
     }
 
     /**
      * 删除业务逻辑方法切入点
      */
-    @Pointcut("execution(* com.lovo.hospital.service.*.delete*(..))")
+    @Pointcut("execution(* com.lovo.police_office.service.*.delete*(..))")
     public void deleteCell() {
     }
 
