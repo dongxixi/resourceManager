@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="description" content=""/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta name="robots" content="all,follow"/>
+
+    <title>华西医院应急系统</title>
+    <link rel="shortcut icon" th:href="@{staticResources/img/favicon.ico}"/>
+
+    <!-- global stylesheets -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed" rel="stylesheet"/>
+    <link rel="stylesheet" th:href="@{staticResources/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" th:href="@{staticResources/font-awesome-4.7.0/css/font-awesome.min.css}"/>
+    <link rel="stylesheet" th:href="@{staticResources/css/font-icon-style.css}"/>
+    <link rel="stylesheet" th:href="@{staticResources/css/style.default.css}" id="theme-stylesheet"/>
+
+    <!-- Core stylesheets -->
+    <link rel="stylesheet" th:href="@{staticResources/css/ui-elements/card.css}">
+    <link rel="stylesheet" th:href="@{staticResources/css/style.css}">
+
+
+</head>
+
+<body>
+
+<!--====================================================
+                         MAIN NAVBAR
+======================================================-->
+<header class="header">
+    <nav class="navbar navbar-expand-lg ">
+        <div class="container-fluid ">
+            <div class="navbar-holder d-flex align-items-center justify-content-between">
+                <div class="navbar-header">
+                    <a href="#" class="navbar-brand">
+                        <div class="brand-text brand-big hidden-lg-down">华西医院应急系统</div>
+                    </a>
+                    <!-- 导航栏 -->
+                    <a href="personAll" class="navbar-brand">
+                        <div class="brand-text brand-big hidden-lg-down nav-link">人员管理</div>
+                    </a>
+                    <a href="carAll" class="navbar-brand">
+                        <div class="brand-text brand-big hidden-lg-down nav-link">车辆管理</div>
+                    </a>
+                    <a href="showlog" class="navbar-brand">
+                        <div class="brand-text brand-big hidden-lg-down nav-link">日志</div>
+                    </a>
+                    <a href="gotoUserAll" class="navbar-brand">
+                        <div class="brand-text brand-big hidden-lg-down nav-link">系统用户管理</div>
+                    </a>
+                </div>
+            </div>
+            <ul class="nav-menu list-unstyled d-flex flex-md-row align-items-md-center">
+
+                <!-- 全屏 -->
+                <li class="nav-item d-flex align-items-center full_scr_exp"><a class="nav-link" href="#"><img
+                        src="/staticResources/img/expand.png" onclick="toggleFullScreen(document.body)"
+                        class="img-fluid" alt=""></a>
+                </li>
+
+                <!-- 账号切换 -->
+                <li class="nav-item dropdown">
+                    <a id="profile" class="nav-link logout" data-target="#" href="#"
+                       data-toggle="dropdown">
+                        <img src="staticResources/img/avatar-1.jpg" alt="..." class="img-fluid rounded-circle"
+                             style="height: 30px; width: 30px;">
+                    </a>
+                    <ul aria-labelledby="profile" class="dropdown-menu profile">
+                        <li>
+                            <a rel="nofollow" href="gotoLogin" class="dropdown-item">
+                                <div class="notification">
+                                    <div class="notification-content"><i class="fa fa-power-off"></i>切换账号</div>
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a rel="nofollow" href="gotoLogin" class="dropdown-item">
+                                <div class="notification">
+                                    <div class="notification-content"><i class="fa fa-power-off"></i>注销</div>
+                                </div>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+
+</header>
+
+<!--====================================================
+                        PAGE CONTENT
+======================================================-->
+
+<div class="container">
+    <div class="card form" id="form1">
+        <div class="card-header">
+            <h3><i class="fa fa-automobile"></i>车辆管理</h3>
+        </div>
+        <br/>
+
+
+        <!--***** CONTENT *****-->
+        <!--查询div-->
+        <div class="row form-group">
+            <div class="col-sm-1"></div>
+            <div class="input-group-addon">车牌号</div>
+            <input type="text" class="form-control-sm" placeholder="车牌号" name="carNum">&emsp;
+            <div class="input-group-addon">司机</div>
+            <input type="text" class="form-control-sm" placeholder="司机" name="driver">&emsp;
+            <div class="input-group-addon">状态</div>
+            <select class="form-control-feedback" id="exampleSelect1" name="state">
+                <option value="">请选择</option>
+                <option value="0">未派出</option>
+                <option value="1">已派出</option>
+            </select>&emsp;
+            <button type="button" class="btn btn-outline-primary" value="查询">查询</button>
+            <div class="col-sm-2"></div>
+            <div class="col-sm-1">
+                <a href="/carAdd" class="btn btn-outline-success ">添加车辆</a>
+            </div>
+        </div>
+        <br/>
+        <div class="row form-group">
+            <div class="col-sm-1"></div>
+            <div class="col-sm-8">
+                <table class="table table-hover" id="infotable"></table>
+            </div>
+        </div>
+        <div class="row form-group">
+            <div class="col-sm-4"></div>
+            <div class="col-sm-6">
+                <button type="button" class="btn btn-outline-primary" value="上一页">上一页</button>
+                <input type="text" class="form-control-sm" placeholder="输入页数" id="input"
+                       style="width: 100px"/>
+                <span id="pageShow"></span>
+                <button type="button" class="btn btn-outline-primary" value="GO">GO</button>
+                <button type="button" class="btn btn-outline-primary" value="下一页">下一页</button>
+
+                <!--记录当前是第几页-->
+                <input type="hidden" name="currPage">
+                <input type="hidden" name="totalPage">
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+</div>
+<!-- FOOTER -->
+<footer class="footer navbar-fixed-bottom text-md-center" style="background-color: #5e67d6">
+    <div class="" style="padding-top: 30px;color: white;">应急系统 &copy; 2018.Company name LOVO J165 3组.</div>
+</footer>
+
+<!--Global Javascript -->
+<script th:src="@{staticResources/js/jquery.min.js}"></script>
+<script th:src="@{staticResources/js/popper/popper.min.js}"></script>
+<script th:src="@{staticResources/js/tether.min.js}"></script>
+<script th:src="@{staticResources/js/bootstrap.min.js}"></script>
+<script th:src="@{staticResources/js/jquery.cookie.js}"></script>
+<script th:src="@{staticResources/js/jquery.validate.min.js}"></script>
+<!--<script th:src="@{staticResources/js/chart.min.js}"></script>
+<script th:src="@{staticResources/js/front.js}"></script>-->
+
+<!--Core Javascript -->
+<!--<script th:src="@{staticResources/js/mychart.js}"></script>-->
+
+
+<script src="/staticResources/jquery-2.1.4.js"></script>
+<!--修改原生alert-->
+<!--<link rel="stylesheet" type="text/css" th:href="staticResources/sweetalert/sweetalert.css">
+<script type="text/javascript" th:src="staticResources/sweetalert/sweetalert-dev.js"></script>-->
+<link rel="stylesheet" type="text/css" href="https://www.huangwx.cn/css/sweetalert.css">
+<script type="text/javascript" src="https://www.huangwx.cn/js/sweetalert-dev.js"></script>
+
+<script>
+    <!--分页-->
+    $(function () {
+
+        //第一次访问时默认加载第一页数据
+        var currPage = 1;
+        $.getJSON("findCarByCondition", {currPage: currPage}, fillData);
+        $(":button").click(function () {
+            var btn = this.value;
+            var currPage = $(":hidden[name=currPage]").val();
+            var totalPage = $(":hidden[name=totalPage]").val();
+            var carNum = $("[name=carNum]").val();
+            var driver = $("[name=driver]").val();
+            var state = $("[name=state]").val();
+            currPage = parseInt(currPage);
+            totalPage = parseInt(totalPage);
+            if (btn == "上一页") {
+
+                currPage = currPage - 1;
+                if (currPage < 1) {
+                    currPage = 1;
+                }
+                $.getJSON("findCarByCondition", {
+                    currPage: currPage,
+                    carNum: carNum,
+                    driver: driver,
+                    state: state
+                }, fillData);
+            } else if (btn == "下一页") {
+
+
+                currPage = currPage + 1;
+                if (currPage > totalPage) {
+                    currPage = totalPage;
+                }
+                $.getJSON("findCarByCondition", {
+                    currPage: currPage,
+                    carNum: carNum,
+                    driver: driver,
+                    state: state
+                }, fillData);
+            } else if (btn == "GO") {
+                var inputPage = $("#input").val();
+
+                if (inputPage > totalPage) {
+                    inputPage = totalPage;
+                }
+                currPage = inputPage;
+                $.getJSON("findCarByCondition", {
+                    currPage: currPage,
+                    carNum: carNum,
+                    driver: driver,
+                    state: state
+                }, fillData);
+            } else if (btn == "查询") {
+
+                currPage = 1;
+                $.getJSON("findCarByCondition", {
+                    currPage: currPage,
+                    carNum: carNum,
+                    driver: driver,
+                    state: state
+                }, fillData);
+            } else if (btn == "首页") {
+
+                currPage = 1;
+                $.getJSON("findCarByCondition", {
+                    currPage: currPage,
+                    carNum: carNum,
+                    driver: driver,
+                    state: state
+                }, fillData);
+            } else if (btn == "尾页") {
+
+                currPage = totalPage;
+                $.getJSON("findCarByCondition", {
+                    currPage: currPage,
+                    carNum: carNum,
+                    driver: driver,
+                    state: state
+                }, fillData);
+            }
+        });
+
+
+    });
+
+    function fillData(data) {
+        var $table = $("#infotable");
+        $table.empty();
+        var $head = $("<thead>\n" +
+            "                        <tr class=\"bg-info text-white\">\n" +
+            "                            <th>车牌号</th>\n" +
+            "                            <th>司机姓名</th>\n" +
+            "                            <th>状态</th>\n" +
+            "                            <th>操作</th>\n" +
+            "                        </tr>\n" +
+            "                        </thead>");
+        $table.append($head);
+
+        $.each(data.dataList, function (i, e) {
+            var cid = e.id;
+            var carNum = e.carNum;
+            var driver = e.driver;
+            var state = e.state;
+            if (state == 1) {
+                state = "已派出";
+
+            } else if (state == 0) {
+                state = "未派出";
+            }
+
+
+            var dataTr = "<tr>\n" +
+                "            <td>" + carNum + "</td>\n" +
+                "            <td>" + driver + "</td>\n" +
+                "            <td>" + state + "</td>\n" +
+                "            <td><a class='btn btn-outline-primary' href='updateInfoCar?id=" + cid + "'>修改</a>&emsp;" +
+                "                <button class='btn btn-outline-warning' value='删除' id='del' onclick='delCar(this)'>删除</button> <input type='hidden' value='" + cid + "'></td>\n" +
+                "        </tr>";
+
+            $table.append(dataTr);
+        });
+        //加载当前页数
+        $("#input").val(data.currPage);
+        //渲染第几页信息
+        $("#pageShow").text("/" + data.totalPage);
+
+        //记录数据
+        $(":hidden[name=currPage]").val(data.currPage);
+        $(":hidden[name=totalPage]").val(data.totalPage);
+    }
+
+    function delCar(del) {
+
+        var cid = $(del).next().val();
+        /*ajax提交后台*/
+
+        swal({
+                title: "确定删除吗？",
+                text: "你将无法恢复该文件！",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "确定",
+                cancelButtonText: "取消",
+                closeOnConfirm: false,
+                closeOnCancel: true
+            },
+            function (isConfirm) {
+                if (isConfirm) {
+
+                    $.getJSON("deleteCar", {cid: cid}, function (data) {
+                        /*回调函数*/
+                        if (data == '1') {
+                            swal("成功！", "已删除",
+                                "success");
+                            var currPage = 1;
+                            $.getJSON("findCarByCondition", {currPage: currPage}, fillData);
+                        } else if (data == '0') {
+                            swal("错误！", "删除失败",
+                                "error");
+                        } else if (data == '-1') {
+                            swal("错误！", "车辆已派出，无法删除",
+                                "error");
+                        }
+                    });
+                }
+
+            });
+    }
+
+
+</script>
+
+</body>
+
+</html>

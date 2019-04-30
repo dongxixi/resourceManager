@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="all,follow">
+
+    <title>华西医院应急系统</title>
+    <link rel="shortcut icon" href="staticResources/img/favicon.ico">
+
+    <!-- global stylesheets -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed" rel="stylesheet">
+    <link rel="stylesheet" href="../staticResources/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../staticResources/font-awesome-4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../staticResources/css/font-icon-style.css">
+    <link rel="stylesheet" href="../staticResources/css/style.default.css" id="theme-stylesheet">
+
+    <!-- Core stylesheets -->
+    <link rel="stylesheet" href="../staticResources/css/ui-elements/card.css">
+    <link rel="stylesheet" href="../staticResources/css/style.css">
+    <link rel="stylesheet" href="../staticResources/css/blockette.css"/>
+    <script src="../staticResources/js/jquery.min.js"></script>
+    <script src="../staticResources/js/paginate.js"></script>
+
+</head>
+<script>
+    var carCheckedList = JSON.parse("[]");
+    var personCheckedList = JSON.parse("[]");
+    var inChargeable = true;
+    var Charge;
+
+    function addCar(obj) {
+        var val = JSON.parse($(obj).siblings().eq(0).val());
+        if ($(obj).prop("checked")) {
+            $("#sendCar").append($("<div id='carChecked' class='blockette'><label>" + val.carNum + "</label>" +
+                "<input type='hidden' value='" + $(obj).siblings().eq(0).val() + "'/>" +
+                "<input type='button' value='╳' onclick='closeCar(this)'/></div>"));
+            carCheckedList.push(val);
+        } else {
+            $.each($("#sendCar label"), function (i, e) {
+                if (JSON.parse($(e).siblings().eq(0).val()).id == val.id) {
+                    $(e).parent().remove();
+                    carCheckedList.splice(i, 1);
+                }
+            })
+        }
+        showCarList();
+        saveCharge();
+    }
+
+    function addPerson(obj) {
+        var val = JSON.parse($(obj).siblings().eq(0).val());
+        if ($(obj).prop("checked")) {
+            $("#sendPersonnel").append($("<div id='personChecked' class='blockette'><label>" + val.name + "</label>" +
+                "<input type='hidden' value='" + $(obj).siblings().eq(0).val() + "'/>" +
+                "<input type='button' value='╳' onclick='closePerson(this)'/></div>"));
+            personCheckedList.push(val);
+        } else {
+            $.each($("#sendPersonnel label"), function (i, e) {
+                if (JSON.parse($(e).siblings().eq(0).val()).id == val.id) {
+                    $(e).parent().remove();
+                    personCheckedList.splice(i, 1);
+                }
+            })
+        }
+        showPersonList();
+        inCharge();
+        saveCharge();
+    }
+
+    function close(obj, list) {
+        var val = JSON.parse($(obj).siblings().eq(1).val());
+        $.each(list, function (i, e) {
+            if (e.id == val.id) {
+                list.splice(i, 1);
+                return false;
+            }
+        });
+        $(obj).parent().remove();
+        saveCharge();
+    }
+
+    function closeCar(obj) {
+        close(obj, carCheckedList);
+        showCarList();
+    }
+
+    function closePerson(obj) {
+        close(obj, personCheckedList);
+        showPersonList();
+        inCharge();
+    }
+
+    function showCarList() {
+        $.post("/eventGetCarList",
+            {
+                pageNo: $("#pageCarNo").val()
+            },
+            function (json) {
+                $("#pageCarTotal").text(json.pageTotal);
+                $("#carList").empty();
+                var list = json.list;
+                $.each(list, function (i, e) {
+                    var str = "";
+                    $.each(carCheckedList, function (j, f) {
+                        if (e.id == f.id) {
+                            str = "checked";
+                            return false;
+                        } else {
+                            if (carCheckedList.length == $("#carNum").val()) {
+                                str = "disabled"
+                            }
+                        }
+                    });
+                    $("#carList").append($("<tr>" +
+                        "<th scope='row'><input type='checkbox' " + str + " onclick='addCar(this)'/>" +
+                        "<input type='hidden' value='" + JSON.stringify(e) + "'/></th>" +
+                        "<td>" + e.carNum + "</td>" +
+                        "<td>" + e.driver + "</td></tr>"))
+                })
+            },
+            "json"
+        );
+    }
+
+    function showPersonList() {
+        $.post("/eventGetPersonList",
+            {
+                pageNo: $("#pagePersonNo").val()
+            },
+            function (json) {
+                $("#pagePersonTotal").text(json.pageTotal);
+                $("#personList").empty();
+                var list = json.list;
+                $.each(list, function (i, e) {
+                    var str = "";
+                    $.each(personCheckedList, function (j, f) {
+                        if (e.id == f.id) {
+                            str = "checked";
+                            return false;
+                        } else {
+                            if (personCheckedList.length == $("#personNum").val()) {
+                                str = "disabled"
+                            }
+                        }
+                    });
+                    $("#personList").append($("<tr>" +
+                        "<th scope='row'><input type='checkbox' " + str + " onclick='addPerson(this)'/>" +
+                        "<input type='hidden' value='" + JSON.stringify(e) + "'/></th>" +
+                        "<td>" + e.name + "</td>" +
+                        "<td>" + e.position + "</td>" +
+                        "<td>" + e.sex + "</td></tr>"))
+                })
+            },
+            "json"
+        );
+    }
+
+    function inCharge() {
+        if (inChargeable) {
+            $("#personInCharge").empty();
+            $.each(personCheckedList, function (i, e) {
+                $("#personInCharge").append($("<option value='" + e.id + "'>" + e.name + "</option>"));
+            });
+        }
+    }
+
+    function isFirst() {
+        $.post("/eventIsFirst",
+            {
+                dispatchId: $("#dispatchId").val()
+            },
+            function (json) {
+                inChargeable = json;
+                if (!json.isFirst) {
+                    Charge = json.inCharge;
+                    $("#personInCharge").empty();
+                    $("#personInCharge").append($("<option value='" + Charge.id + "'>" + Charge.name + "</option>"));
+                    $("#personInCharge").parent().attr("disabled", true);
+                }
+            },
+            "json"
+        );
+    }
+
+    function saveCharge() {
+        var list = JSON.parse("[]");
+        $.each(carCheckedList, function (i, e) {
+            list.push(e.id);
+        });
+        $("#carUpdateList").val(list);
+        list = JSON.parse("[]");
+        $.each(personCheckedList, function (i, e) {
+            list.push(e.id);
+        });
+        $("#personUpdateList").val(list);
+    }
+
+
+    $(function () {
+        isFirst();
+        showCarList();
+        paginate("pageCarNo", "pageCarTotal", "firstCarPage", "prevCarPage", "nextCarPage", "lastCarPage", showCarList);
+        showPersonList();
+        paginate("pagePersonNo", "pagePersonTotal", "firstPersonPage", "prevPersonPage", "nextPersonPage", "lastPersonPage", showPersonList);
+
+        $("#dispatch").click(function () {
+            if (carCheckedList.length != $("#carNum").val() || personCheckedList.length != $("#personNum").val()) {
+                return false;
+            }
+        })
+    })
+</script>
+<body>
+
+<!--====================================================
+                         MAIN NAVBAR
+======================================================-->
+<header class="header">
+    <nav class="navbar navbar-expand-lg ">
+        <div class="container-fluid ">
+            <div class="navbar-holder d-flex align-items-center justify-content-between">
+                <div class="navbar-header">
+                    <a href="#" class="navbar-brand">
+                        <div class="brand-text brand-big hidden-lg-down">华西医院应急系统</div>
+                    </a>
+                    <!-- 导航栏 -->
+                </div>
+            </div>
+            <ul class="nav-menu list-unstyled d-flex flex-md-row align-items-md-center">
+
+                <!-- 全屏 -->
+                <li class="nav-item d-flex align-items-center full_scr_exp"><a class="nav-link" href="#"><img
+                        src="/staticResources/img/expand.png" onclick="toggleFullScreen(document.body)"
+                        class="img-fluid" alt=""></a>
+                </li>
+
+                <!-- 账号切换 -->
+                <li class="nav-item dropdown">
+                    <a id="profile" class="nav-link logout" data-target="#" href="#"
+                       data-toggle="dropdown">
+                        <img src="/staticResources/img/avatar-1.jpg" alt="..." class="img-fluid rounded-circle"
+                             style="height: 30px; width: 30px;">
+                    </a>
+                    <ul aria-labelledby="profile" class="dropdown-menu profile">
+                        <li>
+                            <a rel="nofollow" href="gotoLogin" class="dropdown-item">
+                                <div class="notification">
+                                    <div class="notification-content"><i class="fa fa-power-off"></i>切换账号</div>
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a rel="nofollow" href="gotoLogin" class="dropdown-item">
+                                <div class="notification">
+                                    <div class="notification-content"><i class="fa fa-power-off"></i>注销</div>
+                                </div>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+
+</header>
+
+<!-- 内容模块 -->
+<div class="page-content d-flex align-items-stretch">
+    <div class="content-inner chart-cont">
+        <div class="row">
+            <div class="container">
+
+                <div class="card form" id="form1">
+                    <div class="card-header">
+                        <h3><i class="fa fa-user-circle"></i>事件操作</h3>
+                    </div>
+                    <br/>
+                    <form action="/eventDispatch" method="post">
+                        <input type="hidden" name="dispatchId" id="dispatchId" th:value="${dispatchId}"/>
+                        <input type="hidden" id="personNum" th:value="${personNum}"/>
+                        <input type="hidden" id="carNum" th:value="${carNum}"/>
+                        <div class="row form-group">
+                            <div class="col-sm-3"></div>
+                            <div class="col-sm-2">
+                                <label for="thingName">事件名称：</label>
+                            </div>
+                            <div class="col-sm-4">
+                                <label class="form-control" id="thingName" th:text="${thingName}"></label>
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col-sm-3"></div>
+                            <div class="col-sm-2">
+                                <label for="thingAddress">事件地点：</label>
+                            </div>
+                            <div class="col-sm-4">
+                                <label class="form-control" id="thingAddress" th:text="${thingAddress}"></label>
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col-sm-3"></div>
+                            <div class="col-sm-2">
+                                <label for="sendPersonnel">派出人员：</label>
+                            </div>
+                            <div class="col-sm-4">
+                                <div id="sendPersonnel" style="border: 1px solid #dfcdfc">&nbsp;</div>
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col-sm-3"></div>
+                            <div class="col-sm-6">
+                                <table class="table table-hover">
+                                    <thead>
+                                    <tr class="bg-info table-info">
+                                        <th>选择</th>
+                                        <th>姓名</th>
+                                        <th>职务</th>
+                                        <th>性别</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody id="personList">
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="row form-group" id="pagePerson">
+                            <div class="col-sm-3"></div>
+                            <div class="btn-group btn-sm col-sm-3" role="group" aria-label="Basic example">
+                                <button type="button" class="btn btn-outline-primary" id="firstPersonPage">首页</button>
+                                <button type="button" class="btn btn-outline-primary" id="prevPersonPage">上一页</button>
+                                <button type="button" class="btn btn-outline-primary" id="nextPersonPage">下一页</button>
+                                <button type="button" class="btn btn-outline-primary" id="lastPersonPage">末页</button>
+                            </div>
+                            <div class="col-sm-2">
+                                第<input style="width: 30px;" type="text" id="pagePersonNo" value="1"/>页，共<span
+                                    id="pagePersonTotal">5</span>页
+                            </div>
+                        </div>
+
+                        <div class="row form-group">
+                            <div class="col-sm-3"></div>
+                            <div class="col-sm-2">
+                                <label for="personInCharge">负责人：</label>
+                            </div>
+                            <div class="col-sm-4">
+                                <select class="form-control" id="personInCharge" name="personInCharge">
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="row form-group">
+                            <div class="col-sm-3"></div>
+                            <div class="col-sm-2">
+                                <label for="sendCar">派出车辆：</label>
+                            </div>
+                            <div class="col-sm-4">
+                                <div id="sendCar" style="border: 1px solid #dfcdfc">&nbsp;</div>
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col-sm-3"></div>
+                            <div class="col-sm-6">
+                                <table class="table table-hover">
+                                    <thead>
+                                    <tr class="bg-info table-info">
+                                        <th>选择</th>
+                                        <th>车牌</th>
+                                        <th>司机姓名</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody id="carList">
+                                    </tbody>
+                                </table>
+                            </div>
+
+                        </div>
+                        <div class="row form-group" id="pageCar">
+                            <div class="col-sm-3"></div>
+                            <div class="btn-group btn-sm col-sm-3" role="group" aria-label="Basic example">
+                                <button type="button" class="btn btn-outline-primary" id="firstCarPage">首页</button>
+                                <button type="button" class="btn btn-outline-primary" id="prevCarPage">上一页</button>
+                                <button type="button" class="btn btn-outline-primary" id="nextCarPage">下一页</button>
+                                <button type="button" class="btn btn-outline-primary" id="lastCarPage">末页</button>
+                            </div>
+                            <div class="col-sm-2">
+                                第<input style="width: 30px;" type="text" id="pageCarNo" value="1"/>页，共<span
+                                    id="pageCarTotal">5</span>页
+                            </div>
+                        </div>
+
+                        <div class="row" style="padding-bottom: 30px">
+                            <div class="col-sm-9"></div>
+                            <div class="col-sm-1">
+                                <a href="/eventAll" class="btn btn-general btn-white">返回</a>
+                            </div>
+                            <input type="hidden" name="personUpdateList" id="personUpdateList"/>
+                            <input type="hidden" name="carUpdateList" id="carUpdateList"/>
+                            <button type="submit" class="btn btn-general btn-blue" id="dispatch">派出</button>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<!-- FOOTER -->
+<footer class="footer navbar-fixed-bottom text-md-center" style="background-color: #5e67d6">
+    <div class="" style="padding-top: 30px;color: white;">应急系统 &copy; 2018.Company name LOVO J165 3组.</div>
+</footer>
+
+
+</body>
+
+</html>

@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="description" content=""/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta name="robots" content="all,follow"/>
+
+    <title>华西医院应急系统</title>
+    <link rel="shortcut icon" th:href="@{staticResources/img/favicon.ico}"/>
+
+    <!-- global stylesheets -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{staticResources/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" th:href="@{staticResources/font-awesome-4.7.0/css/font-awesome.min.css}"/>
+    <link rel="stylesheet" th:href="@{staticResources/css/font-icon-style.css}"/>
+    <link rel="stylesheet" th:href="@{staticResources/css/style.default.css}" id="theme-stylesheet"/>
+
+    <!-- Core stylesheets -->
+    <link rel="stylesheet" th:href="@{staticResources/css/form.css}">
+</head>
+
+<body>
+
+<!--====================================================
+                         MAIN NAVBAR
+======================================================-->
+<header class="header">
+    <nav class="navbar navbar-expand-lg ">
+        <div class="container-fluid ">
+            <div class="navbar-holder d-flex align-items-center justify-content-between">
+                <div class="navbar-header">
+                    <a href="#" class="navbar-brand">
+                        <div class="brand-text brand-big hidden-lg-down">华西医院应急系统</div>
+                    </a>
+                    <!-- 导航栏 -->
+                    <a href="personAll" class="navbar-brand">
+                        <div class="brand-text brand-big hidden-lg-down nav-link">人员管理</div>
+                    </a>
+                    <a href="carAll" class="navbar-brand">
+                        <div class="brand-text brand-big hidden-lg-down nav-link">车辆管理</div>
+                    </a>
+                    <a href="showlog" class="navbar-brand">
+                        <div class="brand-text brand-big hidden-lg-down nav-link">日志</div>
+                    </a>
+                    <a href="gotoUserAll" class="navbar-brand">
+                        <div class="brand-text brand-big hidden-lg-down nav-link">系统用户管理</div>
+                    </a>
+                </div>
+            </div>
+            <ul class="nav-menu list-unstyled d-flex flex-md-row align-items-md-center">
+
+                <!-- 全屏 -->
+                <li class="nav-item d-flex align-items-center full_scr_exp"><a class="nav-link" href="#"><img
+                        src="/staticResources/img/expand.png" onclick="toggleFullScreen(document.body)"
+                        class="img-fluid" alt=""></a>
+                </li>
+
+                <!-- 账号切换 -->
+                <li class="nav-item dropdown">
+                    <a id="profile" class="nav-link logout" data-target="#" href="#"
+                       data-toggle="dropdown">
+                        <img src="staticResources/img/avatar-1.jpg" alt="..." class="img-fluid rounded-circle"
+                             style="height: 30px; width: 30px;">
+                    </a>
+                    <ul aria-labelledby="profile" class="dropdown-menu profile">
+                        <li>
+                            <a rel="nofollow" href="gotoLogin" class="dropdown-item">
+                                <div class="notification">
+                                    <div class="notification-content"><i class="fa fa-power-off"></i>切换账号</div>
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a rel="nofollow" href="gotoLogin" class="dropdown-item">
+                                <div class="notification">
+                                    <div class="notification-content"><i class="fa fa-power-off"></i>注销</div>
+                                </div>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</header>
+<!--====================================================
+                        PAGE CONTENT
+======================================================-->
+<div class="page-content d-flex align-items-stretch">
+    <div class="content-inner chart-cont">
+        <div class="row">
+<div class="container">
+    <div class="card form" id="form1">
+        <div class="card-header">
+            <h3><i class="fa fa-archive"></i>添加人员</h3>
+        </div>
+        <br>
+        <form th:action="@{addperson}" method="post">
+            <div class="form-group row">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label for="name">姓名</label>
+                        <input name="name" type="text" class="form-control" id="name"
+                               aria-describedby="emailHelp">
+                        <span id="nametest"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="pro-tel">电话</label>
+                        <input name="tel" type="text" class="form-control" id="pro-tel"
+                               aria-describedby="emailHelp"
+                               placeholder="请输入电话">
+                        <span id="teltest"></span>
+                    </div>
+                    <div class="form-group">
+                        <label>性别</label><br/>
+                        <label for="male">男</label>&emsp;<input type="radio" id="male" name="sex" value="男"
+                                                                checked="checked">&emsp;
+                        <label for="female">女</label>&emsp;<input type="radio" name="sex" id="female" value="女">
+                    </div>
+                    <div class="form-group">
+                        <label>排班</label><br/>
+
+                        <select name="workTime" id="pro-worktime" class="form-control" style="width:150px">
+                            <option th:value="1">00:00-8:00</option>
+                            <option th:value="2">8:00-16:00</option>
+                            <option th:value="3">16:00-24:00</option>
+
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="pro-position">职务</label>
+                        <!--<input name="position" type="text" class="form-control" id="position"-->
+                        <!--aria-describedby="emailHelp" placeholder="请输入职位">-->
+                        <select name="position" id="pro-position" class="form-control" style="width:150px">
+                            <option value="医生">医生</option>
+                            <option value="护士">护士</option>
+                        </select>
+                    </div>
+
+                </div>
+
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-10"></div>
+                <button type="submit" class="btn btn-general btn-white mr-2" name="add">提交</button>
+                <button type="button" class="btn btn-general btn-blue mr-2"
+                        onclick="window.location.href='personAll'">返回
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+        </div>
+    </div>
+</div>
+<!-- FOOTER -->
+<footer class="footer navbar-fixed-bottom text-md-center" style="background-color: #5e67d6">
+    <div class="" style="padding-top: 30px;color: white;">应急系统 &copy; 2018.Company name LOVO J165 3组.</div>
+</footer>
+
+
+<!--Global Javascript -->
+
+<script th:src="@{staticResources/js/jquery.min.js}"></script>
+<script th:src="@{staticResources/js/popper/popper.min.js}"></script>
+<script th:src="@{staticResources/js/tether.min.js}"></script>
+<script th:src="@{staticResources/js/bootstrap.min.js}"></script>
+<script th:src="@{staticResources/js/jquery.cookie.js}"></script>
+<script th:src="@{staticResources/js/jquery.validate.min.js}"></script>
+<script th:src="@{staticResources/js/chart.min.js}"></script>
+<script th:src="@{staticResources/js/front.js}"></script>
+
+<!--Core Javascript -->
+<script>
+    $(function () {
+        var a;
+        var b;
+        $("[name=add]").attr('disabled', true);
+        $("[name=name]").blur(function () {
+            a = false;
+            var namet = $(this).val();//这种取值是取到整个文本框
+            var $show1 = $(this).next();
+            if (namet.length == 0) {  //这样就是取到文本框里面所有的文本的长度，等于的是一个int类型
+                $show1.html("姓名不能为空");
+                $show1.css("color", "red")
+            } else {
+                $show1.html("可用");
+                $show1.css("color", "green")
+                a = true;
+            }
+            if (a == true && b == true) {
+                $("[name=add]").removeAttr('disabled');
+            }
+        });
+
+        $("[name=tel]").blur(function () {
+            var tel = $(this).val();
+            b = false;
+
+            var teltest = new RegExp(/^[0-9]{11}$/);
+
+            var show = $(this).next();
+            if (!tel.match(teltest)) {
+                show.html("位数输入有误");
+                show.css("color", "red");
+            } else {
+                $.getJSON("selecttel", {tel: tel}, function (data) {
+                    if (data) {
+                        show.html("号码已存在!请重新输入！")
+                        show.css("color", "red");
+                    } else {
+                        show.html("可用");
+                        show.css("color", "green");
+                        b = true;
+                        if (a == true && b == true) {
+                            $("[name=add]").removeAttr('disabled');
+                        }
+                    }
+                });
+
+            }
+        });
+    });
+
+
+</script>
+</body>
+
+</html>

@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="all,follow">
+
+    <title></title>
+    <link rel="shortcut icon" th:href="@{staticResources/img/favicon.ico}"/>
+
+    <!-- global stylesheets -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{staticResources/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{staticResources/font-awesome-4.7.0/css/font-awesome.min.css}">
+    <link rel="stylesheet" th:href="@{staticResources/css/font-icon-style.css}">
+    <link rel="stylesheet" th:href="@{staticResources/css/style.default.css}" id="theme-stylesheet">
+
+    <!-- Core stylesheets -->
+    <link rel="stylesheet" th:href="@{staticResources/css/form.css}">
+</head>
+
+<body>
+
+<!--====================================================
+                         MAIN NAVBAR
+======================================================-->
+<header class="header">
+    <nav class="navbar navbar-expand-lg ">
+        <div class="container-fluid ">
+            <div class="navbar-holder d-flex align-items-center justify-content-between">
+                <div class="navbar-header">
+                    <a href="#" class="navbar-brand">
+                        <div class="brand-text brand-big hidden-lg-down">华西医院应急系统</div>
+                    </a>
+                    <!-- 导航栏 -->
+                    <a href="personAll" class="navbar-brand">
+                        <div class="brand-text brand-big hidden-lg-down nav-link">人员管理</div>
+                    </a>
+                    <a href="carAll" class="navbar-brand">
+                        <div class="brand-text brand-big hidden-lg-down nav-link">车辆管理</div>
+                    </a>
+                    <a href="showlog" class="navbar-brand">
+                        <div class="brand-text brand-big hidden-lg-down nav-link">日志</div>
+                    </a>
+                    <a href="gotoUserAll" class="navbar-brand">
+                        <div class="brand-text brand-big hidden-lg-down nav-link">系统用户管理</div>
+                    </a>
+                </div>
+            </div>
+            <ul class="nav-menu list-unstyled d-flex flex-md-row align-items-md-center">
+
+                <!-- 全屏 -->
+                <li class="nav-item d-flex align-items-center full_scr_exp"><a class="nav-link" href="#"><img
+                        src="/staticResources/img/expand.png" onclick="toggleFullScreen(document.body)"
+                        class="img-fluid" alt=""></a>
+                </li>
+
+                <!-- 账号切换 -->
+                <li class="nav-item dropdown">
+                    <a id="profile" class="nav-link logout" data-target="#" href="#"
+                       data-toggle="dropdown">
+                        <img src="staticResources/img/avatar-1.jpg" alt="..." class="img-fluid rounded-circle"
+                             style="height: 30px; width: 30px;">
+                    </a>
+                    <ul aria-labelledby="profile" class="dropdown-menu profile">
+                        <li>
+                            <a rel="nofollow" href="gotoLogin" class="dropdown-item">
+                                <div class="notification">
+                                    <div class="notification-content"><i class="fa fa-power-off"></i>切换账号</div>
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a rel="nofollow" href="gotoLogin" class="dropdown-item">
+                                <div class="notification">
+                                    <div class="notification-content"><i class="fa fa-power-off"></i>注销</div>
+                                </div>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</header>
+
+<!--====================================================
+                        PAGE CONTENT
+======================================================-->
+<div class="page-content d-flex align-items-stretch">
+    <div class="content-inner chart-cont">
+        <div class="row">
+            <div class="container">
+
+                <div class="card form" id="form1">
+                    <div class="card-header">
+                        <h3><i class="fa fa-archive"></i>添加车辆</h3>
+                    </div>
+                    <br>
+                    <form th:action="@{addCar}" method="post">
+                        <div class="row">
+                            <div class="col-md-3"></div>
+                            <div class="col-md-5">
+                                <div class="form-group">
+                                    <label for="name">车牌</label>
+                                    <input name="carNum" type="text" class="form-control" id="name"
+                                           aria-describedby="emailHelp" placeholder="车牌">
+                                    <span style="color: #db4437"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label for="pro-tel">司机</label>
+                                    <input name="driver" type="text" class="form-control" id="pro-tel"
+                                           aria-describedby="emailHelp" placeholder="司机">
+                                    <span style="color: #db4437"></span>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="row form-group">
+                            <div class="col-md-10"></div>
+                            <button type="submit" class="btn btn-general btn-white mr-2" name="add">添加</button>
+                            <a class="btn btn-general btn-blue mr-2" href="carAll">返回</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- FOOTER -->
+<footer class="footer navbar-fixed-bottom text-md-center" style="background-color: #5e67d6">
+    <div class="" style="padding-top: 30px;color: white;">应急系统 &copy; 2018.Company name LOVO
+        J165 3组.
+    </div>
+</footer>
+
+<script src="/staticResources/jquery-2.1.4.js"></script>
+<script>
+    $(function () {
+        $("[name=add]").attr('disabled', true);
+        var a;
+        var b;
+        $("[name=carNum]").blur(function () {
+            a = false;
+            $(this).next().html("");
+
+            var carNum = $(this).val();
+            var result;
+
+            var express = /^(([京津沪渝冀豫云辽黑湘皖鲁新苏浙赣鄂桂甘晋蒙陕吉闽贵粤青藏川宁琼使领][A-Z].(([0-9]{5}[DF])|([DF]([A-HJ-NP-Z0-9])[0-9]{4})))|([京津沪渝冀豫云辽黑湘皖鲁新苏浙赣鄂桂甘晋蒙陕吉闽贵粤青藏川宁琼使领][A-Z].[A-HJ-NP-Z0-9]{4}[A-HJ-NP-Z0-9挂学警港澳使领]))$/;
+            result = express.test(carNum);
+
+            if (carNum == "" || carNum.length == 0) {
+                $(this).next().html("请输入车牌号");
+                $(this).next().css('color', 'red');
+                $("[name=add]").attr('disabled', true);
+            } else if (!result) {
+                $(this).next().html("请输入正确的车牌号");
+                $(this).next().css('color', 'red');
+                $("[name=add]").attr('disabled', true);
+            } else {
+                $.getJSON("isHaveCarNum", {carNum: carNum}, function (data) {
+                    if (data) {
+                        a = true;
+                        $("[name=carNum]").next().css('color', 'green');
+                        $("[name=carNum]").next().html("可用");
+                    } else {
+                        //车牌号重复
+                        $("[name=carNum]").next().css('color', 'red');
+                        $("[name=carNum]").next().html("系统中已存在此车牌");
+                    }
+                    if (a == true && b == true) {
+                        $("[name=add]").removeAttr('disabled');
+                    }
+                });
+
+
+            }
+
+        });
+        $("[name=driver]").blur(function () {
+            b = false;
+            $(this).next().html("");
+            $(this).next().removeAttr("color");
+            var driver = $(this).val();
+            if (driver == "" || driver.length == 0) {
+                $(this).next().html("请输入司机姓名");
+                $(this).next().css('color', 'red');
+                $("[name=add]").attr('disabled', true);
+            } else {
+                b = true;
+                $(this).next().css('color', 'green');
+                $(this).next().html("可用");
+            }
+            if (a == true && b == true) {
+                $("[name=add]").removeAttr('disabled');
+            }
+        });
+    });
+
+</script>
+
+
+</body>
+
+</html>
