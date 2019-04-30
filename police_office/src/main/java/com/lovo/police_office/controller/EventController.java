@@ -1,7 +1,9 @@
 package com.lovo.police_office.controller;
 
+import com.alibaba.fastjson.JSONObject;
 import com.lovo.police_office.bean.PaginationBean;
 import com.lovo.police_office.dto.EventRecordListDto;
+import com.lovo.police_office.dto.EventSinkDto;
 import com.lovo.police_office.entity.*;
 import com.lovo.police_office.service.DispatchService;
 import com.lovo.police_office.service.EventService;
@@ -65,9 +67,9 @@ public class EventController {
         //收到数据，保存数据库
         //将接收到的json转换为对象
 
-        System.out.println(message);
 
-        /*EventSinkDto eventSinkDto = JSONObject.parseObject(message, EventSinkDto.class);
+
+        EventSinkDto eventSinkDto = JSONObject.parseObject(message, EventSinkDto.class);
         //判断是否是续派
         String eventId = eventSinkDto.getId();
         boolean haveEvent = eventService.isHaveEventById(eventId);
@@ -107,10 +109,9 @@ public class EventController {
             dispatchService.saveDispatchEntity(dispatchEntity);
         }
         //把数据通过ws传到页面上
-        *//*URI requestURI = session.getRequestURI();
-        System.out.println(requestURI);*//*
 
-        this.onMessage(message, session);*/
+
+        this.onMessage(message, session);
 
 
 

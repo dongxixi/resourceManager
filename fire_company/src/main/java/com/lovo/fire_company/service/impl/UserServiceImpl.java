@@ -99,9 +99,9 @@ public class UserServiceImpl implements IUserService {
     @Override
     public void saveUserAll(String userName, String password,String roleName ) {
         if (roleName.equals("1")){
-            roleName="消防值班员";
+            roleName="值班员";
         }else {
-            roleName="消防管理员";
+            roleName="管理员";
         }
         UserEntity user=new UserEntity();
         user.setUserName(userName);

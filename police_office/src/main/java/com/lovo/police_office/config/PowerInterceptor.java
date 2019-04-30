@@ -17,11 +17,11 @@ public class PowerInterceptor implements HandlerInterceptor {
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
-		String roleName = (String)request.getSession().getAttribute("roleName");
+		String roleName = (String)request.getSession().getAttribute("roleNamePolice");
 		String requestURI = request.getRequestURI();
-		if("公安值班员".equals(roleName)&&requestURI.contains("even")){
+		if("值班员".equals(roleName)&&requestURI.contains("even")){
 			return true;
-		}else if ("公安管理员".equals(roleName)){
+		}else if ("管理员".equals(roleName)){
 			return true;
 		}
 		logger.info("------:跳转到login页面！");

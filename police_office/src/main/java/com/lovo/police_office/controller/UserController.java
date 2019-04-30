@@ -38,7 +38,7 @@ public class UserController {
 
     @RequestMapping("gotoLogin")
     public String gotoLogin(HttpServletRequest request,HttpServletResponse response) {
-        request.getSession().removeAttribute("roleName");
+        request.getSession().removeAttribute("roleNamePolice");
         return "login";
     }
 
@@ -68,8 +68,8 @@ public class UserController {
         if (user != null && !"".equals(user)) {
             String uid = user.getuId();
             String roleName = userService.findRoleNameByUserId(uid);
-            request.getSession().setAttribute("roleName", roleName);
-            if ("公安值班员".equals(roleName)) {
+            request.getSession().setAttribute("roleNamePolice", roleName);
+            if ("值班员".equals(roleName)) {
                 //重定向到查询controller
                /* RedirectView rv = new RedirectView("gotoeventAll");
                 mv.setView(rv);*/
