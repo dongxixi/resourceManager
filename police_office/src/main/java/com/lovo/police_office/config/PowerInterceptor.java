@@ -19,9 +19,9 @@ public class PowerInterceptor implements HandlerInterceptor {
 			throws Exception {
 		String roleName = (String)request.getSession().getAttribute("roleName");
 		String requestURI = request.getRequestURI();
-		if("医院值班员".equals(roleName)&&requestURI.contains("even")){
+		if("公安值班员".equals(roleName)&&requestURI.contains("even")){
 			return true;
-		}else if ("医院管理员".equals(roleName)){
+		}else if ("公安管理员".equals(roleName)){
 			return true;
 		}
 		logger.info("------:跳转到login页面！");

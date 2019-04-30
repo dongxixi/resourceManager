@@ -69,7 +69,7 @@ public class UserController {
             String uid = user.getuId();
             String roleName = userService.findRoleNameByUserId(uid);
             request.getSession().setAttribute("roleName", roleName);
-            if ("医院值班员".equals(roleName)) {
+            if ("公安值班员".equals(roleName)) {
                 //重定向到查询controller
                /* RedirectView rv = new RedirectView("gotoeventAll");
                 mv.setView(rv);*/
