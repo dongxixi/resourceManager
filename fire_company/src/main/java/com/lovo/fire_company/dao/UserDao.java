@@ -13,7 +13,7 @@ public interface UserDao extends PagingAndSortingRepository<UserEntity,String> {
      * @param userName  用户名
      * @return  用户对象
      */
-    @Query(" from UserEntity u where u.systemName='医院'and u.userName=?1 " )
+    @Query(" from UserEntity u where u.systemName='消防'and u.userName=?1 " )
     public UserEntity findByUserName(String userName);
 
     /**
@@ -22,7 +22,7 @@ public interface UserDao extends PagingAndSortingRepository<UserEntity,String> {
      * @param password  密码
      * @return  用户对象
      */
-    @Query(" from UserEntity u where u.systemName='医院'and u.userName=?1 and u.password=?2")
+    @Query(" from UserEntity u where u.systemName='消防'and u.userName=?1 and u.password=?2")
     public UserEntity logindBy(String userName, String password);
 
     /**
@@ -38,7 +38,7 @@ public interface UserDao extends PagingAndSortingRepository<UserEntity,String> {
             " LEFT JOIN t_role r on r.rid=ur.role_id " +
             " LEFT JOIN t_role_power rp on r.rid=rp.role_id " +
             " LEFT JOIN t_power p on p.pid=rp.power_id " +
-            " where u.system_name='医院'and if (:userName is not null ,u.user_name like CONCAT('%',:userName,'%'),1=1) " +
+            " where u.system_name='消防'and if (:userName is not null ,u.user_name like CONCAT('%',:userName,'%'),1=1) " +
             " and if(:powerName is not null ,p.powern_name like CONCAT('%',:powerName,'%'),1=1) " +
             " limit :startIndex,:pageNum ",nativeQuery = true)
     public List<Object[]> findAllUser(@Param("userName") String userName,
@@ -56,7 +56,7 @@ public interface UserDao extends PagingAndSortingRepository<UserEntity,String> {
             " LEFT JOIN t_role r on r.rid=ur.role_id " +
             " LEFT JOIN t_role_power rp on r.rid=rp.role_id " +
             " LEFT JOIN t_power p on p.pid=rp.power_id " +
-            " where u.system_name='医院'and if(:userName is not null ,u.user_name like CONCAT('%',:userName,'%'),1=1) " +
+            " where u.system_name='消防'and if(:userName is not null ,u.user_name like CONCAT('%',:userName,'%'),1=1) " +
             "            and if(:powerName is not null ,p.powern_name like CONCAT('%',:powerName,'%'),1=1) ",nativeQuery = true)
     public int findTotalPageByCondition(@Param("userName") String userName, @Param("powerName") String powerName);
 
