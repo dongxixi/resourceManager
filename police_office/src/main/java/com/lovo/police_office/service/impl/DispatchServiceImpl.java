@@ -78,6 +78,12 @@ public class DispatchServiceImpl implements DispatchService {
 
         //创建mq传送数据对象
         EventSendDto eventSendDto = new EventSendDto();
+
+        PersonDto personDto=new PersonDto();
+        personDto.setPersonName(principal.getName());
+        personDto.setTel(principal.getTel());
+        eventSendDto.setPerson(personDto);
+
         eventSendDto.setId(eventEntity.getId());
         eventSendDto.setRequestId(dispatchId);
         List<CarDto> carDtos = new ArrayList<>();

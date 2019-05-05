@@ -61,7 +61,7 @@ public class EventController {
      *
      * @param message
      */
-    @JmsListener(destination = "testSend")
+    @JmsListener(destination = "wuhougongan")
     public void receiveQueue(String message) {
 //        System.out.println("监听queue=============监听queue");
         //收到数据，保存数据库

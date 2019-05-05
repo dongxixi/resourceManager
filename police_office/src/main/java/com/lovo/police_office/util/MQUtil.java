@@ -17,7 +17,7 @@ public class MQUtil {
     private JmsTemplate jmsTemplate;
 
     public void sendMQ(Object data){
-        jmsTemplate.send("sb", new MessageCreator() {
+        jmsTemplate.send("sendDispatchMessageToDispatchCommandCenterManagement", new MessageCreator() {
             @Override
             public TextMessage createMessage(Session session) throws JMSException {
                 TextMessage textMessage = session.createTextMessage();

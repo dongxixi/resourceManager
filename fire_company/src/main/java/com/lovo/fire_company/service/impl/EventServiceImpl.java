@@ -184,8 +184,8 @@ public class EventServiceImpl implements EventService {
 //                carLogDao.save(c);
 //            }
         EventSendDto dto = new EventSendDto();
-        dto.setPersonDtos(new ArrayList<>());
-        dto.setCarDtos(new ArrayList<>());
+//        dto.setPersonDtos(new ArrayList<>());
+//        dto.setCarDtos(new ArrayList<>());
         dto.setId(id);
         int pn = 0, cn = 0;
         if (persons != null && !"".equals(persons)) {
@@ -199,12 +199,16 @@ public class EventServiceImpl implements EventService {
 
                 pensonnelDao.save(pl.getPersonnelEntity());
 
+                dto.setRequestId(pl.getDispatchEntity().getRequestId());
+                dto.setPersonDtos(new ArrayList<>());
                 PersonDto pd = new PersonDto();
                 pd.setId(pl.getPersonnelEntity().getId());
                 pd.setPersonName(pl.getPersonnelEntity().getName());
                 pd.setReturnTime(pl.getReturnTime());
                 pd.setTel(pl.getPersonnelEntity().getTel());
                 dto.getPersonDtos().add(pd);
+                mqUtil.sendMQ(dto);
+                dto.setPersonDtos(new ArrayList<>());
             }
             personLogDao.saveAll(ps);
 
@@ -219,17 +223,21 @@ public class EventServiceImpl implements EventService {
                 c.getCarEntity().setState(0);
 
                 carDao.save(c.getCarEntity());
-
+                dto.setRequestId(c.getDispatchEntity().getRequestId());
+                dto.setCarDtos(new ArrayList<>());
                 CarDto cd = new CarDto();
                 cd.setCarNum(c.getCarEntity().getCarNum());
                 cd.setDriver(c.getCarEntity().getDriver());
                 cd.setId(c.getCarEntity().getId());
                 cd.setReturnTime(c.getReturnTime());
                 dto.getCarDtos().add(cd);
+                mqUtil.sendMQ(dto);
+                dto.setCarDtos(new ArrayList<>());
+
             }
             carLogDao.saveAll(cs);
         }
-        mqUtil.sendMQ(dto);
+
         ResourceStatisticsEntity resourceNo = resourceStatisticsService.getResourceStatisticsEntity();
         resourceNo.setpRescuingNum(resourceNo.getpRescuingNum() + pn);
         resourceNo.setcVacantNum(resourceNo.getcVacantNum() + cn);
