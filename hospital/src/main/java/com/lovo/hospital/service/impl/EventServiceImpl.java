@@ -186,7 +186,7 @@ public class EventServiceImpl implements EventService {
         EventSendDto dto = new EventSendDto();
         dto.setPersonDtos(new ArrayList<>());
         dto.setCarDtos(new ArrayList<>());
-        dto.setRequestId(id);
+        dto.setId(id);
         int pn = 0, cn = 0;
         if (persons != null && !"".equals(persons)) {
             List<String> pss = Arrays.asList(persons.split(","));
